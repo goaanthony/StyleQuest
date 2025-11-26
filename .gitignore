@@ -12,16 +12,6 @@ dist
 dist-ssr
 *.local
 
-# Tauri / Rust build output
-/.tauri
-/src-tauri/target
-/src-tauri/.cargo
-/src-tauri/gen
-*.pdb
-
-# Bun cache
-.bun
-
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
