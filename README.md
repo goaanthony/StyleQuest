@@ -1,63 +1,108 @@
-# StyleQuest
+# 🎨 StyleQuest
 
-> Application desktop Tauri (frontend Vite + TypeScript) propulsée par Bun.
+Application desktop moderne construite avec **Tauri**, **Elysia** et **Bun**.
 
-## Prérequis
+## 📋 Prérequis
 
-- [Bun](https://bun.sh/) 
-- [Rust](https://www.rust-lang.org/tools/install)
-- Outils natifs selon l'OS (Visual Studio Build Tools sur Windows, Xcode sur macOS, build-essential sur Linux)
+Avant de commencer, assurez-vous d'avoir installé :
 
-## Installation
+- [Bun](https://bun.sh/) (runtime JavaScript ultra-rapide)
+- [Rust](https://www.rust-lang.org/) (pour Tauri)
 
-```pwsh
-bun install
+## 🏗️ Architecture du Projet
+
+```
+StyleQuest/
+├── public/              # Fichiers statiques servis par Elysia
+│   ├── index.html      # Interface utilisateur
+│   ├── styles.css      # Styles CSS
+│   └── script.js       # Logique JavaScript (confettis)
+├── server/              # Backend Elysia
+│   └── index.ts        # Serveur API HTTP
+├── src-tauri/           # Application Tauri (Rust)
+│   ├── src/
+│   │   ├── main.rs     # Point d'entrée Rust
+│   │   └── lib.rs      # Bibliothèque Rust
+│   ├── tauri.conf.json # Configuration Tauri
+│   └── Cargo.toml      # Dépendances Rust
+├── package.json         # Dépendances Node/Bun
+└── tsconfig.json        # Configuration TypeScript
 ```
 
-Cela installe les dépendances frontend et l'outillage Tauri.
+## 🚀 Installation
 
-## Lancer l'app en dev
+1. **Cloner le projet**
+   ```bash
+   git clone https://github.com/goaanthony/StyleQuest.git
+   cd StyleQuest
+   ```
 
-```pwsh
-bun tauri dev
+2. **Installer les dépendances**
+   ```bash
+   bun install
+   ```
+
+## 💻 Développement
+
+### Lancer l'application en mode développement
+
+```bash
+bun run tauri dev
 ```
 
-- démarre Vite en mode HMR sur `http://localhost:1420`
-- ouvre la fenêtre Tauri rechargée à chaud à chaque sauvegarde
+Cette commande :
+- Démarre le serveur Elysia sur `http://localhost:3000`
+- Lance l'application Tauri qui charge l'interface
 
-## Construire la version production
+### Lancer uniquement le serveur Elysia
 
-```pwsh
-# build frontend + bundle natif
-bun tauri build
+```bash
+bun run server
 ```
 
-Les artefacts sont générés dans `src-tauri/target` (debug/release) et les installateurs dans `src-tauri/target/release/bundle`.
+Le serveur sera accessible sur `http://localhost:3000`
 
-Pour un build frontend seul (sans bundle natif):
+## 🏭 Production
 
-```pwsh
-bun run build
+### Build de l'application
+
+```bash
+bun run tauri build
 ```
 
-## Scripts utiles
+L'exécutable sera généré dans `src-tauri/target/release/`
+
+## 🛠️ Stack Technique
+
+- **Frontend** : HTML5, CSS3, JavaScript (ES6+)
+- **Backend** : Elysia (framework web ultra-rapide pour Bun)
+- **Desktop** : Tauri (alternative légère à Electron)
+- **Runtime** : Bun (remplace Node.js)
+- **Langage système** : Rust
+
+## 📦 Dépendances Principales
+
+- `elysia` - Framework web minimaliste et performant
+- `@tauri-apps/api` - API Tauri pour JavaScript
+- `@tauri-apps/cli` - CLI Tauri
+
+## 📝 Scripts Disponibles
 
 | Commande | Description |
-| --- | --- |
-| `bun run dev` | Lance uniquement Vite (utile pour itérer sur l'UI sans la partie native). |
-| `bun tauri dev` | Stack complète (frontend + shell Tauri). |
-| `bun run build` | Produit `dist/` pour la partie web. |
-| `bun tauri build` | Génère les binaires/installeurs multiplateformes. |
+|----------|-------------|
+| `bun run server` | Lance le serveur Elysia |
+| `bun run tauri dev` | Mode développement (serveur + Tauri) |
+| `bun run tauri build` | Build de production |
+| `bun run dev` | Lance Vite (dev server alternatif) |
 
-## Structure rapide
+## 💡 Recommended IDE Setup
 
-- `src/`: UI (TypeScript + CSS)
-- `src-tauri/`: code Rust, config Tauri et icônes
-- `vite.config.ts`, `tsconfig.json`: configuration frontend
-- `bun.lock`: verrouillage des dépendances Bun
+- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
 
-## IDE recommandés
+## 📄 Licence
 
-- [VS Code](https://code.visualstudio.com/)
-	- Extension [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode)
-	- Extension [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+Ce projet est sous licence MIT.
+
+## 👨‍💻 Auteur
+
+**Liens du repo** - [StyleQuest](https://github.com/goaanthony)

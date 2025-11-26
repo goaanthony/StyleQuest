@@ -6,7 +6,7 @@ function launchConfetti() {
     origin: { y: 0.7 }
   };
 
-  function fire(particleRatio: number, opts: confetti.Options) {
+  function fire(particleRatio, opts) {
     confetti({
       ...defaults,
       ...opts,
