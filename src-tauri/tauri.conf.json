@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "identifier": "com.amgoa.stylequest",
   "build": {
-    "beforeDevCommand": "bun run server",
-    "devUrl": "http://localhost:3000",
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "bun run build",
     "frontendDist": "../dist"
   },

@@ -1,10 +1,21 @@
-import { defineConfig } from "vite";
+import { defineConfig, searchForWorkspaceRoot } from "vite";
+import { resolve } from "path";
 
-// @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
+  root: "src/public/pages",
+  publicDir: resolve(__dirname, "src/assets"),
+  resolve: {
+    alias: {
+      "/src": resolve(process.cwd(), "src"),
+    },
+  },
+  build: {
+    outDir: resolve(__dirname, "dist"),
+    emptyOutDir: true,
+  },
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
@@ -15,6 +26,11 @@ export default defineConfig(async () => ({
     port: 1420,
     strictPort: true,
     host: host || false,
+    fs: {
+      allow: [
+        searchForWorkspaceRoot(process.cwd()),
+      ],
+    },
     hmr: host
       ? {
           protocol: "ws",

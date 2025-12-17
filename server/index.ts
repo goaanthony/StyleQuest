@@ -1,9 +1,17 @@
-import { Elysia } from 'elysia';
+import { Elysia } from "elysia";
+import { staticPlugin } from "@elysiajs/static";
+import { join } from "path";
 
 const app = new Elysia()
-  .get('/', () => Bun.file('public/index.html'))
-  .get('/styles.css', () => Bun.file('public/styles.css'))
-  .get('/script.js', () => Bun.file('public/script.js'))
-  .listen(3000);
+  // .use(
+  //   staticPlugin({
+  //     assets: join(process.cwd(), "src/public"),
+  //     prefix: "/",
+  //   })
+  // )
+  // .get("/", () => Bun.file("src/public/pages/index.html"))
+  
+  // .get("/button", () => Bun.file("src/public/pages/button.html"))
+  // .listen(3000);
 
-console.log(`🎨 StyleQuest server running at http://localhost:${app.server?.port}`);
+console.log(`🚀 Server listening on http://localhost:${app.server?.port}`);
