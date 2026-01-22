@@ -8,7 +8,7 @@ export function generateLevel(level: number) {
 
   const difficulty = getDifficultyProfile(level);
 
-  const allowedConcepts = chapter.concepts;
+  const allowedConcepts = [...chapter.concepts];
   for (let i = 0; i < chapterIndex; i++) {
     allowedConcepts.push(...CURRICULUM[i].concepts);
   }
