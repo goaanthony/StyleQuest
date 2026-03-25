@@ -1,9 +1,14 @@
 export type Concept =
   | "elements"
-  | "width" | "height" | "align"
+  | "dimensions"
+  | "align"
   | "margin" | "padding"
   | "background" | "color"
-  | "font" | "text"
+  | "typography"
   | "border" | "images"
-  | "id" | "class" | "universal" | "attribute"
-  | "hover" | "active" | "focus" | "visited" | "translate";
+  | "id_selector"
+  | "universal_selector"
+  | "class_selector"
+  | "attribute_selector"
+  | "hover" | "active"
+  | "focus" | "visited" | "translate";

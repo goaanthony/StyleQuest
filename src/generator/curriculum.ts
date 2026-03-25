@@ -1,33 +1,47 @@
+import { Concept } from "./concepts";
+
 export const CURRICULUM = [
   {
-    id: "basics",
-    name: "Basic & HTML",
-    concepts: ["elements"]
+    id: "Basics",
+    name: "Basics & HTML",
+    concepts: ["elements"] as Concept[]
   },
   {
     id: "properties",
     name: "Properties",
     concepts: [
-      "width", "height",
+      "dimensions",
       "align",
-      "margin", "padding",
-      "background", "color",
-      "font", "text",
-      "border", "images"
-    ]
+      "margin",
+      "padding",
+      "background",
+      "color",
+      "typography",
+      "border",
+      "images"
+    ] as Concept[]
   },
   {
     id: "selectors",
-    name: "Other selectors",
+    name: "Other Selectors",
     concepts: [
-      "id", "universal", "class", "attribute"
-    ]
+      "id_selector",
+      "universal_selector",
+      "class_selector",
+      "attribute_selector"
+    ] as Concept[]
   },
   {
     id: "interactive",
     name: "Interactive",
     concepts: [
-      "hover", "active", "focus", "visited", "translate"
-    ]
+      "hover",
+      "active",
+      "focus",
+      "visited",
+      "translate"
+    ] as Concept[]
   }
 ] as const;
+
+export const LEARNING_PATH: Concept[] = CURRICULUM.flatMap(c => c.concepts);
