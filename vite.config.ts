@@ -1,15 +1,19 @@
 import { defineConfig, searchForWorkspaceRoot } from "vite";
+import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
+  plugins: [vue()],
   root: "src/public/pages",
   publicDir: resolve(__dirname, "src/assets"),
   resolve: {
     alias: {
-      "/src": resolve(process.cwd(), "src"),
+      "/src": resolve(__dirname, "src"),
+      "@": resolve(__dirname, "src"),
+      "@public": resolve(__dirname, "src/public"),
     },
   },
   build: {
@@ -26,6 +30,13 @@ export default defineConfig(async () => ({
     port: 1420,
     strictPort: true,
     host: host || false,
+    proxy: {
+      // Forward /api requests to the Elysia backend during development
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
     fs: {
       allow: [
         searchForWorkspaceRoot(process.cwd()),
@@ -44,3 +55,4 @@ export default defineConfig(async () => ({
     },
   },
 }));
+

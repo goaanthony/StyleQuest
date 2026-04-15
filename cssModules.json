@@ -1,0 +1,1368 @@
+[
+  {
+    "id": 1,
+    "icon": "⚡",
+    "title": "Bases & HTML + CSS",
+    "color": "#00ff88",
+    "notions": [
+      {
+        "id": "1-1",
+        "title": "Structure HTML minimale",
+        "explanation": "Tout document HTML repose sur un squelette de base : `<!DOCTYPE html>` déclare le type du document, `<html>` est la racine, `<head>` contient les métadonnées (titre, liens CSS…), et `<body>` contient le contenu visible. Le CSS peut être lié via une balise `<link>` dans le `<head>` ou écrit directement dans une balise `<style>`.",
+        "example": "body {\n  background: #1a1a2e;\n  color: white;\n}",
+        "checklist": [
+          "Comprendre le rôle de DOCTYPE",
+          "Distinguer head et body",
+          "Lier un fichier CSS",
+          "Utiliser la balise style",
+          "Écrire du CSS inline"
+        ],
+        "exercises": [
+          {
+            "id": "1-1-1",
+            "objective": "Donne au `body` un fond noir (#0d0d0d) et une couleur de texte blanche.",
+            "xp": 30,
+            "hints": [
+              "Utilise la propriété `background-color`",
+              "La couleur du texte se change avec `color`",
+              "Cible le sélecteur `body { ... }`"
+            ],
+            "html": "<body><h1>Hello World</h1><p>Ceci est mon premier style.</p></body>",
+            "targetCSS": "body { background-color: #0d0d0d; color: white; }",
+            "starterCSS": "body {\n  \n}"
+          },
+          {
+            "id": "1-1-2",
+            "objective": "Centre le texte du `body` et ajoute une police `Georgia`.",
+            "xp": 40,
+            "hints": [
+              "Utilise `text-align: center`",
+              "La famille de police se définit avec `font-family`",
+              "Les deux propriétés s'appliquent sur `body`"
+            ],
+            "html": "<body><h1>CSS c'est cool</h1><p>Centré et stylé.</p></body>",
+            "targetCSS": "body { text-align: center; font-family: Georgia, serif; }",
+            "starterCSS": "body {\n  \n}"
+          },
+          {
+            "id": "1-1-3",
+            "objective": "Donne à la page un padding de 40px et une largeur max de 800px centrée.",
+            "xp": 50,
+            "hints": [
+              "Le padding intérieur se fait avec `padding`",
+              "`max-width` limite la largeur",
+              "`margin: 0 auto` centre un bloc"
+            ],
+            "html": "<body><h1>Mise en page</h1><p>Le contenu doit être limité et centré.</p></body>",
+            "targetCSS": "body { padding: 40px; max-width: 800px; margin: 0 auto; }",
+            "starterCSS": "body {\n  \n}"
+          },
+          {
+            "id": "1-1-4",
+            "objective": "CHALLENGE : Crée un fond dégradé vertical de #1a1a2e à #16213e, texte blanc, padding 60px.",
+            "xp": 80,
+            "hints": [
+              "Utilise `background: linear-gradient(to bottom, #1a1a2e, #16213e)`",
+              "Le dégradé prend deux couleurs en paramètres",
+              "Combine `color: white` et `padding: 60px`"
+            ],
+            "html": "<body><h1>🚀 Challenge !</h1><p>Un fond dégradé stylé.</p></body>",
+            "targetCSS": "body { background: linear-gradient(to bottom, #1a1a2e, #16213e); color: white; padding: 60px; }",
+            "starterCSS": "body {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "1-2",
+        "title": "Balises principales",
+        "explanation": "Les balises HTML définissent la sémantique du contenu. `<div>` est un conteneur bloc générique, `<span>` est inline. `<p>` pour les paragraphes, `<h1>`–`<h6>` pour les titres, `<button>` pour les boutons, `<a>` pour les liens, `<ul>`/`<li>` pour les listes. Chaque balise a un comportement CSS par défaut.",
+        "example": "h1 { color: #00ff88; }\nbutton { cursor: pointer; }\na { text-decoration: none; }",
+        "checklist": [
+          "Différencier block et inline",
+          "Styler div et span",
+          "Modifier les titres h1-h6",
+          "Styler boutons et liens",
+          "Comprendre les valeurs par défaut"
+        ],
+        "exercises": [
+          {
+            "id": "1-2-1",
+            "objective": "Donne à tous les `h1` la couleur #00ff88 et une taille de 48px.",
+            "xp": 30,
+            "hints": [
+              "Cible directement `h1`",
+              "La taille de police : `font-size`",
+              "La couleur : `color`"
+            ],
+            "html": "<body><h1>Titre Principal</h1><h2>Sous-titre</h2><p>Paragraphe normal.</p></body>",
+            "targetCSS": "h1 { color: #00ff88; font-size: 48px; }",
+            "starterCSS": "h1 {\n  \n}"
+          },
+          {
+            "id": "1-2-2",
+            "objective": "Style un `button` avec fond #6c63ff, texte blanc, padding 12px 24px, sans bordure.",
+            "xp": 40,
+            "hints": [
+              "Fond avec `background-color`",
+              "Supprimer la bordure : `border: none`",
+              "Padding : valeur verticale puis horizontale"
+            ],
+            "html": "<body><button>Clique moi</button></body>",
+            "targetCSS": "button { background-color: #6c63ff; color: white; padding: 12px 24px; border: none; cursor: pointer; }",
+            "starterCSS": "button {\n  \n}"
+          },
+          {
+            "id": "1-2-3",
+            "objective": "Retire la décoration des liens `a` et mets-les en couleur #ff6b6b.",
+            "xp": 40,
+            "hints": [
+              "Supprimer le soulignement : `text-decoration: none`",
+              "La couleur du lien : `color`",
+              "Cible le sélecteur `a`"
+            ],
+            "html": "<body><a href=\"#\">Lien 1</a> | <a href=\"#\">Lien 2</a></body>",
+            "targetCSS": "a { text-decoration: none; color: #ff6b6b; }",
+            "starterCSS": "a {\n  \n}"
+          },
+          {
+            "id": "1-2-4",
+            "objective": "CHALLENGE : Supprime les puces d'une `ul`, padding à 0, et colore les `li` en alternance (#00ff88 impairs, #ffffff pairs).",
+            "xp": 80,
+            "hints": [
+              "Supprimer les puces : `list-style: none` sur `ul`",
+              "`li:nth-child(odd)` cible les éléments impairs (1, 3…)",
+              "`li:nth-child(even)` cible les éléments pairs (2, 4…)"
+            ],
+            "html": "<body style=\"background:#111;padding:20px\"><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li><li>Item 4</li></ul></body>",
+            "targetCSS": "ul { list-style: none; padding: 0; } li { margin-bottom: 8px; font-size: 18px; } li:nth-child(odd) { color: #00ff88; } li:nth-child(even) { color: #ffffff; }",
+            "starterCSS": "ul {\n  \n}\nli {\n  \n}\nli:nth-child(odd) {\n  \n}\nli:nth-child(even) {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "1-3",
+        "title": "Box Model",
+        "explanation": "Le Box Model est le concept fondamental du CSS. Chaque élément est une boîte composée de : **content** (le contenu), **padding** (espace intérieur), **border** (bordure), **margin** (espace extérieur). Par défaut, `width` = largeur du content seulement. Avec `box-sizing: border-box`, `width` inclut padding et border — ce qui est bien plus pratique !",
+        "example": "div {\n  width: 200px;\n  padding: 20px;\n  border: 2px solid red;\n  margin: 10px;\n  box-sizing: border-box;\n}",
+        "checklist": [
+          "Comprendre content/padding/border/margin",
+          "Utiliser box-sizing: border-box",
+          "Calculer la taille réelle d'un élément",
+          "Différencier margin et padding",
+          "Maîtriser les shorthand"
+        ],
+        "exercises": [
+          {
+            "id": "1-3-1",
+            "objective": "Crée une boîte de 200x200px, fond #6c63ff, padding 20px, margin 30px auto.",
+            "xp": 40,
+            "hints": [
+              "`width` et `height` définissent la taille",
+              "`background-color` pour le fond",
+              "`margin: 30px auto` centre horizontalement"
+            ],
+            "html": "<body style=\"background:#111\"><div class=\"box\"></div></body>",
+            "targetCSS": ".box { width: 200px; height: 200px; background-color: #6c63ff; padding: 20px; margin: 30px auto; }",
+            "starterCSS": ".box {\n  \n}"
+          },
+          {
+            "id": "1-3-2",
+            "objective": "Ajoute `box-sizing: border-box` et une bordure de 4px solid #00ff88 à la boîte.",
+            "xp": 50,
+            "hints": [
+              "`box-sizing: border-box` inclut border dans width",
+              "`border: 4px solid #00ff88`",
+              "La taille totale reste 200px grâce au border-box"
+            ],
+            "html": "<body style=\"background:#111\"><div class=\"box\"></div></body>",
+            "targetCSS": ".box { width: 200px; height: 200px; background-color: #6c63ff; box-sizing: border-box; border: 4px solid #00ff88; margin: 30px auto; }",
+            "starterCSS": ".box {\n  width: 200px;\n  height: 200px;\n  background-color: #6c63ff;\n  margin: 30px auto;\n  \n}"
+          },
+          {
+            "id": "1-3-3",
+            "objective": "Utilise les shorthand : margin top/bottom 10px, left/right 20px. Padding haut 5px, droite 10px, bas 15px, gauche 20px.",
+            "xp": 60,
+            "hints": [
+              "`margin: 10px 20px` = top/bottom 10px, left/right 20px",
+              "`padding: 5px 10px 15px 20px` = top, right, bottom, left",
+              "Mémorise : TRBL (Top Right Bottom Left)"
+            ],
+            "html": "<body style=\"background:#111\"><div class=\"box\">Contenu</div></body>",
+            "targetCSS": ".box { background: #6c63ff; color: white; margin: 10px 20px; padding: 5px 10px 15px 20px; }",
+            "starterCSS": ".box {\n  background: #6c63ff;\n  color: white;\n  \n}"
+          },
+          {
+            "id": "1-3-4",
+            "objective": "CHALLENGE : Reproduis une carte avec padding 24px, border-radius 12px, fond blanc, ombre légère et margin auto.",
+            "xp": 80,
+            "hints": [
+              "`border-radius: 12px` pour les coins arrondis",
+              "`box-shadow: 0 4px 20px rgba(0,0,0,0.1)` pour l'ombre",
+              "`max-width: 300px; margin: 40px auto` pour centrer"
+            ],
+            "html": "<body style=\"background:#f0f0f0\"><div class=\"card\"><h3>Carte</h3><p>Ceci est une belle carte.</p></div></body>",
+            "targetCSS": ".card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 300px; margin: 40px auto; }",
+            "starterCSS": ".card {\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "icon": "🎯",
+    "title": "Sélecteurs CSS",
+    "color": "#ff6b6b",
+    "notions": [
+      {
+        "id": "2-1",
+        "title": "Sélecteurs de base",
+        "explanation": "Les sélecteurs permettent de cibler des éléments HTML. **Balise** (`div`, `p`) cible tous les éléments de ce type. **Classe** (`.maClasse`) cible les éléments avec cet attribut class. **ID** (`#monId`) cible un élément unique. **Universel** (`*`) cible tout. La **spécificité** détermine quelle règle l'emporte : ID > classe > balise.",
+        "example": "p { color: gray; }\n.highlight { color: gold; }\n#hero { font-size: 64px; }\n* { box-sizing: border-box; }",
+        "checklist": [
+          "Utiliser les sélecteurs de balise",
+          "Cibler avec .class",
+          "Cibler avec #id",
+          "Utiliser le sélecteur universel *",
+          "Comprendre la spécificité"
+        ],
+        "exercises": [
+          {
+            "id": "2-1-1",
+            "objective": "Utilise le sélecteur de classe `.titre` pour mettre le texte en orange et taille 36px.",
+            "xp": 30,
+            "hints": [
+              "La classe se cible avec `.nomDeClasse`",
+              "`font-size: 36px` pour la taille",
+              "`color: orange` pour la couleur"
+            ],
+            "html": "<body><h2 class=\"titre\">Titre stylé</h2><h2>Titre normal</h2></body>",
+            "targetCSS": ".titre { color: orange; font-size: 36px; }",
+            "starterCSS": ".titre {\n  \n}"
+          },
+          {
+            "id": "2-1-2",
+            "objective": "Cible l'id `#hero` pour lui donner un fond dégradé diagonal de #6c63ff à #ff6b6b, texte blanc, padding 40px, centré.",
+            "xp": 50,
+            "hints": [
+              "L'id se cible avec `#nomDeLId`",
+              "`background: linear-gradient(135deg, #6c63ff, #ff6b6b)` pour le dégradé",
+              "L'angle 135deg = diagonal"
+            ],
+            "html": "<body><div id=\"hero\"><h1>Hero Section</h1></div><div style=\"padding:20px\">Autre div</div></body>",
+            "targetCSS": "#hero { background: linear-gradient(135deg, #6c63ff, #ff6b6b); color: white; padding: 40px; text-align: center; }",
+            "starterCSS": "#hero {\n  \n}"
+          },
+          {
+            "id": "2-1-3",
+            "objective": "Utilise `*` pour appliquer `box-sizing: border-box`, `margin: 0` et `padding: 0` à tous les éléments.",
+            "xp": 40,
+            "hints": [
+              "Le sélecteur universel est `*`",
+              "`box-sizing: border-box` = taille inclut padding/border",
+              "`margin: 0; padding: 0` remet les espacements par défaut à zéro"
+            ],
+            "html": "<body><h1>Reset global</h1><p>Plus de marges bizarres !</p><div style=\"background:#6c63ff;color:white\">Box</div></body>",
+            "targetCSS": "* { box-sizing: border-box; margin: 0; padding: 0; }",
+            "starterCSS": "* {\n  \n}"
+          },
+          {
+            "id": "2-1-4",
+            "objective": "CHALLENGE : Utilise 3 sélecteurs différents (balise, classe, id) pour créer une hiérarchie visuelle avec 3 couleurs distinctes.",
+            "xp": 80,
+            "hints": [
+              "Combine `p`, `.special` et `#unique` dans ton CSS",
+              "Chaque sélecteur doit avoir une couleur différente",
+              "Rappel de spécificité : #id > .class > balise"
+            ],
+            "html": "<body style=\"padding:20px\"><p>Paragraphe normal</p><p class=\"special\">Paragraphe spécial</p><p id=\"unique\">Paragraphe unique</p></body>",
+            "targetCSS": "p { color: #aaa; } .special { color: #6c63ff; font-weight: bold; } #unique { color: #00ff88; font-size: 20px; }",
+            "starterCSS": "p {\n  \n}\n.special {\n  \n}\n#unique {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "2-2",
+        "title": "Sélecteurs combinés",
+        "explanation": "Les sélecteurs combinés permettent un ciblage précis. `div p` (descendant) cible tous les `p` dans un `div`. `div > p` (enfant direct) cible seulement les `p` directement dans `div`. `h1 + p` (adjacent) cible le `p` juste après `h1`. Les sélecteurs d'attributs `[attr=val]` ciblent selon les attributs HTML.",
+        "example": ".card p { color: gray; }\n.card > h2 { color: blue; }\nh2 + p { margin-top: 0; }\n[type=\"email\"] { border: 2px solid blue; }",
+        "checklist": [
+          "Maîtriser le sélecteur descendant (espace)",
+          "Utiliser l'enfant direct (>)",
+          "Comprendre adjacent (+)",
+          "Cibler par attribut [attr]",
+          "Combiner plusieurs sélecteurs"
+        ],
+        "exercises": [
+          {
+            "id": "2-2-1",
+            "objective": "Cible tous les `p` dans `.card` (descendant) et mets-les en gris #888.",
+            "xp": 40,
+            "hints": [
+              "Syntaxe : `.card p { ... }`",
+              "L'espace entre les sélecteurs = descendant",
+              "Tous les p dans .card sont ciblés, peu importe la profondeur"
+            ],
+            "html": "<body><div class=\"card\" style=\"background:white;padding:20px;border-radius:8px\"><h2>Titre</h2><p>Paragraphe 1</p><div><p>Paragraphe imbriqué</p></div></div><p>Paragraphe hors card</p></body>",
+            "targetCSS": ".card p { color: #888; }",
+            "starterCSS": ".card p {\n  \n}"
+          },
+          {
+            "id": "2-2-2",
+            "objective": "Utilise `>` pour cibler uniquement les `li` directs d'un `ul.menu`, pas les sous-éléments.",
+            "xp": 50,
+            "hints": [
+              "Syntaxe : `ul.menu > li { ... }`",
+              "Le `>` cible seulement les enfants directs",
+              "Les li dans un ul imbriqué ne sont PAS ciblés"
+            ],
+            "html": "<body><ul class=\"menu\"><li>Item 1</li><li>Item 2<ul><li>Sous-item</li></ul></li><li>Item 3</li></ul></body>",
+            "targetCSS": "ul.menu { padding: 20px; } ul.menu > li { color: #6c63ff; font-weight: bold; font-size: 18px; list-style: none; }",
+            "starterCSS": "ul.menu {\n  padding: 20px;\n}\nul.menu > li {\n  \n}"
+          },
+          {
+            "id": "2-2-3",
+            "objective": "Cible les inputs de type text `[type='text']` avec une bordure #6c63ff 2px solid et padding 8px 12px.",
+            "xp": 50,
+            "hints": [
+              "Syntaxe : `input[type='text']`",
+              "La bordure : `border: 2px solid #6c63ff`",
+              "Ajoute `outline: none` pour enlever le contour natif du navigateur"
+            ],
+            "html": "<body style=\"padding:20px\"><input type=\"text\" placeholder=\"Texte\"><br><br><input type=\"email\" placeholder=\"Email (non ciblé)\"><br><br><input type=\"password\" placeholder=\"Mot de passe (non ciblé)\"></body>",
+            "targetCSS": "input[type='text'] { border: 2px solid #6c63ff; padding: 8px 12px; border-radius: 4px; outline: none; }",
+            "starterCSS": "input[type='text'] {\n  \n}"
+          },
+          {
+            "id": "2-2-4",
+            "objective": "Utilise le sélecteur adjacent `+` pour styler le `p` qui suit directement un `h2` : couleur #6c63ff, italique.",
+            "xp": 60,
+            "hints": [
+              "Syntaxe : `h2 + p { ... }`",
+              "Seul le `p` immédiatement après h2 est ciblé",
+              "Les autres `p` de la page ne sont pas affectés"
+            ],
+            "html": "<body style=\"padding:20px\"><h2>Section 1</h2><p>Ce paragraphe suit h2 directement.</p><p>Celui-ci est le deuxième après h2.</p><h2>Section 2</h2><p>Ce paragraphe suit h2 directement.</p></body>",
+            "targetCSS": "h2 + p { color: #6c63ff; font-style: italic; }",
+            "starterCSS": "h2 + p {\n  \n}"
+          },
+          {
+            "id": "2-2-5",
+            "objective": "CHALLENGE : Combine descendant, adjacent et attribut pour styler un formulaire complet.",
+            "xp": 100,
+            "hints": [
+              "`form label` cible tous les labels dans le formulaire",
+              "`input + span` cible le message juste après l'input",
+              "`input[type='submit']` pour le bouton d'envoi"
+            ],
+            "html": "<body style=\"padding:20px\"><form><label>Nom</label><input type=\"text\"><span>Requis</span><br><br><label>Email</label><input type=\"email\"><br><br><input type=\"submit\" value=\"Envoyer\"></form></body>",
+            "targetCSS": "form label { display: block; margin-bottom: 4px; font-weight: bold; color: #333; } input + span { color: #ff6b6b; font-size: 12px; margin-left: 8px; } input[type='submit'] { background: #6c63ff; color: white; border: none; padding: 10px 24px; border-radius: 4px; cursor: pointer; margin-top: 10px; }",
+            "starterCSS": "form label {\n  \n}\ninput + span {\n  \n}\ninput[type='submit'] {\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "icon": "🎨",
+    "title": "Propriétés fondamentales",
+    "color": "#ffd93d",
+    "notions": [
+      {
+        "id": "3-1",
+        "title": "Width, Height & contraintes",
+        "explanation": "**width** et **height** définissent les dimensions d'un élément. `min-width`, `max-width`, `min-height`, `max-height` posent des limites. Les unités peuvent être des pixels (`px`), des pourcentages (`%`) relatifs au parent, `vh`/`vw` par rapport à l'écran. `max-width` est essentiel pour le responsive.",
+        "example": ".box {\n  width: 50%;\n  max-width: 600px;\n  min-height: 100px;\n  height: auto;\n}",
+        "checklist": [
+          "Utiliser width/height en px et %",
+          "Appliquer min/max-width et min/max-height",
+          "Comprendre width: auto",
+          "Combiner % et max-width",
+          "Créer des conteneurs responsive"
+        ],
+        "exercises": [
+          {
+            "id": "3-1-1",
+            "objective": "Crée une barre de progression de 70% de largeur, 20px de hauteur, fond #6c63ff, coins arrondis.",
+            "xp": 40,
+            "hints": [
+              "`width: 70%` prend 70% du parent",
+              "`height: 20px` pour la hauteur fixe",
+              "`border-radius: 10px` pour arrondir les bords"
+            ],
+            "html": "<body style=\"background:#111;padding:40px\"><div class=\"progress-bar\"></div></body>",
+            "targetCSS": ".progress-bar { width: 70%; height: 20px; background-color: #6c63ff; border-radius: 10px; }",
+            "starterCSS": ".progress-bar {\n  \n}"
+          },
+          {
+            "id": "3-1-2",
+            "objective": "Crée un conteneur avec max-width 800px centré, et min-height 200px avec fond #f8f9fa.",
+            "xp": 50,
+            "hints": [
+              "`max-width: 800px` limite la largeur",
+              "`margin: 20px auto` centre le bloc",
+              "`min-height` garantit une hauteur minimale même si le contenu est court"
+            ],
+            "html": "<body style=\"background:#ddd\"><div class=\"container\"><p>Contenu adaptable</p></div></body>",
+            "targetCSS": ".container { max-width: 800px; min-height: 200px; margin: 20px auto; background: #f8f9fa; padding: 24px; }",
+            "starterCSS": ".container {\n  \n}"
+          },
+          {
+            "id": "3-1-3",
+            "objective": "Crée un avatar circulaire de 80x80px avec overflow:hidden et border-radius 50%.",
+            "xp": 40,
+            "hints": [
+              "`width: 80px; height: 80px`",
+              "`overflow: hidden` cache ce qui dépasse du cercle",
+              "`border-radius: 50%` rend l'élément circulaire"
+            ],
+            "html": "<body style=\"background:#111;padding:40px\"><div class=\"avatar\"><img src=\"https://picsum.photos/80\" alt=\"avatar\" style=\"width:100%;height:100%;object-fit:cover\"></div></body>",
+            "targetCSS": ".avatar { width: 80px; height: 80px; overflow: hidden; border-radius: 50%; }",
+            "starterCSS": ".avatar {\n  \n}"
+          },
+          {
+            "id": "3-1-4",
+            "objective": "CHALLENGE : Crée un hero responsive — pleine largeur, min-height 60vh, dégradé 135deg de #1a1a2e à #6c63ff.",
+            "xp": 80,
+            "hints": [
+              "`width: 100%` pour pleine largeur",
+              "`min-height: 60vh` = 60% de la hauteur de l'écran",
+              "`background: linear-gradient(135deg, #1a1a2e, #6c63ff)`"
+            ],
+            "html": "<body style=\"margin:0\"><div class=\"hero\"><h1 style=\"color:white;text-align:center;padding-top:80px\">Hero Section</h1></div></body>",
+            "targetCSS": ".hero { width: 100%; min-height: 60vh; background: linear-gradient(135deg, #1a1a2e, #6c63ff); }",
+            "starterCSS": ".hero {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "3-2",
+        "title": "Typography & Texte",
+        "explanation": "CSS offre de nombreuses propriétés pour contrôler le texte. `font-family` définit la police. `font-size` la taille, `font-weight` l'épaisseur (100–900), `font-style` l'italique. `line-height` l'interligne, `letter-spacing` l'espacement entre lettres. `text-align`, `text-transform`, `text-decoration` pour la mise en forme.",
+        "example": "h1 {\n  font-size: 48px;\n  font-weight: 700;\n  letter-spacing: -2px;\n  line-height: 1.2;\n  text-transform: uppercase;\n}",
+        "checklist": [
+          "Changer police, taille et poids",
+          "Contrôler line-height et letter-spacing",
+          "Utiliser text-align et text-transform",
+          "Ajouter ou retirer text-decoration",
+          "Combiner les propriétés typographiques"
+        ],
+        "exercises": [
+          {
+            "id": "3-2-1",
+            "objective": "Style un titre h1 avec font-size 52px, font-weight 900, letter-spacing -2px.",
+            "xp": 40,
+            "hints": [
+              "`font-size: 52px` pour la taille",
+              "`font-weight: 900` = ultra gras",
+              "`letter-spacing: -2px` resserre les lettres"
+            ],
+            "html": "<body style=\"padding:40px;background:#111\"><h1 style=\"color:white\">CSS Typography</h1></body>",
+            "targetCSS": "h1 { font-size: 52px; font-weight: 900; letter-spacing: -2px; line-height: 1; }",
+            "starterCSS": "h1 {\n  \n}"
+          },
+          {
+            "id": "3-2-2",
+            "objective": "Crée un texte de citation en italique, font-size 22px, line-height 1.8, couleur #888, avec une bordure gauche violette.",
+            "xp": 40,
+            "hints": [
+              "`font-style: italic`",
+              "`line-height: 1.8` pour aérer le texte",
+              "`border-left: 4px solid #6c63ff` + `padding-left: 20px`"
+            ],
+            "html": "<body style=\"padding:40px;max-width:600px\"><blockquote class=\"quote\">Le CSS est un outil de création, pas seulement un outil de mise en page.</blockquote></body>",
+            "targetCSS": ".quote { font-style: italic; font-size: 22px; line-height: 1.8; color: #888; border-left: 4px solid #6c63ff; padding-left: 20px; }",
+            "starterCSS": ".quote {\n  \n}"
+          },
+          {
+            "id": "3-2-3",
+            "objective": "Applique text-transform: uppercase et letter-spacing: 4px à un label de navigation.",
+            "xp": 40,
+            "hints": [
+              "`text-transform: uppercase` met tout en majuscules",
+              "`letter-spacing: 4px` espace les lettres",
+              "`font-size: 12px` est souvent utilisé avec ce style de label"
+            ],
+            "html": "<body style=\"padding:40px;background:#111\"><nav><span class=\"nav-label\" style=\"color:#00ff88\">Accueil</span></nav></body>",
+            "targetCSS": ".nav-label { text-transform: uppercase; letter-spacing: 4px; font-size: 12px; font-weight: 600; }",
+            "starterCSS": ".nav-label {\n  \n}"
+          },
+          {
+            "id": "3-2-4",
+            "objective": "CHALLENGE : Hero text — `.hero-title` 64px/900/blanc centré, `.hero-sub` 20px/400/gris centré.",
+            "xp": 80,
+            "hints": [
+              "Deux sélecteurs différents : `.hero-title` et `.hero-sub`",
+              "`text-align: center` sur chaque élément",
+              "`font-weight: 400` = normal, `font-weight: 900` = black"
+            ],
+            "html": "<body style=\"background:linear-gradient(135deg,#1a1a2e,#6c63ff);padding:80px 40px;margin:0\"><h1 class=\"hero-title\">Maître le CSS</h1><p class=\"hero-sub\">Un exercice à la fois.</p></body>",
+            "targetCSS": ".hero-title { font-size: 64px; font-weight: 900; color: white; text-align: center; margin: 0 0 16px; } .hero-sub { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.7); text-align: center; }",
+            "starterCSS": ".hero-title {\n  \n}\n.hero-sub {\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "icon": "📌",
+    "title": "Position & z-index",
+    "color": "#fd79a8",
+    "notions": [
+      {
+        "id": "4-1",
+        "title": "Static, Relative & Absolute",
+        "explanation": "**static** : valeur par défaut, suit le flux normal. **relative** : déplacé par rapport à sa position normale (garde sa place dans le flux). **absolute** : retiré du flux, positionné par rapport à son ancêtre positionné (position ≠ static) le plus proche. Si aucun ancêtre positionné, c'est le `<body>` qui sert de référence.",
+        "example": ".parent {\n  position: relative;\n}\n.badge {\n  position: absolute;\n  top: -10px;\n  right: -10px;\n}",
+        "checklist": [
+          "Comprendre le flux normal (static)",
+          "Utiliser relative pour décaler sans sortir du flux",
+          "Positionner absolute par rapport à un parent relative",
+          "Maîtriser top, right, bottom, left",
+          "Créer des badges et overlays avec absolute"
+        ],
+        "exercises": [
+          {
+            "id": "4-1-1",
+            "objective": "Déplace `.box` de 20px vers le bas et 10px vers la droite avec `position: relative`.",
+            "xp": 40,
+            "hints": [
+              "`position: relative` permet de décaler l'élément",
+              "`top: 20px` descend l'élément",
+              "`left: 10px` le pousse vers la droite"
+            ],
+            "html": "<body style=\"padding:40px\"><div style=\"background:#eee;padding:20px\">Texte avant<div class=\"box\" style=\"background:#6c63ff;color:white;padding:12px;display:inline-block\">Je bouge</div>Texte après</div></body>",
+            "targetCSS": ".box { position: relative; top: 20px; left: 10px; }",
+            "starterCSS": ".box {\n  \n}"
+          },
+          {
+            "id": "4-1-2",
+            "objective": "Place un badge `.badge` dans le coin supérieur droit d'une carte `.card` avec `position: absolute`.",
+            "xp": 50,
+            "hints": [
+              "`position: relative` sur la `.card` pour servir d'ancêtre",
+              "`position: absolute; top: -10px; right: -10px` sur le badge",
+              "Le badge se positionne par rapport à la card, pas au body"
+            ],
+            "html": "<body style=\"padding:40px\"><div class=\"card\" style=\"background:white;padding:24px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);max-width:200px\"><span class=\"badge\">NEW</span><h3 style=\"margin:0\">Produit</h3><p style=\"color:#888\">Description courte.</p></div></body>",
+            "targetCSS": ".card { position: relative; } .badge { position: absolute; top: -10px; right: -10px; background: #ff6b6b; color: white; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 20px; }",
+            "starterCSS": ".card {\n  \n}\n.badge {\n  background: #ff6b6b;\n  color: white;\n  font-size: 11px;\n  font-weight: 700;\n  padding: 4px 8px;\n  border-radius: 20px;\n  \n}"
+          },
+          {
+            "id": "4-1-3",
+            "objective": "Crée un overlay texte centré en absolu sur une image (top 50%, left 50%, transform translate).",
+            "xp": 60,
+            "hints": [
+              "`position: relative` sur le conteneur image",
+              "`position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)`",
+              "`transform: translate(-50%, -50%)` corrige le décalage dû au top/left 50%"
+            ],
+            "html": "<body style=\"padding:40px\"><div class=\"img-container\"><img src=\"https://picsum.photos/400/200\" style=\"width:100%;display:block;border-radius:8px\"><div class=\"overlay-text\">Titre sur image</div></div></body>",
+            "targetCSS": ".img-container { position: relative; max-width: 400px; } .overlay-text { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 24px; font-weight: 900; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }",
+            "starterCSS": ".img-container {\n  max-width: 400px;\n  \n}\n.overlay-text {\n  color: white;\n  font-size: 24px;\n  font-weight: 900;\n  text-shadow: 0 2px 8px rgba(0,0,0,0.8);\n  \n}"
+          },
+          {
+            "id": "4-1-4",
+            "objective": "CHALLENGE : Carte produit avec badge `.badge` en absolu en haut à gauche, image et contenu.",
+            "xp": 100,
+            "hints": [
+              "`.product-card` : `position: relative; overflow: hidden`",
+              "`position: absolute; top: 12px; left: 12px` pour le badge",
+              "`overflow: hidden` sur la card permet le border-radius sur l'image"
+            ],
+            "html": "<body style=\"padding:40px;background:#f0f0f0\"><div class=\"product-card\"><img src=\"https://picsum.photos/300/180\" alt=\"produit\" style=\"width:100%;display:block\"><span class=\"badge\">NEW</span><div class=\"content\"><h3 style=\"margin:0 0 8px\">Produit Cool</h3><p style=\"margin:0;color:#666\">29,99 €</p></div></div></body>",
+            "targetCSS": ".product-card { position: relative; background: white; border-radius: 12px; overflow: hidden; max-width: 300px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); } .badge { position: absolute; top: 12px; left: 12px; background: #00ff88; color: #111; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; } .content { padding: 16px; }",
+            "starterCSS": ".product-card {\n  background: white;\n  border-radius: 12px;\n  overflow: hidden;\n  max-width: 300px;\n  box-shadow: 0 4px 20px rgba(0,0,0,0.1);\n  \n}\n.badge {\n  background: #00ff88;\n  color: #111;\n  font-size: 11px;\n  font-weight: 700;\n  padding: 4px 10px;\n  border-radius: 20px;\n  \n}\n.content {\n  padding: 16px;\n}"
+          }
+        ]
+      },
+      {
+        "id": "4-2",
+        "title": "Fixed, Sticky & z-index",
+        "explanation": "**fixed** : positionné par rapport à la fenêtre du navigateur — reste en place quand on scrolle (navbar, bouton flottant). **sticky** : suit le scroll jusqu'à une limite définie avec `top`, puis se colle. **z-index** contrôle l'ordre d'empilement (plus élevé = devant). Ne fonctionne que sur les éléments positionnés (pas static).",
+        "example": ".navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; }\n.section-title { position: sticky; top: 0; }",
+        "checklist": [
+          "Utiliser fixed pour les éléments persistants",
+          "Utiliser sticky pour les headers collants",
+          "Maîtriser z-index pour l'empilement",
+          "Combiner fixed et z-index pour une navbar",
+          "Créer une modale avec overlay"
+        ],
+        "exercises": [
+          {
+            "id": "4-2-1",
+            "objective": "Crée une navbar fixe en haut de la page qui reste visible quand on scrolle.",
+            "xp": 50,
+            "hints": [
+              "`position: fixed; top: 0; left: 0` fixe la navbar à l'écran",
+              "`width: 100%` pour qu'elle s'étale sur toute la largeur",
+              "`z-index: 100` pour qu'elle soit au-dessus du contenu"
+            ],
+            "html": "<body style=\"margin:0\"><nav class=\"navbar\"><span style=\"color:#00ff88;font-weight:900\">⚡ Brand</span></nav><div style=\"height:200vh;padding:80px 20px 20px\"><p>Scrolle pour voir la navbar rester en place.</p></div></body>",
+            "targetCSS": ".navbar { position: fixed; top: 0; left: 0; width: 100%; background: #1a1a2e; padding: 16px 32px; z-index: 100; }",
+            "starterCSS": ".navbar {\n  background: #1a1a2e;\n  padding: 16px 32px;\n  \n}"
+          },
+          {
+            "id": "4-2-2",
+            "objective": "Crée un bouton flottant (FAB) en bas à droite de l'écran avec `position: fixed`.",
+            "xp": 40,
+            "hints": [
+              "`position: fixed; bottom: 24px; right: 24px`",
+              "`border-radius: 50%` pour un bouton circulaire",
+              "`z-index: 200` pour être au-dessus de tout le reste"
+            ],
+            "html": "<body style=\"margin:0\"><div style=\"height:200vh;padding:20px\"><p>Contenu de la page...</p></div><button class=\"fab\">+</button></body>",
+            "targetCSS": ".fab { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #6c63ff; color: white; border: none; border-radius: 50%; font-size: 28px; cursor: pointer; z-index: 200; box-shadow: 0 4px 20px rgba(108,99,255,0.5); }",
+            "starterCSS": ".fab {\n  width: 56px;\n  height: 56px;\n  background: #6c63ff;\n  color: white;\n  border: none;\n  border-radius: 50%;\n  font-size: 28px;\n  cursor: pointer;\n  \n}"
+          },
+          {
+            "id": "4-2-3",
+            "objective": "Utilise `position: sticky; top: 0` pour qu'un header de section reste visible au scroll.",
+            "xp": 50,
+            "hints": [
+              "`position: sticky; top: 0` colle l'élément quand il atteint le sommet",
+              "Ajoute un `background` sinon le contenu passe à travers",
+              "`z-index: 10` pour rester au-dessus du contenu suivant"
+            ],
+            "html": "<body style=\"margin:0;font-family:sans-serif\"><div style=\"height:300px;background:#f0f0f0;padding:20px\">Contenu avant...</div><div class=\"sticky-header\">📌 Section Collante</div><div style=\"height:500px;background:#e0e0e0;padding:20px\">Contenu après (scrolle !)...</div></body>",
+            "targetCSS": ".sticky-header { position: sticky; top: 0; background: #1a1a2e; color: white; padding: 12px 24px; font-weight: 700; z-index: 10; }",
+            "starterCSS": ".sticky-header {\n  background: #1a1a2e;\n  color: white;\n  padding: 12px 24px;\n  font-weight: 700;\n  \n}"
+          },
+          {
+            "id": "4-2-4",
+            "objective": "CHALLENGE : Modale centrée avec overlay (fond semi-transparent) par-dessus le contenu.",
+            "xp": 100,
+            "hints": [
+              "Overlay : `position: fixed; top: 0; left: 0; width: 100%; height: 100%` + `background: rgba(0,0,0,0.6); z-index: 100`",
+              "Modale : `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 101`",
+              "La modale (101) doit être AU-DESSUS de l'overlay (100)"
+            ],
+            "html": "<body style=\"margin:0\"><div style=\"height:100vh;padding:40px;background:linear-gradient(135deg,#1a1a2e,#6c63ff)\"><h1 style=\"color:white\">Contenu de la page</h1></div><div class=\"overlay\"></div><div class=\"modal\"><h2 style=\"margin:0 0 12px\">Modale</h2><p style=\"color:#666;margin:0\">Au-dessus de tout !</p></div></body>",
+            "targetCSS": ".overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100; } .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 32px; border-radius: 16px; z-index: 101; min-width: 280px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }",
+            "starterCSS": ".overlay {\n  \n}\n.modal {\n  background: white;\n  padding: 32px;\n  border-radius: 16px;\n  min-width: 280px;\n  box-shadow: 0 20px 60px rgba(0,0,0,0.3);\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "icon": "📐",
+    "title": "Display & Flexbox",
+    "color": "#00d4ff",
+    "notions": [
+      {
+        "id": "5-1",
+        "title": "Display",
+        "explanation": "`display` est la propriété la plus importante pour le layout. **block** : prend toute la largeur, passe à la ligne. **inline** : s'intègre dans le texte, largeur = contenu. **inline-block** : comme inline mais accepte width/height. **none** : masque l'élément (il ne prend pas de place). **flex** et **grid** seront vus après.",
+        "example": "span { display: block; }\ndiv { display: inline; }\nimg { display: inline-block; }\n.hidden { display: none; }",
+        "checklist": [
+          "Comprendre block vs inline",
+          "Utiliser inline-block",
+          "Masquer avec display:none",
+          "Modifier le display par défaut",
+          "Préparer pour flex et grid"
+        ],
+        "exercises": [
+          {
+            "id": "5-1-1",
+            "objective": "Transforme des `span.item` en blocs avec `display: block` et ajoute `margin-bottom: 8px`.",
+            "xp": 40,
+            "hints": [
+              "`display: block` rend un élément bloc",
+              "Un bloc prend 100% de la largeur par défaut",
+              "Les éléments se placent les uns en dessous des autres"
+            ],
+            "html": "<body style=\"padding:20px\"><span class=\"item\" style=\"background:#6c63ff;color:white;padding:8px\">Item 1</span><span class=\"item\" style=\"background:#ff6b6b;color:white;padding:8px\">Item 2</span><span class=\"item\" style=\"background:#00ff88;color:#111;padding:8px\">Item 3</span></body>",
+            "targetCSS": ".item { display: block; margin-bottom: 8px; }",
+            "starterCSS": ".item {\n  \n}"
+          },
+          {
+            "id": "5-1-2",
+            "objective": "Divs `.box` côte à côte avec `display: inline-block`, 100x100px et `vertical-align: top`.",
+            "xp": 50,
+            "hints": [
+              "`display: inline-block` permet width/height tout en restant côte à côte",
+              "`vertical-align: top` évite l'alignement bizarre par défaut",
+              "`line-height: 100px` centre le texte verticalement dans la boîte"
+            ],
+            "html": "<body style=\"padding:20px\"><div class=\"box\" style=\"background:#6c63ff\">A</div><div class=\"box\" style=\"background:#ff6b6b\">B</div><div class=\"box\" style=\"background:#00ff88\">C</div></body>",
+            "targetCSS": ".box { display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px; color: white; font-weight: bold; margin: 4px; vertical-align: top; }",
+            "starterCSS": ".box {\n  \n}"
+          },
+          {
+            "id": "5-1-3",
+            "objective": "Cache l'élément `.secret` avec `display: none`.",
+            "xp": 30,
+            "hints": [
+              "`display: none` = élément inexistant visuellement",
+              "L'élément ne prend aucune place dans le flux",
+              "Différent de `visibility: hidden` qui garde l'espace"
+            ],
+            "html": "<body style=\"padding:20px\"><div style=\"background:#00ff88;padding:20px;color:#111\">Je suis visible !</div><div class=\"secret\" style=\"background:#ff6b6b;padding:20px;color:white\">Cache moi !</div></body>",
+            "targetCSS": ".secret { display: none; }",
+            "starterCSS": ".secret {\n  \n}"
+          },
+          {
+            "id": "5-1-4",
+            "objective": "CHALLENGE : Barre de navigation horizontale avec des liens `a.nav-link` en inline-block.",
+            "xp": 80,
+            "hints": [
+              "Les `a` sont inline par défaut — passe-les en `inline-block`",
+              "Padding horizontal pour l'espacement entre les liens",
+              "`text-decoration: none; color: white` pour le style"
+            ],
+            "html": "<body style=\"margin:0\"><nav style=\"background:#1a1a2e;padding:0 20px\"><a class=\"nav-link\" href=\"#\">Accueil</a><a class=\"nav-link\" href=\"#\">À propos</a><a class=\"nav-link\" href=\"#\">Contact</a></nav></body>",
+            "targetCSS": ".nav-link { display: inline-block; padding: 16px 20px; color: white; text-decoration: none; font-weight: 500; }",
+            "starterCSS": ".nav-link {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "5-2",
+        "title": "Flexbox — bases",
+        "explanation": "Flexbox est le système de layout 1D. Sur le **conteneur** : `display: flex` active flexbox. `flex-direction` (row/column) définit l'axe principal. `justify-content` aligne sur l'axe principal. `align-items` aligne sur l'axe transversal. `gap` espace les éléments proprement.",
+        "example": ".container {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 20px;\n}",
+        "checklist": [
+          "Activer flex sur le conteneur",
+          "Utiliser justify-content",
+          "Utiliser align-items",
+          "Maîtriser flex-direction",
+          "Utiliser gap pour l'espacement"
+        ],
+        "exercises": [
+          {
+            "id": "5-2-1",
+            "objective": "Centre un élément horizontalement ET verticalement dans un conteneur de 300x300px.",
+            "xp": 50,
+            "hints": [
+              "`display: flex` sur le conteneur",
+              "`justify-content: center` centre sur l'axe principal (horizontal)",
+              "`align-items: center` centre sur l'axe transversal (vertical)"
+            ],
+            "html": "<body style=\"margin:0;padding:20px\"><div class=\"container\"><div style=\"width:80px;height:80px;background:#6c63ff;border-radius:8px\"></div></div></body>",
+            "targetCSS": ".container { display: flex; justify-content: center; align-items: center; width: 300px; height: 300px; background: #1a1a2e; border-radius: 12px; }",
+            "starterCSS": ".container {\n  width: 300px;\n  height: 300px;\n  background: #1a1a2e;\n  border-radius: 12px;\n  \n}"
+          },
+          {
+            "id": "5-2-2",
+            "objective": "Crée une navbar flex avec le logo à gauche et les liens à droite (`space-between`).",
+            "xp": 60,
+            "hints": [
+              "`justify-content: space-between` pousse les éléments aux extrémités",
+              "`align-items: center` aligne verticalement",
+              "Mets les liens dans un div wrapper pour les grouper"
+            ],
+            "html": "<body style=\"margin:0\"><nav class=\"navbar\"><span style=\"color:#00ff88;font-weight:900;font-size:20px\">⚡ CSSMaster</span><div><a style=\"color:white;text-decoration:none;margin-left:20px\" href=\"#\">Home</a><a style=\"color:white;text-decoration:none;margin-left:20px\" href=\"#\">Cours</a></div></nav></body>",
+            "targetCSS": ".navbar { display: flex; justify-content: space-between; align-items: center; background: #1a1a2e; padding: 16px 32px; }",
+            "starterCSS": ".navbar {\n  background: #1a1a2e;\n  padding: 16px 32px;\n  \n}"
+          },
+          {
+            "id": "5-2-3",
+            "objective": "Crée une colonne flex (`flex-direction: column`) avec les éléments espacés de 16px via `gap`.",
+            "xp": 50,
+            "hints": [
+              "`flex-direction: column` empile les éléments verticalement",
+              "`gap: 16px` espace les enfants sans gérer les marges",
+              "Les éléments s'empilent de haut en bas"
+            ],
+            "html": "<body style=\"padding:20px\"><div class=\"stack\"><div style=\"background:#6c63ff;color:white;padding:16px;border-radius:8px\">Item A</div><div style=\"background:#ff6b6b;color:white;padding:16px;border-radius:8px\">Item B</div><div style=\"background:#00ff88;color:#111;padding:16px;border-radius:8px\">Item C</div></div></body>",
+            "targetCSS": ".stack { display: flex; flex-direction: column; gap: 16px; }",
+            "starterCSS": ".stack {\n  \n}"
+          },
+          {
+            "id": "5-2-4",
+            "objective": "CHALLENGE : Layout de page — header/main/footer en column, `min-height: 100vh`, `flex: 1` sur main.",
+            "xp": 100,
+            "hints": [
+              "`flex-direction: column` pour un layout vertical",
+              "`min-height: 100vh` sur le parent flex",
+              "`flex: 1` sur main l'étire pour remplir l'espace disponible"
+            ],
+            "html": "<body style=\"margin:0\"><div class=\"layout\"><header style=\"background:#1a1a2e;color:white;padding:16px 32px\">Header</header><main style=\"padding:32px\">Contenu principal qui s'étire</main><footer style=\"background:#111;color:#666;padding:16px 32px;text-align:center\">Footer</footer></div></body>",
+            "targetCSS": ".layout { display: flex; flex-direction: column; min-height: 100vh; } main { flex: 1; }",
+            "starterCSS": ".layout {\n  \n}\nmain {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "5-3",
+        "title": "Flexbox — avancé",
+        "explanation": "`flex-wrap: wrap` autorise le retour à la ligne. `flex: 1` distribue l'espace restant équitablement (`flex-grow: 1; flex-shrink: 1; flex-basis: 0`). `align-self` permet à un enfant d'avoir son propre alignement. `flex-shrink: 0` empêche un élément de rétrécir.",
+        "example": ".container { display: flex; flex-wrap: wrap; gap: 20px; }\n.item { flex: 1; min-width: 200px; }\n.sidebar { width: 250px; flex-shrink: 0; }",
+        "checklist": [
+          "Utiliser flex-wrap pour le responsive",
+          "Maîtriser flex: 1 et ses composantes",
+          "Utiliser align-self sur les enfants",
+          "flex-shrink: 0 pour éléments fixes",
+          "Combiner flex et min-width pour le responsive"
+        ],
+        "exercises": [
+          {
+            "id": "5-3-1",
+            "objective": "3 cartes flex avec `gap: 20px`, `flex-wrap: wrap`, et `flex: 1; min-width: 150px`.",
+            "xp": 60,
+            "hints": [
+              "`display: flex; flex-wrap: wrap` sur le parent",
+              "`gap: 20px` pour l'espace entre les éléments",
+              "`flex: 1; min-width: 150px` sur chaque carte pour le responsive"
+            ],
+            "html": "<body style=\"padding:20px;background:#f0f0f0\"><div class=\"cards\"><div class=\"card\" style=\"background:white;padding:20px;border-radius:8px\">Carte 1</div><div class=\"card\" style=\"background:white;padding:20px;border-radius:8px\">Carte 2</div><div class=\"card\" style=\"background:white;padding:20px;border-radius:8px\">Carte 3</div></div></body>",
+            "targetCSS": ".cards { display: flex; flex-wrap: wrap; gap: 20px; } .card { flex: 1; min-width: 150px; }",
+            "starterCSS": ".cards {\n  \n}\n.card {\n  \n}"
+          },
+          {
+            "id": "5-3-2",
+            "objective": "Utilise `align-self: flex-end` sur `.bottom` pour l'aligner en bas dans une rangée.",
+            "xp": 60,
+            "hints": [
+              "`align-self: flex-end` sur l'enfant spécifique uniquement",
+              "Les autres enfants gardent l'alignement par défaut",
+              "Le conteneur doit avoir une hauteur pour que l'effet soit visible"
+            ],
+            "html": "<body style=\"padding:20px\"><div style=\"display:flex;gap:16px;background:#1a1a2e;padding:20px;border-radius:12px;height:150px\"><div style=\"background:#6c63ff;color:white;padding:16px;border-radius:8px\">Normal</div><div class=\"bottom\" style=\"background:#ff6b6b;color:white;padding:16px;border-radius:8px\">En bas</div><div style=\"background:#00ff88;color:#111;padding:16px;border-radius:8px\">Normal</div></div></body>",
+            "targetCSS": ".bottom { align-self: flex-end; }",
+            "starterCSS": ".bottom {\n  \n}"
+          },
+          {
+            "id": "5-3-3",
+            "objective": "Layout flex : sidebar fixe 200px (`flex-shrink: 0`) + contenu principal `flex: 1`.",
+            "xp": 70,
+            "hints": [
+              "`width: 200px; flex-shrink: 0` sur la sidebar (empêche le rétrécissement)",
+              "Sans `flex-shrink: 0` la sidebar pourrait rétrécir si l'espace manque",
+              "`flex: 1` sur main pour prendre tout l'espace restant"
+            ],
+            "html": "<body style=\"margin:0\"><div class=\"layout\"><aside class=\"sidebar\" style=\"background:#1a1a2e;color:white;padding:20px\">Sidebar</aside><main class=\"main\" style=\"padding:24px;background:#f0f0f0\">Contenu principal.</main></div></body>",
+            "targetCSS": ".layout { display: flex; min-height: 100vh; } .sidebar { width: 200px; flex-shrink: 0; } .main { flex: 1; }",
+            "starterCSS": ".layout {\n  \n}\n.sidebar {\n  \n}\n.main {\n  \n}"
+          },
+          {
+            "id": "5-3-4",
+            "objective": "CHALLENGE : Cards adaptatifs — `flex: 1 1 calc(33.33% - 20px)` + `min-width: 250px` pour 3 colonnes.",
+            "xp": 100,
+            "hints": [
+              "`display: flex; flex-wrap: wrap; gap: 20px` sur le conteneur",
+              "`flex: 1 1 calc(33.33% - 20px)` = grow/shrink/base pour 3 colonnes",
+              "`min-width: 250px` force le passage en colonne quand l'écran est petit"
+            ],
+            "html": "<body style=\"padding:24px;background:#111\"><div class=\"grid\"><div class=\"card\" style=\"background:#1a1a2e;padding:20px;border-radius:8px;color:white\"><h3 style=\"margin:0 0 8px\">Card 1</h3><p style=\"color:#888;margin:0\">Description.</p></div><div class=\"card\" style=\"background:#1a1a2e;padding:20px;border-radius:8px;color:white\"><h3 style=\"margin:0 0 8px\">Card 2</h3><p style=\"color:#888;margin:0\">Description.</p></div><div class=\"card\" style=\"background:#1a1a2e;padding:20px;border-radius:8px;color:white\"><h3 style=\"margin:0 0 8px\">Card 3</h3><p style=\"color:#888;margin:0\">Description.</p></div></div></body>",
+            "targetCSS": ".grid { display: flex; flex-wrap: wrap; gap: 20px; } .card { flex: 1 1 calc(33.33% - 20px); min-width: 250px; }",
+            "starterCSS": ".grid {\n  \n}\n.card {\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "icon": "🔲",
+    "title": "CSS Grid",
+    "color": "#a29bfe",
+    "notions": [
+      {
+        "id": "6-1",
+        "title": "Grid — bases",
+        "explanation": "CSS Grid est le système de layout 2D. `display: grid` l'active. `grid-template-columns: repeat(3, 1fr)` = 3 colonnes égales. `gap` l'espace entre cellules. `fr` est l'unité fractionnaire. `auto-fill` avec `minmax()` crée des grilles dynamiques qui s'adaptent automatiquement.",
+        "example": ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 20px;\n}",
+        "checklist": [
+          "Activer grid et définir les colonnes",
+          "Utiliser repeat() et fr",
+          "Contrôler le gap",
+          "Layout 2 colonnes (fixe + flexible)",
+          "auto-fill avec minmax()"
+        ],
+        "exercises": [
+          {
+            "id": "6-1-1",
+            "objective": "Crée une grille de 3 colonnes égales avec gap de 16px.",
+            "xp": 50,
+            "hints": [
+              "`display: grid` active Grid",
+              "`grid-template-columns: repeat(3, 1fr)` = 3 colonnes égales",
+              "`gap: 16px` pour l'espace entre éléments"
+            ],
+            "html": "<body style=\"padding:20px;background:#111\"><div class=\"grid\"><div style=\"background:#6c63ff;padding:20px;color:white;border-radius:8px\">1</div><div style=\"background:#ff6b6b;padding:20px;color:white;border-radius:8px\">2</div><div style=\"background:#00ff88;padding:20px;color:#111;border-radius:8px\">3</div><div style=\"background:#ffd93d;padding:20px;color:#111;border-radius:8px\">4</div><div style=\"background:#6c63ff;padding:20px;color:white;border-radius:8px\">5</div><div style=\"background:#ff6b6b;padding:20px;color:white;border-radius:8px\">6</div></div></body>",
+            "targetCSS": ".grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }",
+            "starterCSS": ".grid {\n  \n}"
+          },
+          {
+            "id": "6-1-2",
+            "objective": "Layout 2 colonnes : sidebar 250px fixe + contenu principal flexible (`1fr`).",
+            "xp": 60,
+            "hints": [
+              "`grid-template-columns: 250px 1fr`",
+              "La sidebar a une largeur fixe, le contenu prend tout le reste",
+              "`gap: 20px` pour l'espace entre les deux colonnes"
+            ],
+            "html": "<body style=\"margin:0;padding:20px;background:#f0f0f0\"><div class=\"layout\"><aside style=\"background:#1a1a2e;color:white;padding:20px;border-radius:8px\">Sidebar</aside><main style=\"background:white;padding:20px;border-radius:8px\">Contenu principal avec tout l'espace restant.</main></div></body>",
+            "targetCSS": ".layout { display: grid; grid-template-columns: 250px 1fr; gap: 20px; }",
+            "starterCSS": ".layout {\n  \n}"
+          },
+          {
+            "id": "6-1-3",
+            "objective": "Grille auto-adaptative avec `auto-fill` et `minmax(200px, 1fr)`.",
+            "xp": 70,
+            "hints": [
+              "`grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))`",
+              "`auto-fill` crée autant de colonnes que l'espace le permet",
+              "`minmax(200px, 1fr)` = minimum 200px, maximum 1fr"
+            ],
+            "html": "<body style=\"padding:20px;background:#111\"><div class=\"grid\"><div style=\"background:#6c63ff;padding:20px;color:white;border-radius:8px\">Item 1</div><div style=\"background:#ff6b6b;padding:20px;color:white;border-radius:8px\">Item 2</div><div style=\"background:#00ff88;padding:20px;color:#111;border-radius:8px\">Item 3</div><div style=\"background:#ffd93d;padding:20px;color:#111;border-radius:8px\">Item 4</div><div style=\"background:#a29bfe;padding:20px;color:white;border-radius:8px\">Item 5</div></div></body>",
+            "targetCSS": ".grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }",
+            "starterCSS": ".grid {\n  \n}"
+          },
+          {
+            "id": "6-1-4",
+            "objective": "CHALLENGE : `grid-column: span 2` pour qu'un élément `.wide` occupe toute la largeur sur 2 colonnes.",
+            "xp": 80,
+            "hints": [
+              "`grid-column: span 2` étend l'élément sur 2 colonnes",
+              "La grille doit avoir au moins 2 colonnes",
+              "Place `.wide` en premier ou en dernier pour éviter les trous"
+            ],
+            "html": "<body style=\"padding:20px;background:#111\"><div class=\"grid\"><div class=\"wide\" style=\"background:#00ff88;padding:20px;color:#111;border-radius:8px;font-weight:bold\">Large (span 2)</div><div style=\"background:#6c63ff;padding:20px;color:white;border-radius:8px\">Normal 1</div><div style=\"background:#ff6b6b;padding:20px;color:white;border-radius:8px\">Normal 2</div><div style=\"background:#ffd93d;padding:20px;color:#111;border-radius:8px\">Normal 3</div></div></body>",
+            "targetCSS": ".grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; } .wide { grid-column: span 2; }",
+            "starterCSS": ".grid {\n  \n}\n.wide {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "6-2",
+        "title": "Grid — template areas & avancé",
+        "explanation": "`grid-template-areas` nomme les zones de la grille pour un positionnement lisible. Chaque enfant utilise `grid-area`. `grid-row: span 2` étend sur plusieurs lignes. `place-items: center` centre tout en une propriété (raccourci de `justify-items + align-items`).",
+        "example": ".layout {\n  grid-template-areas:\n    \"header header\"\n    \"nav    main\";\n}\n.header { grid-area: header; }",
+        "checklist": [
+          "Utiliser grid-template-areas",
+          "Assigner grid-area aux enfants",
+          "Étendre avec grid-row: span",
+          "Utiliser place-items",
+          "Créer un dashboard complet"
+        ],
+        "exercises": [
+          {
+            "id": "6-2-1",
+            "objective": "Layout avec `grid-template-areas` : header toute la largeur, sidebar + content en dessous.",
+            "xp": 70,
+            "hints": [
+              "`grid-template-areas: \"header header\" \"sidebar content\"`",
+              "Des guillemets pour chaque ligne de la grille",
+              "Chaque enfant prend `grid-area: nomZone`"
+            ],
+            "html": "<body style=\"margin:0\"><div class=\"layout\"><header class=\"header\" style=\"background:#6c63ff;color:white;padding:16px\">Header</header><aside class=\"sidebar\" style=\"background:#1a1a2e;color:white;padding:16px\">Sidebar</aside><main class=\"content\" style=\"padding:16px;background:#f0f0f0\">Contenu</main></div></body>",
+            "targetCSS": ".layout { display: grid; grid-template-columns: 200px 1fr; grid-template-rows: 60px 1fr; grid-template-areas: \"header header\" \"sidebar content\"; min-height: 100vh; } .header { grid-area: header; } .sidebar { grid-area: sidebar; } .content { grid-area: content; }",
+            "starterCSS": ".layout {\n  display: grid;\n  grid-template-columns: 200px 1fr;\n  grid-template-rows: 60px 1fr;\n  min-height: 100vh;\n  \n}\n.header { grid-area: header; }\n.sidebar { grid-area: sidebar; }\n.content { grid-area: content; }"
+          },
+          {
+            "id": "6-2-2",
+            "objective": "Galerie photo : `.tall` avec `grid-row: span 2` pour occuper 2 lignes.",
+            "xp": 70,
+            "hints": [
+              "`grid-row: span 2` étend l'élément sur 2 lignes",
+              "Grille 2 colonnes avec `repeat(2, 1fr)`",
+              "L'image `.tall` paraît 2x plus haute que les autres"
+            ],
+            "html": "<body style=\"padding:20px;background:#111\"><div class=\"gallery\"><div class=\"tall\"><img src=\"https://picsum.photos/300/400?random=1\" style=\"width:100%;height:100%;object-fit:cover;border-radius:8px;display:block\"></div><div><img src=\"https://picsum.photos/300/200?random=2\" style=\"width:100%;height:100%;object-fit:cover;border-radius:8px;display:block\"></div><div><img src=\"https://picsum.photos/300/200?random=3\" style=\"width:100%;height:100%;object-fit:cover;border-radius:8px;display:block\"></div></div></body>",
+            "targetCSS": ".gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; } .tall { grid-row: span 2; }",
+            "starterCSS": ".gallery {\n  \n}\n.tall {\n  \n}"
+          },
+          {
+            "id": "6-2-3",
+            "objective": "Centre parfaitement un élément dans la page avec `display: grid; place-items: center`.",
+            "xp": 50,
+            "hints": [
+              "`display: grid; place-items: center` = centrage parfait en 2 lignes",
+              "C'est la méthode la plus simple pour centrer en CSS moderne",
+              "`place-items` est le raccourci de `align-items + justify-items`"
+            ],
+            "html": "<body style=\"margin:0\"><div class=\"center-grid\"><div style=\"background:white;padding:32px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.1);text-align:center\"><h2 style=\"margin:0 0 8px\">✨ Centré !</h2><p style=\"color:#888;margin:0\">Parfaitement au milieu.</p></div></div></body>",
+            "targetCSS": ".center-grid { display: grid; place-items: center; min-height: 100vh; background: linear-gradient(135deg, #1a1a2e, #6c63ff); }",
+            "starterCSS": ".center-grid {\n  min-height: 100vh;\n  background: linear-gradient(135deg, #1a1a2e, #6c63ff);\n  \n}"
+          },
+          {
+            "id": "6-2-4",
+            "objective": "CHALLENGE : Dashboard complet avec `grid-template-areas` (header, nav, main, footer).",
+            "xp": 100,
+            "hints": [
+              "`grid-template-areas: \"header header\" \"nav main\" \"footer footer\"`",
+              "`grid-template-rows: 60px 1fr 40px` pour les hauteurs",
+              "Header et footer couvrent toute la largeur (répétés sur les 2 colonnes)"
+            ],
+            "html": "<body style=\"margin:0;height:100vh\"><div class=\"dashboard\"><header class=\"dash-header\" style=\"background:#6c63ff;color:white;padding:0 24px;display:flex;align-items:center\">Header</header><aside class=\"dash-nav\" style=\"background:#1a1a2e;color:white;padding:20px\">Nav</aside><main class=\"dash-main\" style=\"padding:24px;background:#f0f0f0\">Main Content</main><footer class=\"dash-footer\" style=\"background:#111;color:#666;padding:0 24px;display:flex;align-items:center;font-size:14px\">Footer</footer></div></body>",
+            "targetCSS": ".dashboard { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 60px 1fr 40px; min-height: 100vh; grid-template-areas: \"header header\" \"nav main\" \"footer footer\"; } .dash-header { grid-area: header; } .dash-nav { grid-area: nav; } .dash-main { grid-area: main; } .dash-footer { grid-area: footer; }",
+            "starterCSS": ".dashboard {\n  display: grid;\n  grid-template-columns: 220px 1fr;\n  grid-template-rows: 60px 1fr 40px;\n  min-height: 100vh;\n  \n}\n.dash-header { grid-area: header; }\n.dash-nav { grid-area: nav; }\n.dash-main { grid-area: main; }\n.dash-footer { grid-area: footer; }"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "icon": "🧩",
+    "title": "Variables CSS",
+    "color": "#fdcb6e",
+    "notions": [
+      {
+        "id": "7-1",
+        "title": "Custom Properties",
+        "explanation": "Les variables CSS se déclarent avec `--nom: valeur` dans `:root` (portée globale) ou dans un sélecteur (portée locale). On les consomme avec `var(--nom)` ou `var(--nom, valeur-de-secours)`. Elles sont dynamiques : modifier la variable met à jour automatiquement tous les éléments qui l'utilisent.",
+        "example": ":root {\n  --color-primary: #6c63ff;\n  --spacing: 16px;\n  --radius: 8px;\n}\n.button {\n  background: var(--color-primary);\n  padding: var(--spacing);\n  border-radius: var(--radius);\n}",
+        "checklist": [
+          "Déclarer des variables dans :root",
+          "Utiliser var() pour consommer une variable",
+          "Comprendre la portée (scope)",
+          "Utiliser la valeur de secours dans var()",
+          "Créer un système de design tokens"
+        ],
+        "exercises": [
+          {
+            "id": "7-1-1",
+            "objective": "Déclare `--color-primary` (#6c63ff) dans `:root` et utilise-la sur le fond de `.btn`.",
+            "xp": 40,
+            "hints": [
+              "`:root { --color-primary: #6c63ff; }`",
+              "`background: var(--color-primary)`",
+              "`:root` = portée globale, toute la page peut accéder à la variable"
+            ],
+            "html": "<body style=\"padding:40px;background:#111\"><button class=\"btn\">Mon bouton</button></body>",
+            "targetCSS": ":root { --color-primary: #6c63ff; } .btn { background: var(--color-primary); color: white; padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }",
+            "starterCSS": ":root {\n  \n}\n.btn {\n  color: white;\n  padding: 12px 28px;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  \n}"
+          },
+          {
+            "id": "7-1-2",
+            "objective": "Crée 3 variables (`--color-surface`, `--spacing`, `--radius`) et utilise-les sur une carte.",
+            "xp": 60,
+            "hints": [
+              "Déclare `--color-surface: #1a1a2e`, `--spacing: 24px`, `--radius: 12px`",
+              "Une variable CSS peut contenir n'importe quelle valeur CSS valide",
+              "`background: var(--color-surface)` etc."
+            ],
+            "html": "<body style=\"padding:40px;background:#111\"><div class=\"card\"><h3 style=\"margin:0 0 8px;color:#00ff88\">Design System</h3><p style=\"margin:0;color:#aaa\">Tout est géré par des variables.</p></div></body>",
+            "targetCSS": ":root { --color-surface: #1a1a2e; --spacing: 24px; --radius: 12px; } .card { background: var(--color-surface); padding: var(--spacing); border-radius: var(--radius); max-width: 300px; }",
+            "starterCSS": ":root {\n  \n}\n.card {\n  max-width: 300px;\n  \n}"
+          },
+          {
+            "id": "7-1-3",
+            "objective": "Surcharge `--color-primary` localement dans `.card--danger` pour que son bouton soit rouge (#ff6b6b).",
+            "xp": 60,
+            "hints": [
+              "Redéfinis `--color-primary: #ff6b6b` directement dans `.card--danger { }`",
+              "Les enfants de `.card--danger` utiliseront la valeur locale",
+              "Les autres éléments conservent la valeur globale de `:root`"
+            ],
+            "html": "<body style=\"padding:20px;display:flex;gap:20px\"><div class=\"card\"><button class=\"btn\">Normal</button></div><div class=\"card card--danger\"><button class=\"btn\">Danger</button></div></body>",
+            "targetCSS": ":root { --color-primary: #6c63ff; } .card { background: #f0f0f0; padding: 24px; border-radius: 12px; } .card--danger { --color-primary: #ff6b6b; } .btn { background: var(--color-primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }",
+            "starterCSS": ":root {\n  --color-primary: #6c63ff;\n}\n.card {\n  background: #f0f0f0;\n  padding: 24px;\n  border-radius: 12px;\n}\n.card--danger {\n  \n}\n.btn {\n  background: var(--color-primary);\n  color: white;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 6px;\n  cursor: pointer;\n}"
+          },
+          {
+            "id": "7-1-4",
+            "objective": "CHALLENGE : Mini design system complet (6+ variables) pour styler une interface complète.",
+            "xp": 100,
+            "hints": [
+              "Définir au moins : `--c-bg`, `--c-primary`, `--c-accent`, `--c-text`, `--space`, `--radius`",
+              "Un bon design system = changer 1 variable change tout le composant",
+              "Utilise `var()` pour TOUTES les valeurs de couleur et espacement"
+            ],
+            "html": "<body style=\"padding:40px;background:#0d0d0d\"><div class=\"ui-card\"><div class=\"ui-header\"><span class=\"ui-tag\">Premium</span><h2 class=\"ui-title\">Forfait Pro</h2></div><p class=\"ui-desc\">Accès illimité à toutes les fonctionnalités.</p><button class=\"ui-btn\">Commencer →</button></div></body>",
+            "targetCSS": ":root { --c-bg: #1a1a2e; --c-primary: #6c63ff; --c-accent: #00ff88; --c-text: #ffffff; --c-muted: #888; --space: 24px; --radius: 16px; --font-lg: 28px; } .ui-card { background: var(--c-bg); padding: var(--space); border-radius: var(--radius); max-width: 320px; border: 1px solid rgba(255,255,255,0.08); } .ui-header { margin-bottom: 16px; } .ui-tag { background: var(--c-accent); color: #111; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; } .ui-title { color: var(--c-text); font-size: var(--font-lg); margin: 8px 0 0; } .ui-desc { color: var(--c-muted); font-size: 15px; line-height: 1.6; margin-bottom: var(--space); } .ui-btn { background: var(--c-primary); color: var(--c-text); border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; width: 100%; }",
+            "starterCSS": ":root {\n  --c-bg: #1a1a2e;\n  --c-primary: #6c63ff;\n  --c-accent: #00ff88;\n  --c-text: #ffffff;\n  --c-muted: #888;\n  --space: 24px;\n  --radius: 16px;\n  --font-lg: 28px;\n}\n.ui-card {\n  max-width: 320px;\n  border: 1px solid rgba(255,255,255,0.08);\n  \n}\n.ui-tag {\n  font-size: 11px;\n  font-weight: 700;\n  padding: 3px 10px;\n  border-radius: 20px;\n  text-transform: uppercase;\n  \n}\n.ui-title {\n  margin: 8px 0 0;\n  \n}\n.ui-desc {\n  font-size: 15px;\n  line-height: 1.6;\n  \n}\n.ui-btn {\n  border: none;\n  padding: 12px 24px;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  font-weight: 600;\n  width: 100%;\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "icon": "✨",
+    "title": "Interactions & Pseudo-classes",
+    "color": "#ff9f43",
+    "notions": [
+      {
+        "id": "8-1",
+        "title": "Pseudo-classes d'interaction",
+        "explanation": "Les pseudo-classes CSS permettent de styler les éléments selon leur **état**. `:hover` au survol, `:active` au clic, `:focus` lors de la prise de focus, `:nth-child` pour cibler par position. **Règle d'or** : la `transition` doit toujours être sur l'état de BASE de l'élément, pas sur le :hover.",
+        "example": "button { transition: background 0.3s; }\nbutton:hover { background: #5a52e0; }\ninput:focus { outline: none; border-color: #00ff88; }\ntr:nth-child(even) { background: #f0f0f0; }",
+        "checklist": [
+          "Utiliser :hover pour les effets au survol",
+          "Styler :focus sur les inputs",
+          "Utiliser :nth-child pour les alternances",
+          "Transition sur l'état de BASE",
+          "Combiner plusieurs pseudo-classes"
+        ],
+        "exercises": [
+          {
+            "id": "8-1-1",
+            "objective": "Hover sur `.btn` : fond de #6c63ff → #5a52e0 + `translateY(-2px)`. Transition sur l'état de base.",
+            "xp": 50,
+            "hints": [
+              "`transition: background 0.3s, transform 0.1s` sur `.btn` (pas sur :hover !)",
+              "`background: #5a52e0` et `transform: translateY(-2px)` dans `.btn:hover`",
+              "La transition sur l'état de base fonctionne dans les deux sens (aller ET retour)"
+            ],
+            "html": "<body style=\"padding:40px;background:#111\"><button class=\"btn\">Hover moi !</button></body>",
+            "targetCSS": ".btn { background: #6c63ff; color: white; padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: background 0.3s, transform 0.1s; } .btn:hover { background: #5a52e0; transform: translateY(-2px); }",
+            "starterCSS": ".btn {\n  background: #6c63ff;\n  color: white;\n  padding: 12px 28px;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  \n}\n.btn:hover {\n  \n}"
+          },
+          {
+            "id": "8-1-2",
+            "objective": "Customise le focus d'un input : retire l'outline natif, bordure #00ff88 + box-shadow glow.",
+            "xp": 60,
+            "hints": [
+              "`outline: none` retire le contour natif du navigateur",
+              "`border: 2px solid #00ff88` pour la bordure colorée",
+              "`box-shadow: 0 0 0 4px rgba(0,255,136,0.15)` pour l'effet glow"
+            ],
+            "html": "<body style=\"padding:40px;background:#111\"><input class=\"custom-input\" type=\"text\" placeholder=\"Clique ici pour focus...\"></body>",
+            "targetCSS": ".custom-input { background: #1a1a2e; color: white; border: 2px solid #333; padding: 12px 16px; border-radius: 8px; font-size: 16px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; } .custom-input:focus { border-color: #00ff88; box-shadow: 0 0 0 4px rgba(0,255,136,0.15); }",
+            "starterCSS": ".custom-input {\n  background: #1a1a2e;\n  color: white;\n  border: 2px solid #333;\n  padding: 12px 16px;\n  border-radius: 8px;\n  font-size: 16px;\n  outline: none;\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n.custom-input:focus {\n  \n}"
+          },
+          {
+            "id": "8-1-3",
+            "objective": "Tableau avec `tr:nth-child(even)` fond #f8f9fa, `odd` fond blanc, et hover #e8e4ff.",
+            "xp": 60,
+            "hints": [
+              "`.table tr:nth-child(even)` = lignes paires (2, 4, 6…)",
+              "`.table tr:nth-child(odd)` = lignes impaires (1, 3, 5…)",
+              "`.table tr:hover` pour l'effet interactif"
+            ],
+            "html": "<body style=\"padding:20px\"><table class=\"table\" style=\"width:100%;border-collapse:collapse\"><tr><td style=\"padding:12px\">Ligne 1</td><td style=\"padding:12px\">Valeur A</td></tr><tr><td style=\"padding:12px\">Ligne 2</td><td style=\"padding:12px\">Valeur B</td></tr><tr><td style=\"padding:12px\">Ligne 3</td><td style=\"padding:12px\">Valeur C</td></tr><tr><td style=\"padding:12px\">Ligne 4</td><td style=\"padding:12px\">Valeur D</td></tr></table></body>",
+            "targetCSS": ".table { width: 100%; border-collapse: collapse; } .table tr:nth-child(even) { background: #f8f9fa; } .table tr:nth-child(odd) { background: white; } .table tr:hover { background: #e8e4ff; }",
+            "starterCSS": ".table tr:nth-child(even) {\n  \n}\n.table tr:nth-child(odd) {\n  \n}\n.table tr:hover {\n  \n}"
+          },
+          {
+            "id": "8-1-4",
+            "objective": "CHALLENGE : Carte interactive — hover lève la carte (`translateY(-8px)` + box-shadow agrandie).",
+            "xp": 100,
+            "hints": [
+              "`transform: translateY(-8px)` au hover pour lever la carte",
+              "box-shadow plus grande et plus diffuse au hover",
+              "La `transition` doit être sur l'état DE BASE de `.card`"
+            ],
+            "html": "<body style=\"padding:60px;background:#f0f0f0\"><div class=\"card\"><h3>Carte Interactive</h3><p>Passe la souris sur moi !</p></div></body>",
+            "targetCSS": ".card { background: white; padding: 24px; border-radius: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; max-width: 250px; } .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }",
+            "starterCSS": ".card {\n  background: white;\n  padding: 24px;\n  border-radius: 16px;\n  box-shadow: 0 2px 8px rgba(0,0,0,0.08);\n  cursor: pointer;\n  max-width: 250px;\n  \n}\n.card:hover {\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "icon": "🎭",
+    "title": "Transformations & Animations",
+    "color": "#6c5ce7",
+    "notions": [
+      {
+        "id": "9-1",
+        "title": "Transform",
+        "explanation": "`transform` modifie visuellement un élément sans affecter le flux du document. **translate(x, y)** déplace, **scale(n)** redimensionne, **rotate(deg)** pivote, **skew(deg)** incline. Ces transformations se combinent et s'utilisent avec `transition` pour des animations fluides.",
+        "example": ".box:hover {\n  transform: translateY(-10px) scale(1.05);\n  transition: transform 0.3s ease;\n}",
+        "checklist": [
+          "Utiliser translate pour déplacer",
+          "Utiliser scale pour redimensionner",
+          "Appliquer rotate pour pivoter",
+          "Combiner plusieurs transforms",
+          "Animer avec transition"
+        ],
+        "exercises": [
+          {
+            "id": "9-1-1",
+            "objective": "Rotation de 45° au hover avec transition 0.4s ease.",
+            "xp": 50,
+            "hints": [
+              "`transform: rotate(45deg)` dans `.box:hover`",
+              "`transition: transform 0.4s ease` sur l'état DE BASE de `.box`",
+              "Essaie `rotate(-45deg)` pour l'autre sens"
+            ],
+            "html": "<body style=\"padding:80px;background:#111;display:flex;justify-content:center\"><div class=\"box\" style=\"width:80px;height:80px;background:#6c63ff;border-radius:8px\"></div></body>",
+            "targetCSS": ".box { transition: transform 0.4s ease; } .box:hover { transform: rotate(45deg); }",
+            "starterCSS": ".box {\n  \n}\n.box:hover {\n  \n}"
+          },
+          {
+            "id": "9-1-2",
+            "objective": "Zoom au hover : `scale(1.08)` + box-shadow plus grande.",
+            "xp": 50,
+            "hints": [
+              "`transform: scale(1.08)` = 8% plus grand au hover",
+              "Combine avec `box-shadow` pour renforcer l'effet de profondeur",
+              "La `transition` est sur l'état de base des images"
+            ],
+            "html": "<body style=\"padding:40px;background:#111;display:flex;gap:20px\"><img class=\"img-zoom\" src=\"https://picsum.photos/200/150?random=1\" style=\"border-radius:8px\"><img class=\"img-zoom\" src=\"https://picsum.photos/200/150?random=2\" style=\"border-radius:8px\"></body>",
+            "targetCSS": ".img-zoom { transition: transform 0.3s ease, box-shadow 0.3s; } .img-zoom:hover { transform: scale(1.08); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }",
+            "starterCSS": ".img-zoom {\n  \n}\n.img-zoom:hover {\n  \n}"
+          },
+          {
+            "id": "9-1-3",
+            "objective": "Glissement horizontal au hover sur des items de menu : `translateX(12px)` + couleur #00ff88.",
+            "xp": 60,
+            "hints": [
+              "`transform: translateX(12px)` déplace vers la droite",
+              "`color: #00ff88` change la couleur au hover",
+              "La `transition` sur `transform` et `color` est sur l'état de base"
+            ],
+            "html": "<body style=\"padding:40px;background:#1a1a2e\"><div class=\"menu-item\" style=\"padding:12px 0;border-bottom:1px solid #333;cursor:pointer;color:#aaa\">→ Accueil</div><div class=\"menu-item\" style=\"padding:12px 0;border-bottom:1px solid #333;cursor:pointer;color:#aaa\">→ Projets</div><div class=\"menu-item\" style=\"padding:12px 0;cursor:pointer;color:#aaa\">→ Contact</div></body>",
+            "targetCSS": ".menu-item { transition: transform 0.2s ease, color 0.2s; } .menu-item:hover { transform: translateX(12px); color: #00ff88; }",
+            "starterCSS": ".menu-item {\n  \n}\n.menu-item:hover {\n  \n}"
+          },
+          {
+            "id": "9-1-4",
+            "objective": "CHALLENGE : Bouton rebond avec `translateY(-6px) scale(1.05)` + cubic-bezier élastique.",
+            "xp": 100,
+            "hints": [
+              "`transform: translateY(-6px) scale(1.05)` au hover",
+              "`transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)` = effet élastique/rebond",
+              "Ajoute `box-shadow: 0 20px 40px rgba(108,99,255,0.4)` au hover"
+            ],
+            "html": "<body style=\"padding:80px;display:flex;justify-content:center;background:#111\"><button class=\"bounce-btn\">🚀 Lancer !</button></body>",
+            "targetCSS": ".bounce-btn { background: linear-gradient(135deg, #6c63ff, #00ff88); color: #111; font-size: 18px; font-weight: 700; padding: 16px 36px; border: none; border-radius: 50px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; } .bounce-btn:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 20px 40px rgba(108,99,255,0.4); }",
+            "starterCSS": ".bounce-btn {\n  background: linear-gradient(135deg, #6c63ff, #00ff88);\n  color: #111;\n  font-size: 18px;\n  font-weight: 700;\n  padding: 16px 36px;\n  border: none;\n  border-radius: 50px;\n  cursor: pointer;\n  \n}\n.bounce-btn:hover {\n  \n}"
+          }
+        ]
+      },
+      {
+        "id": "9-2",
+        "title": "Animations & Keyframes",
+        "explanation": "`@keyframes` définit une animation avec des étapes (0%→100% ou from→to). `animation` applique : `nom durée timing délai iteration`. `infinite` = boucle. `forwards` conserve l'état final. Les animations se jouent automatiquement, sans interaction.",
+        "example": "@keyframes pulse {\n  0%, 100% { transform: scale(1); }\n  50%       { transform: scale(1.1); }\n}\n.badge { animation: pulse 2s ease infinite; }",
+        "checklist": [
+          "Définir des keyframes avec from/to",
+          "Utiliser des étapes en %",
+          "Appliquer animation sur un élément",
+          "Utiliser infinite et forwards",
+          "Combiner plusieurs propriétés animées"
+        ],
+        "exercises": [
+          {
+            "id": "9-2-1",
+            "objective": "Fade in : animation de `opacity 0 + translateY(20px)` → `opacity 1 + translateY(0)` en 0.8s.",
+            "xp": 60,
+            "hints": [
+              "`@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }`",
+              "`animation: fadeIn 0.8s ease forwards` sur `.fade-in`",
+              "`animation-fill-mode: forwards` (inclus dans `forwards`) garde l'état final"
+            ],
+            "html": "<body style=\"background:#111;padding:40px\"><h1 class=\"fade-in\" style=\"color:white\">Je me révèle !</h1><p class=\"fade-in\" style=\"color:#888;animation-delay:0.3s\">Et moi après...</p></body>",
+            "targetCSS": "@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .fade-in { animation: fadeIn 0.8s ease forwards; }",
+            "starterCSS": "@keyframes fadeIn {\n  from {\n    \n  }\n  to {\n    \n  }\n}\n.fade-in {\n  animation: fadeIn 0.8s ease forwards;\n}"
+          },
+          {
+            "id": "9-2-2",
+            "objective": "Spinner : rotation `0deg → 360deg` en boucle infinie, `linear`, avec `border-top-color: #6c63ff`.",
+            "xp": 70,
+            "hints": [
+              "`@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }`",
+              "`animation: spin 0.8s linear infinite` sur `.spinner`",
+              "`border: 4px solid rgba(108,99,255,0.2); border-top-color: #6c63ff` pour le demi-cercle"
+            ],
+            "html": "<body style=\"background:#111;display:flex;justify-content:center;align-items:center;height:200px\"><div class=\"spinner\"></div></body>",
+            "targetCSS": "@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .spinner { width: 48px; height: 48px; border: 4px solid rgba(108,99,255,0.2); border-top-color: #6c63ff; border-radius: 50%; animation: spin 0.8s linear infinite; }",
+            "starterCSS": "@keyframes spin {\n  from { transform: rotate(0deg); }\n  to { transform: rotate(360deg); }\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  \n}"
+          },
+          {
+            "id": "9-2-3",
+            "objective": "Badge pulsant : `scale(1) → scale(1.1)` + box-shadow qui grandit en boucle infinie.",
+            "xp": 70,
+            "hints": [
+              "Keyframes 0%,100% : `scale(1)` et `box-shadow: 0 0 0 0 rgba(255,107,107,0.4)`",
+              "50% : `scale(1.1)` et `box-shadow: 0 0 0 10px rgba(255,107,107,0)` (disparaît)",
+              "`animation: pulse 1.5s ease-in-out infinite`"
+            ],
+            "html": "<body style=\"background:#1a1a2e;display:flex;justify-content:center;align-items:center;height:200px\"><div class=\"badge\">3</div></body>",
+            "targetCSS": "@keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,107,0.4); } 50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,107,107,0); } } .badge { width: 40px; height: 40px; background: #ff6b6b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; animation: pulse 1.5s ease-in-out infinite; }",
+            "starterCSS": "@keyframes pulse {\n  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,107,0.4); }\n  50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,107,107,0); }\n}\n.badge {\n  width: 40px;\n  height: 40px;\n  background: #ff6b6b;\n  color: white;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: bold;\n  \n}"
+          },
+          {
+            "id": "9-2-4",
+            "objective": "CHALLENGE : Fond animé — gradient avec `background-size: 400% 400%` et animation de `background-position`.",
+            "xp": 100,
+            "hints": [
+              "`background-size: 400% 400%` rend le gradient plus grand que l'élément",
+              "Anime `background-position` : `0% 50%` → `100% 50%` → `0% 50%`",
+              "`animation: gradientShift 6s ease infinite`"
+            ],
+            "html": "<body style=\"margin:0\"><div class=\"animated-bg\"><h1 style=\"color:white;font-size:48px;font-weight:900\">Dégradé Vivant ✨</h1></div></body>",
+            "targetCSS": "@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } } .animated-bg { background: linear-gradient(-45deg, #6c63ff, #ff6b6b, #00ff88, #ffd93d); background-size: 400% 400%; animation: gradientShift 6s ease infinite; min-height: 100vh; display: flex; align-items: center; justify-content: center; }",
+            "starterCSS": "@keyframes gradientShift {\n  0% { background-position: 0% 50%; }\n  50% { background-position: 100% 50%; }\n  100% { background-position: 0% 50%; }\n}\n.animated-bg {\n  background: linear-gradient(-45deg, #6c63ff, #ff6b6b, #00ff88, #ffd93d);\n  background-size: 400% 400%;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  \n}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "icon": "📱",
+    "title": "Responsive Design",
+    "color": "#55efc4",
+    "notions": [
+      {
+        "id": "10-1",
+        "title": "Media Queries",
+        "explanation": "Les **media queries** permettent d'appliquer du CSS selon les conditions de l'écran. Syntaxe : `@media (max-width: 768px) { ... }`. Breakpoints classiques : mobile <768px, tablette 768–1024px, desktop >1024px. Approche **mobile-first** : CSS mobile en premier, enrichi avec `min-width` pour les grands écrans.",
+        "example": "/* Mobile first */\n.container { padding: 16px; }\n\n@media (min-width: 768px) {\n  .container { padding: 32px; }\n}\n\n@media (min-width: 1024px) {\n  .container { max-width: 1200px; margin: auto; }\n}",
+        "checklist": [
+          "Comprendre la syntaxe @media",
+          "Utiliser max-width vs min-width",
+          "Connaître les breakpoints classiques",
+          "Approche mobile-first",
+          "Adapter layout, taille de texte et espacements"
+        ],
+        "exercises": [
+          {
+            "id": "10-1-1",
+            "objective": "Cache `.sidebar` sur mobile (`max-width: 768px`) avec `display: none`.",
+            "xp": 50,
+            "hints": [
+              "`@media (max-width: 768px) { .sidebar { display: none; } }`",
+              "Sur desktop elle est visible par défaut (rien à ajouter)",
+              "Réduis le preview pour observer l'effet"
+            ],
+            "html": "<body style=\"margin:0\"><div class=\"layout\"><aside class=\"sidebar\" style=\"background:#1a1a2e;color:white;padding:20px;min-height:100vh\">Sidebar</aside><main style=\"padding:20px;flex:1\">Contenu principal</main></div></body>",
+            "targetCSS": ".layout { display: flex; } @media (max-width: 768px) { .sidebar { display: none; } }",
+            "starterCSS": ".layout {\n  display: flex;\n}\n@media (max-width: 768px) {\n  .sidebar {\n    \n  }\n}"
+          },
+          {
+            "id": "10-1-2",
+            "objective": "`.responsive-title` : 56px sur desktop, 32px sur mobile (`max-width: 768px`).",
+            "xp": 40,
+            "hints": [
+              "`font-size: 56px` par défaut (desktop)",
+              "`@media (max-width: 768px) { .responsive-title { font-size: 32px; } }`",
+              "On peut aussi adapter `letter-spacing` sur mobile"
+            ],
+            "html": "<body style=\"padding:40px;background:#1a1a2e\"><h1 class=\"responsive-title\" style=\"color:white\">Titre Responsive</h1></body>",
+            "targetCSS": ".responsive-title { font-size: 56px; font-weight: 900; } @media (max-width: 768px) { .responsive-title { font-size: 32px; } }",
+            "starterCSS": ".responsive-title {\n  font-size: 56px;\n  font-weight: 900;\n}\n@media (max-width: 768px) {\n  .responsive-title {\n    \n  }\n}"
+          },
+          {
+            "id": "10-1-3",
+            "objective": "Grille 3 colonnes → 1 colonne sur mobile (`max-width: 768px`).",
+            "xp": 60,
+            "hints": [
+              "`grid-template-columns: repeat(3, 1fr)` par défaut",
+              "`@media (max-width: 768px) { grid-template-columns: 1fr; }`",
+              "Pour 2 colonnes sur tablette, ajoute un breakpoint à 1024px"
+            ],
+            "html": "<body style=\"padding:20px;background:#f0f0f0\"><div class=\"grid\"><div style=\"background:white;padding:20px;border-radius:8px;text-align:center\">Carte 1</div><div style=\"background:white;padding:20px;border-radius:8px;text-align:center\">Carte 2</div><div style=\"background:white;padding:20px;border-radius:8px;text-align:center\">Carte 3</div></div></body>",
+            "targetCSS": ".grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; } @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }",
+            "starterCSS": ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 20px;\n}\n@media (max-width: 768px) {\n  .grid {\n    \n  }\n}"
+          },
+          {
+            "id": "10-1-4",
+            "objective": "CHALLENGE : Navigation full responsive — flex horizontal sur desktop, colonne sur mobile.",
+            "xp": 100,
+            "hints": [
+              "Desktop : `.nav { display: flex; justify-content: space-between; align-items: center; }`",
+              "Mobile : `flex-direction: column; align-items: flex-start; gap: 8px`",
+              "`.nav-links` : `display: flex` sur desktop, `flex-direction: column` sur mobile"
+            ],
+            "html": "<body style=\"margin:0\"><nav class=\"nav\" style=\"background:#1a1a2e;padding:16px 24px\"><div style=\"color:#00ff88;font-weight:900;font-size:20px\">⚡ Brand</div><div class=\"nav-links\"><a style=\"color:white;text-decoration:none;padding:8px 16px;display:block\" href=\"#\">Home</a><a style=\"color:white;text-decoration:none;padding:8px 16px;display:block\" href=\"#\">About</a><a style=\"color:white;text-decoration:none;padding:8px 16px;display:block\" href=\"#\">Contact</a></div></nav></body>",
+            "targetCSS": ".nav { display: flex; justify-content: space-between; align-items: center; } .nav-links { display: flex; } @media (max-width: 768px) { .nav { flex-direction: column; align-items: flex-start; gap: 8px; } .nav-links { flex-direction: column; width: 100%; } }",
+            "starterCSS": ".nav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.nav-links {\n  display: flex;\n}\n@media (max-width: 768px) {\n  .nav {\n    \n  }\n  .nav-links {\n    \n  }\n}"
+          }
+        ]
+      }
+    ]
+  }
+]

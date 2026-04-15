@@ -1,0 +1,123 @@
+// --- VARIABLES ---
+$c-bg-nav: #ffffff;
+$c-text-main: #1e293b;
+$c-accent: #1cb0f6;
+$h-navbar: 72px;
+
+// --- MAIN CONTAINER ---
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $h-navbar;
+  z-index: 1000;
+  
+  // Layout global : Gauche - Centre - Droite
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  
+  background: $c-bg-nav;
+  border-bottom: 2px solid #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+
+  // --- 1. GAUCHE (LOGO) ---
+  .navbar-left {
+    flex: 0 0 auto;
+    .navbar-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: $c-accent;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      .logo-dot { color: $c-text-main; }
+    }
+  }
+
+  // --- 2. CENTRE (FUSION : LES TABS) ---
+  .navbar-center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+    
+    // Le conteneur "Pillule"
+    .nav-tabs {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem;
+      
+      // Les liens individuels
+      .tab-link {
+        color: $c-text-main;
+        opacity: 0.6;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 600;
+        padding: 0.45rem 1rem;
+        border-radius: 8px;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+
+        &.tab-link--highlight {
+          color: $c-accent;
+          opacity: 1;
+          font-weight: 700;
+        }
+
+        &:hover {
+          opacity: 1;
+          background-color: #f0f4f9;
+        }
+
+        &.active {
+          opacity: 1;
+          color: $c-accent;
+          background: #e8f7fe;
+        }
+      }
+    }
+  }
+
+  // --- 3. DROITE (CTA + MOBILE) ---
+  .navbar-right {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+
+    // Burger Menu (Caché sur Desktop)
+    .mobile-menu-btn {
+      display: none; 
+      background: none;
+      border: none;
+      color: $c-text-main;
+      cursor: pointer;
+    }
+  }
+}
+
+// --- RESPONSIVE (TABLETTE & MOBILE) ---
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 1rem;
+    
+    .navbar-center {
+      display: none; 
+    }
+
+    .navbar-right .mobile-menu-btn {
+      display: block;
+    }
+    
+    // Optionnel : Cacher le bouton CTA sur très petits écrans si besoin
+    // .navbar-right .btn-cta { display: none; }
+  }
+}

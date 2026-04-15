@@ -1,0 +1,65 @@
+.btn-simple {
+  /* Variables */
+  --btn-bg: #1CB0F6;
+  --btn-color: white;
+  --btn-shadow: #1899D6;
+  --btn-size: 1rem;
+
+  font-size: var(--btn-size);
+  background: var(--btn-bg);
+  color: var(--btn-color);
+  font-weight: bold;
+  
+  /* Layout adaptatif (em) */
+  padding: 0.625em 1.25em;
+  border-radius: 0.625em;
+  border: none;
+  cursor: pointer;
+  
+  box-shadow: 0 0.25em 0 var(--btn-shadow);
+  transition: transform 0.1s, box-shadow 0.1s;
+
+  /* Etat survolé */
+  &:hover {
+    filter: brightness(110%);
+    // transform: translateY(-0.05em);
+    // box-shadow: 0 0.3em 0 var(--btn-shadow);
+  }
+
+  /* Etat actif */
+  &:active {
+    transform: translateY(0.25em);
+    box-shadow: 0 0 0 var(--btn-shadow);
+  }
+}
+
+/* Tailles */
+.btn-sm {
+  --btn-size: 0.8rem;
+}
+
+.btn-md {
+  --btn-size: 1.25rem;
+}
+
+.btn-lg {
+  --btn-size: 1.5rem;
+}
+
+
+/* Couleurs */
+.btn-red {
+  --btn-bg: #ff4b4b;
+  --btn-shadow: #d43f3f;
+}
+
+.btn-green {
+  --btn-bg: #58cc02;
+  --btn-shadow: #46a302;
+}
+
+.btn-white {
+  --btn-color: #000000;
+  --btn-bg: #ffffff;
+  --btn-shadow: #cccccc;
+}

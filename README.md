@@ -1,6 +1,6 @@
 # 🎨 StyleQuest
 
-Application desktop moderne construite avec **Tauri**, **Elysia** et **Bun**.
+Application desktop moderne construite avec **Tauri**, **Vite**, **Vue 3**, **Elysia** et **Bun**.
 
 ## 📋 Prérequis
 
@@ -13,10 +13,17 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ```
 StyleQuest/
-├── public/              # Fichiers statiques servis par Elysia
-│   ├── index.html      # Interface utilisateur
-│   ├── styles.css      # Styles CSS
-│   └── script.js       # Logique JavaScript (confettis)
+├── src/                 # Frontend (Vite)
+│   ├── main.ts         # Bootstrap Vue (app + router + pinia)
+│   ├── styles/         # Point d'entrée styles (agrège CSS/SCSS)
+│   ├── router/         # Vue Router
+│   ├── pages/          # Pages Vue (SPA)
+│   ├── components/     # Composants Vue
+│   ├── stores/         # Stores Pinia
+│   └── public/
+│       ├── pages/      # Root Vite (index.html)
+│       ├── components/ # Composants UI (SCSS)
+│       └── styles/     # Styles globaux
 ├── server/              # Backend Elysia
 │   └── index.ts        # Serveur API HTTP
 ├── src-tauri/           # Application Tauri (Rust)
@@ -28,6 +35,11 @@ StyleQuest/
 ├── package.json         # Dépendances Node/Bun
 └── tsconfig.json        # Configuration TypeScript
 ```
+
+Notes:
+- Vite est configuré avec `root: src/public/pages` (voir vite.config.ts).
+- Le serveur Elysia expose une route `GET /health` et écoute par défaut sur `3000`.
+- Le frontend est une SPA Vue : les routes sont gérées côté client via Vue Router.
 
 ## 🚀 Installation
 
@@ -74,7 +86,7 @@ L'exécutable sera généré dans `src-tauri/target/release/`
 
 ## 🛠️ Stack Technique
 
-- **Frontend** : HTML5, CSS3, JavaScript (ES6+)
+- **Frontend** : Vue 3 + TypeScript + Vue Router + Pinia (Vite)
 - **Backend** : Elysia (framework web ultra-rapide pour Bun)
 - **Desktop** : Tauri (alternative légère à Electron)
 - **Runtime** : Bun (remplace Node.js)
@@ -85,6 +97,9 @@ L'exécutable sera généré dans `src-tauri/target/release/`
 - `elysia` - Framework web minimaliste et performant
 - `@tauri-apps/api` - API Tauri pour JavaScript
 - `@tauri-apps/cli` - CLI Tauri
+- `vue` - Framework UI
+- `vue-router` - Routing SPA (hash history pour Tauri)
+- `pinia` - State management
 
 ## 📝 Scripts Disponibles
 

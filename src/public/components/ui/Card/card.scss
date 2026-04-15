@@ -1,0 +1,48 @@
+.card {
+  /* Variables */
+  --card-bg: #ffffff;
+  --card-color: #3c3c3c;
+  --card-shadow: #e5e5e5;
+  --card-border: #e5e5e5;
+  --card-padding: 1.25rem;
+  --card-radius: 1rem;
+
+  background-color: var(--card-bg);
+  color: var(--card-color);
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+  border: 2px solid var(--card-border);
+  box-shadow: 0 0.25rem 0 var(--card-shadow);
+  
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Tailles */
+.card-sm {
+  --card-padding: 0.75rem;
+  --card-radius: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.card-md {
+  --card-padding: 1rem;
+  --card-radius: 1rem;
+  font-size: 1rem;
+}
+
+.card-lg {
+  --card-padding: 1.5rem;
+  --card-radius: 1.25rem;
+  font-size: 1.1rem;
+}
+
+/* Variantes de couleurs (Optionnel, pour matcher le style) */
+.card-blue {
+  --card-bg: #1CB0F6;
+  --card-color: white;
+  --card-border: #1899D6;
+  --card-shadow: #1899D6;
+}
+

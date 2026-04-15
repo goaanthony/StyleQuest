@@ -1,22 +1,10 @@
-import './public/styles/global.css';
-import './public/styles/buttons.scss';
+import "./styles/index";
 
-// Système de navigation global
-document.addEventListener('click', (e) => {
-  const target = e.target as HTMLElement;
-  
-  // Vérifie si l'élément cliqué (ou un de ses parents) a l'attribut 'data-href'
-  const elementWithHref = target.closest('[data-href]');
-  
-  if (elementWithHref) {
-    const url = elementWithHref.getAttribute('data-href');
-    if (url) {
-      window.location.href = url;
-    }
-  }
-});
+import { createApp } from "vue";
+import { createPinia } from "pinia";
 
-// Votre code spécifique aux pages peut aller ici si besoin
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("Application chargée");
-});
+import App from "./App.vue";
+import { router } from "./router";
+
+createApp(App).use(createPinia()).use(router).mount("#app")
+
