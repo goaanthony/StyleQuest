@@ -1,5 +1,5 @@
 import './public/styles/global.css';
-import './public/styles/buttons.css';
+import './public/styles/buttons.scss';
 
 // Système de navigation global
 document.addEventListener('click', (e) => {
