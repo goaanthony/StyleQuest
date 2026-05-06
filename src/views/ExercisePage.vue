@@ -287,7 +287,7 @@
 
 <script setup lang="ts">
 import { ref, computed, nextTick } from 'vue'
-import cssData from '../../cssModules.json'
+import cssData from '../data/cssModules.json'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 

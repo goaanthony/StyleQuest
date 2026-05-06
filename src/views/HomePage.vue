@@ -1,33 +1,6 @@
 <template>
   <div class="home">
 
-    <!-- ── User Profile ── -->
-    <section class="user-section">
-      <div class="user-card">
-        <div class="user-header">
-          <span class="user-pseudo">{{ userStore.pseudo }}</span>
-          <span class="user-level">Niveau {{ userStore.currentLevel }}</span>
-        </div>
-        <div class="user-stats">
-          <div class="user-stat">
-            <span class="user-stat-label">XP</span>
-            <span class="user-stat-value">{{ userStore.totalXP }}</span>
-          </div>
-          <div class="user-stat">
-            <span class="user-stat-label">Streak</span>
-            <span class="user-stat-value">{{ userStore.currentStreak }}🔥</span>
-          </div>
-          <div class="user-stat">
-            <span class="user-stat-label">Meilleur</span>
-            <span class="user-stat-value">{{ userStore.longestStreak }}🏆</span>
-          </div>
-        </div>
-        <div class="user-xp-bar">
-          <div class="xp-bar-fill" :style="{ width: `${((userStore.totalXP % 100) / 100) * 100}%` }"></div>
-        </div>
-        <span class="xp-text">{{ userStore.totalXP % 100 }}/100 XP vers le prochain niveau</span>
-      </div>
-    </section>
     <section class="hero">
       <div class="hero-badge">🎮 Apprends le CSS en t'amusant</div>
       <h1 class="hero-title">
@@ -84,15 +57,9 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import cssData from '../../cssModules.json'
-import { useUserStore } from '@/stores/useUserStore'
-import { useLeaderboardStore } from '@/stores/useLeaderboardStore'
+import cssData from '../data/cssModules.json'
 
 type Module = typeof cssData[number]
-
-const userStore = useUserStore()
-const leaderboardStore = useLeaderboardStore()
 
 const modules = cssData
 const totalModules = cssData.length
@@ -112,11 +79,6 @@ function countExercises(mod: Module): number {
 function countXP(mod: Module): number {
   return mod.notions.reduce((a, n) => a + n.exercises.reduce((b, e) => b + e.xp, 0), 0)
 }
-
-// Charger le leaderboard au montage
-onMounted(() => {
-  leaderboardStore.fetchLeaderboard()
-})
 </script>
 
 <style scoped>
@@ -288,88 +250,5 @@ onMounted(() => {
 .module-cta:hover {
   background: #1cb0f6;
   color: white;
-}
-
-/* User Section */
-.user-section {
-  margin-top: 1rem;
-}
-
-.user-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 16px;
-  padding: 1.5rem;
-  color: white;
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
-}
-
-.user-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.25rem;
-}
-
-.user-pseudo {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-
-.user-level {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.4rem 0.8rem;
-  border-radius: 12px;
-  font-size: 0.875rem;
-  font-weight: 700;
-}
-
-.user-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-
-.user-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: center;
-}
-
-.user-stat-label {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.user-stat-value {
-  font-size: 1.5rem;
-  font-weight: 900;
-}
-
-.user-xp-bar {
-  width: 100%;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 0.5rem;
-}
-
-.xp-bar-fill {
-  height: 100%;
-  background: #ffd700;
-  transition: width 0.3s ease;
-}
-
-.xp-text {
-  font-size: 0.75rem;
-  opacity: 0.9;
-  display: block;
-  text-align: center;
 }
 </style>

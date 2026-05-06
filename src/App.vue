@@ -9,23 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import Navbar from "@/components/layout/Navbar.vue";
-import { useUserStore } from "@/stores/useUserStore";
-import { useSyncManager } from "@/composables/useSyncManager";
-
-const userStore = useUserStore();
-const { setupSync } = useSyncManager();
-
-onMounted(() => {
-  // Initialiser les données utilisateur
-  userStore.loadFromPersistence();
-  
-  // Commencer la synchronisation automatique (tous les 30s)
-  setupSync(30000);
-  
-  console.log(`👤 Bienvenue, ${userStore.pseudo}!`);
-});
+import Navbar from "@/views/Navbar.vue";
 </script>
 
 <style scoped>

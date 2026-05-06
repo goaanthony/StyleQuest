@@ -1,5 +1,5 @@
-import "../public/styles/global.css";
+import "./global.css";
 
-import "../public/components/layout/Navbar/navbar.scss";
-import "../public/components/ui/Button/button.scss";
-import "../public/components/ui/Card/card.scss";
+import "./components/layout/navbar.scss";
+import "./components/ui/button.scss";
+import "./components/ui/card.scss";

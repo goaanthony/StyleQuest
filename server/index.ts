@@ -1,7 +1,7 @@
 import { Elysia, t } from "elysia";
 import { staticPlugin } from "@elysiajs/static";
 import { join } from "path";
-import cssModules from "../cssModules.json";
+import cssModules from "../src/data/cssModules.json";
 
 const port = Number(process.env.PORT ?? 3000);
 

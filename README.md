@@ -13,17 +13,14 @@ Avant de commencer, assurez-vous d'avoir installé :
 
 ```
 StyleQuest/
+├── index.html         # Point d'entree Vite
 ├── src/                 # Frontend (Vite)
 │   ├── main.ts         # Bootstrap Vue (app + router + pinia)
-│   ├── styles/         # Point d'entrée styles (agrège CSS/SCSS)
+│   ├── data/           # Donnees (exercices)
+│   ├── styles/         # Styles globaux + UI (CSS/SCSS)
 │   ├── router/         # Vue Router
-│   ├── pages/          # Pages Vue (SPA)
-│   ├── components/     # Composants Vue
-│   ├── stores/         # Stores Pinia
-│   └── public/
-│       ├── pages/      # Root Vite (index.html)
-│       ├── components/ # Composants UI (SCSS)
-│       └── styles/     # Styles globaux
+│   ├── views/          # Pages + composants Vue
+│   └── state/          # Stores + logique partagee
 ├── server/              # Backend Elysia
 │   └── index.ts        # Serveur API HTTP
 ├── src-tauri/           # Application Tauri (Rust)
@@ -37,7 +34,7 @@ StyleQuest/
 ```
 
 Notes:
-- Vite est configuré avec `root: src/public/pages` (voir vite.config.ts).
+- Le point d'entree Vite est `index.html` a la racine du projet.
 - Le serveur Elysia expose une route `GET /health` et écoute par défaut sur `3000`.
 - Le frontend est une SPA Vue : les routes sont gérées côté client via Vue Router.
 
