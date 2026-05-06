@@ -1,72 +1,28 @@
 <template>
   <section class="exercise-page">
 
-    <!-- ── HEADER (progress + lives + XP) ──────────────────────────────────── -->
-    <div class="ex-header">
-      <RouterLink to="/" class="ex-close" title="Quitter l'exercice">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <line x1="18" y1="6"  x2="6"  y2="18"/>
-          <line x1="6"  y1="6"  x2="18" y2="18"/>
-        </svg>
-      </RouterLink>
-
-      <div class="ex-progress-track"
-        role="progressbar"
-        :aria-valuenow="progressPercent"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-label="Progression">
-        <div class="ex-progress-fill" :style="{ width: progressPercent + '%' }"/>
-      </div>
-
-      <div class="ex-lives" aria-label="Vies restantes">
-        <span
-          v-for="i in MAX_LIVES" :key="i"
-          class="heart" :class="{ 'heart--lost': i > livesLeft }"
-          aria-hidden="true">❤</span>
-      </div>
-
-      <div class="ex-xp" aria-label="XP gagnés">
-        <span class="xp-icon">⚡</span>
-        <span class="xp-value">{{ totalXP }}</span>
+    <div v-if="showLesson && !completed" class="lesson-screen">
+      <div class="lesson-card">
+        <div class="lesson-header">
+          <span class="lesson-module-tag">{{ currentExercise.moduleIcon }} {{ currentExercise.moduleTitle }}</span>
+          <div class="lesson-tag">📚 Cours</div>
+          <h2 class="lesson-title">{{ currentExercise.notionTitle }}</h2>
+        </div>
+        <div class="lesson-body">
+          <p class="lesson-text" v-html="markup(currentExercise.notionExplanation)"/>
+          <pre v-if="currentExercise.notionExample" class="lesson-code"><code>{{ currentExercise.notionExample }}</code></pre>
+        </div>
+        <button class="btn-start-exercise" @click="startExercise">
+          Commencer les exercices →
+        </button>
       </div>
     </div>
 
-    <!-- ── EXERCISE CARD ───────────────────────────────────────────────────── -->
-    <div v-if="!completed" class="ex-content">
-      <div class="ex-card">
+    <template v-else-if="!completed">
 
-        <!-- Theory collapsible ── -->
-        <div class="ex-theory" :class="{ 'ex-theory--open': showTheory }">
-          <button class="theory-toggle" @click="showTheory = !showTheory">
-            <span class="theory-toggle-left">
-              <span class="theory-dot"/>
-              <span class="theory-tag">📚 Cours</span>
-              <strong class="theory-notion-name">{{ currentExercise.notionTitle }}</strong>
-            </span>
-            <span class="theory-chevron" :class="{ open: showTheory }">▾</span>
-          </button>
-          <Transition name="expand">
-            <div v-if="showTheory" class="theory-body">
-              <p class="theory-text" v-html="markup(currentExercise.notionExplanation)"/>
-              <pre v-if="currentExercise.notionExample" class="theory-code"><code>{{ currentExercise.notionExample }}</code></pre>
-            </div>
-          </Transition>
-        </div>
-
-        <!-- Meta: breadcrumb + dots + badges + title ── -->
-        <div class="ex-meta">
-          <div class="ex-top-row">
-            <div class="ex-breadcrumb">
-              <span class="breadcrumb-module">{{ currentExercise.moduleIcon }} {{ currentExercise.moduleTitle }}</span>
-              <span class="breadcrumb-sep">›</span>
-              <span class="breadcrumb-notion">{{ currentExercise.notionTitle }}</span>
-            </div>
-            <span class="ex-counter">{{ currentIndex + 1 }}&thinsp;/&thinsp;{{ exercises.length }}</span>
-          </div>
-
-          <!-- Notion exercise dots -->
+      <div class="ex-subbar">
+        <div class="ex-subbar-left">
+          <span class="ex-subbar-name">{{ currentExercise.notionTitle }}</span>
           <div class="notion-dots" role="group" aria-label="Exercices dans cette notion">
             <button
               v-for="(ex, i) in notionExercises"
@@ -82,35 +38,49 @@
               :title="`Ex ${i + 1}`"
             />
           </div>
-
-          <div class="ex-badge-row">
-            <span class="badge-css">CSS</span>
-            <span v-if="isChallenge(currentExercise)" class="badge-challenge">⚡ Challenge</span>
-            <span class="badge-xp">+{{ currentExercise.xp }} XP</span>
-          </div>
-          <h2 class="ex-title" v-html="markup(currentExercise.objective)"/>
         </div>
+        <div class="ex-subbar-right">
+          <div class="ex-progress-track"
+            role="progressbar"
+            :aria-valuenow="progressPercent"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-label="Progression">
+            <div class="ex-progress-fill" :style="{ width: progressPercent + '%' }"/>
+          </div>
+          <span class="ex-counter">{{ currentIndex + 1 }}&thinsp;/&thinsp;{{ exercises.length }}</span>
+        </div>
+      </div>
 
-        <!-- Workspace: Target | Editor | Live preview ── -->
+      <div class="ex-objective-banner">
+        <div class="ex-badge-row">
+          <span class="badge-css">CSS</span>
+          <span v-if="isChallenge(currentExercise)" class="badge-challenge">⚡ Challenge</span>
+          <span class="badge-xp">+{{ currentExercise.xp }} XP</span>
+        </div>
+        <h2 class="ex-title" v-html="markup(currentExercise.objective)"/>
+      </div>
+
+      <div class="ex-workspace-wrap">
         <div class="ex-workspace">
 
-          <!-- Pane 1 – Objectif -->
-          <div class="ex-pane">
+          <div class="ex-pane ex-pane--target">
             <div class="pane-header">
               <span class="pane-dot" style="background:#1cb0f6"/>
               🎯 Objectif
             </div>
             <div class="pane-body pane--preview">
-              <iframe
-                class="preview-iframe"
-                :srcdoc="targetSrcdoc"
-                sandbox="allow-same-origin"
-                title="Aperçu cible"
-              />
+              <iframe class="preview-iframe" :srcdoc="targetSrcdoc" sandbox="allow-same-origin" title="Aperçu cible"/>
+            </div>
+            <div class="pane-overlay pane-overlay--bottom">
+              <button class="btn-hint-toggle" @click="toggleHint">
+                <span class="btn-hint-icon">💡</span>
+                {{ showHint ? 'Cacher' : 'Indice' }}
+                <span class="hint-count-badge">{{ currentExercise.hints.length }}</span>
+              </button>
             </div>
           </div>
 
-          <!-- Pane 2 – Code editor -->
           <div class="ex-pane ex-pane--editor">
             <div class="pane-header">
               <span class="pane-dot" style="background:#a855f7"/>
@@ -118,56 +88,49 @@
               <button class="reset-btn" @click="resetCode" title="Réinitialiser le code">↺</button>
             </div>
             <div class="pane-body pane--code">
-              <div class="editor-wrapper">
-                <div class="line-nums" ref="lineNumsRef" aria-hidden="true">
-                  <div v-for="n in lineCount" :key="n" class="line-num">{{ n }}</div>
-                </div>
-                <textarea
-                  ref="editorRef"
-                  v-model="userCSS"
-                  @input="onInput"
-                  @keydown.ctrl.enter.prevent="checkAnswer"
-                  @keydown.meta.enter.prevent="checkAnswer"
-                  @keydown.tab.prevent="insertTab"
-                  @scroll="onEditorScroll"
-                  class="css-textarea"
-                  spellcheck="false"
-                  autocomplete="off"
-                  autocorrect="off"
-                  autocapitalize="off"
-                />
-              </div>
+              <div ref="monacoContainerRef" class="monaco-container"/>
             </div>
             <div class="editor-footer">
-              <span class="kbd-hint"><kbd>Tab</kbd> = 2 espaces &nbsp;·&nbsp; <kbd>Ctrl</kbd>+<kbd>↵</kbd> vérifier</span>
-              <span class="line-count-badge">{{ lineCount }} lignes</span>
+              <span class="kbd-hint"><kbd>Ctrl</kbd>+<kbd>↵</kbd> pour vérifier</span>
             </div>
           </div>
 
-          <!-- Pane 3 – Aperçu en direct -->
-          <div class="ex-pane">
+          <div class="ex-pane ex-pane--result">
             <div class="pane-header">
               <span class="pane-dot" style="background:#58cc02"/>
               👁️ Aperçu live
             </div>
             <div class="pane-body pane--preview">
-              <iframe
-                class="preview-iframe"
-                :srcdoc="livePreviewSrcdoc"
-                sandbox="allow-same-origin"
-                title="Aperçu en direct"
-              />
+              <iframe class="preview-iframe" :srcdoc="livePreviewSrcdoc" sandbox="allow-same-origin" title="Aperçu en direct"/>
+            </div>
+            <div class="pane-overlay pane-overlay--bottom">
+              <button
+                class="btn-verify"
+                @click="checkAnswer"
+                :disabled="!userCSS.trim() || checking"
+                :class="{ 'btn-verify--loading': checking }">
+                <span v-if="checking" class="btn-dots"><span/><span/><span/></span>
+                <span v-else>Vérifier ✓</span>
+              </button>
             </div>
           </div>
 
         </div>
 
-        <!-- Hints ── -->
-        <Transition name="slide-down">
-          <div v-if="showHint" class="ex-hints" role="note" aria-live="polite">
+        <Transition name="xp-pop">
+          <div v-if="showXPGain" class="xp-float" aria-hidden="true">
+            +{{ lastXPGain }} XP ⚡
+          </div>
+        </Transition>
+      </div>
+
+      <Transition name="toast">
+        <div v-if="showHint" class="toast toast--hint" role="note" aria-live="polite">
+          <div class="toast-inner">
             <div class="hints-header">
               <span class="hints-title">💡 Indices</span>
               <span class="hints-progress">{{ hintIndex + 1 }}/{{ currentExercise.hints.length }}</span>
+              <button class="toast-close" @click="toggleHint" aria-label="Fermer">✕</button>
             </div>
             <div class="hint-list">
               <div v-for="(hint, i) in visibleHints" :key="i" class="hint-item">
@@ -175,46 +138,19 @@
                 <span v-html="markup(hint)"/>
               </div>
             </div>
-            <button
-              v-if="hintIndex < currentExercise.hints.length - 1"
-              class="hint-next-btn"
-              @click="revealNextHint"
-            >
+            <button v-if="hintIndex < currentExercise.hints.length - 1" class="hint-next-btn" @click="revealNextHint">
               Indice suivant →
             </button>
           </div>
-        </Transition>
-
-        <!-- XP float animation ── -->
-        <Transition name="xp-pop">
-          <div v-if="showXPGain" class="xp-float" aria-hidden="true">
-            +{{ lastXPGain }} XP ⚡
-          </div>
-        </Transition>
-
-        <!-- Action buttons ── -->
-        <div class="ex-actions">
-          <button class="btn-hint-toggle" @click="toggleHint">
-            <span class="btn-hint-icon">💡</span>
-            {{ showHint ? 'Cacher' : 'Indice' }}
-            <span class="hint-count-badge">{{ currentExercise.hints.length }}</span>
-          </button>
-          <button
-            class="btn-verify"
-            @click="checkAnswer"
-            :disabled="!userCSS.trim() || checking"
-            :class="{ 'btn-verify--loading': checking }">
-            <span v-if="checking" class="btn-dots"><span/><span/><span/></span>
-            <span v-else>Vérifier ✓</span>
-          </button>
         </div>
+      </Transition>
 
-        <!-- Feedback banner ── -->
-        <Transition name="slide-up">
-          <div v-if="feedback"
-            class="ex-feedback"
-            :class="feedback.success ? 'ex-feedback--success' : 'ex-feedback--error'"
-            role="alert">
+      <Transition name="toast">
+        <div v-if="feedback"
+          class="toast"
+          :class="feedback.success ? 'toast--success' : 'toast--error'"
+          role="alert">
+          <div class="toast-inner">
             <div class="feedback-body">
               <span class="feedback-emoji">{{ feedback.success ? '🎉' : '🤔' }}</span>
               <div>
@@ -224,36 +160,24 @@
                 </ul>
               </div>
             </div>
-            <button v-if="feedback.success"
-              class="btn-continue"
-              @click="nextExercise">
-              Continuer →
-            </button>
-            <button v-else
-              class="btn-retry"
-              @click="feedback = null">
-              Réessayer
-            </button>
+            <div class="toast-actions">
+              <button v-if="feedback.success" class="btn-continue" @click="nextExercise">Continuer →</button>
+              <button v-else class="btn-retry" @click="feedback = null">Réessayer</button>
+            </div>
           </div>
-        </Transition>
+        </div>
+      </Transition>
 
-      </div>
-    </div>
+    </template>
 
-    <!-- ── COMPLETION SCREEN ────────────────────────────────────────────────── -->
     <div v-else class="ex-done">
       <div class="done-card">
         <div class="done-stars">
-          <span
-            v-for="s in 3" :key="s"
-            class="done-star"
-            :class="{ 'done-star--lit': s <= starRating }"
-            aria-hidden="true">★</span>
+          <span v-for="s in 3" :key="s" class="done-star" :class="{ 'done-star--lit': s <= starRating }" aria-hidden="true">★</span>
         </div>
         <div class="done-trophy">🏆</div>
         <h2 class="done-title">{{ doneTitle }}</h2>
         <p class="done-sub">{{ doneSub }}</p>
-
         <div class="done-stats">
           <div class="done-stat">
             <span class="done-val">{{ totalXP }}<small> XP</small></span>
@@ -274,7 +198,6 @@
             <span class="done-label">Indices</span>
           </div>
         </div>
-
         <div class="done-actions">
           <button class="btn-simple btn-md btn-green" @click="restart">Recommencer 🔄</button>
           <RouterLink class="btn-simple btn-md" to="/">Accueil</RouterLink>
@@ -286,10 +209,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from 'vue'
+import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
+import loader from '@monaco-editor/loader'
+import type * as Monaco from 'monaco-editor'
 import cssData from '../data/cssModules.json'
-
-// ─── Types ───────────────────────────────────────────────────────────────────
 
 interface FlatExercise {
   id: string
@@ -311,8 +234,6 @@ interface Feedback {
   message: string
   errors: string[]
 }
-
-// ─── Exercise data (loaded from cssModules.json) ──────────────────────────────
 
 const exercises: FlatExercise[] = []
 
@@ -337,38 +258,33 @@ for (const mod of cssData) {
   }
 }
 
-// ─── Constants ────────────────────────────────────────────────────────────────
-
 const MAX_LIVES = 3
 const API_URL = '/api/exercise/check'
 
-// ─── Reactive state ─────────────────────────────────────────────
+const currentIndex       = ref(0)
+const userCSS            = ref(exercises[0]?.starterCSS ?? '')
+const feedback           = ref<Feedback | null>(null)
+const showHint           = ref(false)
+const hintIndex          = ref(0)
+const livesLeft          = ref(MAX_LIVES)
+const totalXP            = ref(0)
+const completed          = ref(false)
+const checking           = ref(false)
+const showXPGain         = ref(false)
+const lastXPGain         = ref(0)
+const hintsUsed          = ref(0)
+const completedIds       = ref(new Set<string>())
+const showLesson         = ref(true)
+const seenNotions        = ref(new Set<string>())
+const monacoContainerRef = ref<HTMLDivElement | null>(null)
 
-const currentIndex  = ref(0)
-const userCSS       = ref(exercises[0]?.starterCSS ?? '')
-const feedback      = ref<Feedback | null>(null)
-const showHint      = ref(false)
-const hintIndex     = ref(0)
-const livesLeft     = ref(MAX_LIVES)
-const totalXP       = ref(0)
-const completed     = ref(false)
-const editorRef     = ref<HTMLTextAreaElement | null>(null)
-const lineNumsRef   = ref<HTMLDivElement | null>(null)
-const checking      = ref(false)
-const showTheory    = ref(false)
-const showXPGain    = ref(false)
-const lastXPGain    = ref(0)
-const hintsUsed     = ref(0)
-const completedIds  = ref(new Set<string>())
-
-// ─── Derived / computed ───────────────────────────────────────────────────────
+let monacoEditor: Monaco.editor.IStandaloneCodeEditor | null = null
+let monacoInitialized = false
 
 const currentExercise = computed(() => exercises[currentIndex.value])
 const progressPercent = computed(() => (currentIndex.value / exercises.length) * 100)
 const visibleHints    = computed(() => currentExercise.value.hints.slice(0, hintIndex.value + 1))
-const lineCount       = computed(() => (userCSS.value.match(/\n/g)?.length ?? 0) + 1)
 
-/** Exercises in the same notion as the current one (for dots nav) */
 const notionExercises = computed(() =>
   exercises.filter(e => e.notionTitle === currentExercise.value.notionTitle)
 )
@@ -391,8 +307,8 @@ const doneTitle = computed(() => {
 
 const doneSub = computed(() => {
   if (starRating.value === 3) return 'Aucune faute, aucun indice. Tu maîtrises le CSS !'
-  if (starRating.value === 2) return 'Très bonne performance ! Continue comme ça !'  
-  return 'Tu as terminé le parcours. Recommence pour t\'améliorer !'
+  if (starRating.value === 2) return 'Très bonne performance ! Continue comme ça !'
+  return "Tu as terminé le parcours. Recommence pour t'améliorer !"
 })
 
 function buildSrcdoc(html: string, css: string): string {
@@ -406,12 +322,14 @@ ${css}
 const targetSrcdoc      = computed(() => buildSrcdoc(currentExercise.value.html, currentExercise.value.targetCSS))
 const livePreviewSrcdoc = computed(() => buildSrcdoc(currentExercise.value.html, userCSS.value))
 
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-
 function markup(text: string): string {
   return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
     .replace(/`([^`]+)`/g, '<code>$1</code>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>')
 }
 
 function extractAllDeclarations(css: string): Record<string, string> {
@@ -436,7 +354,6 @@ function localCheck(): Feedback {
   const target = extractAllDeclarations(ex.targetCSS)
   const user   = extractAllDeclarations(userCSS.value)
   const errors: string[] = []
-
   for (const [prop, targetVal] of Object.entries(target)) {
     const userVal = user[prop]
     if (!userVal) {
@@ -445,13 +362,78 @@ function localCheck(): Feedback {
       errors.push(`« ${prop} » incorrect — attendu : « ${targetVal} »`)
     }
   }
-
   return errors.length === 0
-    ? { success: true,  message: '🎉 Parfait ! Beau travail !',       errors: [] }
+    ? { success: true,  message: '🎉 Parfait ! Beau travail !', errors: [] }
     : { success: false, message: 'Pas tout à fait… réessaie !', errors }
 }
 
-// ─── Actions ─────────────────────────────────────────────────────────────────
+async function initMonaco() {
+  if (!monacoContainerRef.value) return
+  const monaco = await loader.init()
+
+  monacoEditor = monaco.editor.create(monacoContainerRef.value, {
+    value: userCSS.value,
+    language: 'css',
+    theme: 'vs-dark',
+    fontSize: 13,
+    lineHeight: 22,
+    minimap: { enabled: false },
+    scrollBeyondLastLine: false,
+    automaticLayout: true,
+    tabSize: 2,
+    padding: { top: 12, bottom: 12 },
+    overviewRulerBorder: false,
+    overviewRulerLanes: 0,
+    folding: false,
+    glyphMargin: false,
+    lineDecorationsWidth: 0,
+    lineNumbersMinChars: 3,
+    renderLineHighlight: 'line',
+    scrollbar: { verticalScrollbarSize: 6, horizontalScrollbarSize: 6 },
+  })
+
+  monacoEditor.onDidChangeModelContent(() => {
+    userCSS.value  = monacoEditor!.getValue()
+    feedback.value = null
+  })
+
+  monacoEditor.addAction({
+    id: 'verify-answer',
+    label: 'Vérifier',
+    keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter],
+    run: () => checkAnswer(),
+  })
+}
+
+onMounted(() => {
+  document.documentElement.style.overflow = 'hidden'
+  document.body.style.overflow = 'hidden'
+})
+
+onUnmounted(() => {
+  monacoEditor?.dispose()
+  document.documentElement.style.overflow = ''
+  document.body.style.overflow = ''
+})
+
+function setEditorValue(value: string) {
+  userCSS.value = value
+  if (monacoEditor && monacoEditor.getValue() !== value) {
+    monacoEditor.setValue(value)
+  }
+}
+
+function startExercise() {
+  seenNotions.value.add(currentExercise.value.notionTitle)
+  showLesson.value = false
+  nextTick(async () => {
+    if (!monacoInitialized) {
+      await initMonaco()
+      monacoInitialized = true
+    }
+    monacoEditor?.focus()
+  })
+}
 
 async function checkAnswer() {
   if (!userCSS.value.trim() || checking.value) return
@@ -460,12 +442,9 @@ async function checkAnswer() {
 
   try {
     const res = await fetch(API_URL, {
-      method:  'POST',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        exerciseId: currentExercise.value.id,
-        userCSS: userCSS.value,
-      }),
+      body: JSON.stringify({ exerciseId: currentExercise.value.id, userCSS: userCSS.value }),
     })
     if (!res.ok) throw new Error('server error')
     result = await res.json() as Feedback
@@ -488,22 +467,25 @@ async function checkAnswer() {
 }
 
 function nextExercise() {
-  feedback.value   = null
-  showHint.value   = false
-  hintIndex.value  = 0
-  showTheory.value = false
+  feedback.value  = null
+  showHint.value  = false
+  hintIndex.value = 0
 
   if (currentIndex.value < exercises.length - 1) {
     currentIndex.value++
-    userCSS.value = currentExercise.value.starterCSS
+    if (!seenNotions.value.has(currentExercise.value.notionTitle)) {
+      monacoEditor?.dispose()
+      monacoEditor = null
+      monacoInitialized = false
+      userCSS.value = currentExercise.value.starterCSS
+      showLesson.value = true
+    } else {
+      setEditorValue(currentExercise.value.starterCSS)
+    }
   } else {
     completed.value = true
   }
-  nextTick(() => editorRef.value?.focus())
-}
-
-function onInput() {
-  feedback.value = null
+  nextTick(() => monacoEditor?.focus())
 }
 
 function toggleHint() {
@@ -525,24 +507,9 @@ function revealNextHint() {
 }
 
 function resetCode() {
-  userCSS.value  = currentExercise.value.starterCSS
+  setEditorValue(currentExercise.value.starterCSS)
   feedback.value = null
-  nextTick(() => editorRef.value?.focus())
-}
-
-function insertTab() {
-  const ta = editorRef.value
-  if (!ta) return
-  const start = ta.selectionStart
-  const end   = ta.selectionEnd
-  userCSS.value = userCSS.value.slice(0, start) + '  ' + userCSS.value.slice(end)
-  nextTick(() => { ta.selectionStart = ta.selectionEnd = start + 2 })
-}
-
-function onEditorScroll() {
-  if (lineNumsRef.value && editorRef.value) {
-    lineNumsRef.value.scrollTop = editorRef.value.scrollTop
-  }
+  nextTick(() => monacoEditor?.focus())
 }
 
 function jumpTo(id: string) {
@@ -550,14 +517,24 @@ function jumpTo(id: string) {
   if (idx === -1) return
   currentIndex.value = idx
   userCSS.value      = exercises[idx].starterCSS
-  feedback.value     = null
-  showHint.value     = false
-  hintIndex.value    = 0
-  showTheory.value   = false
-  nextTick(() => editorRef.value?.focus())
+  feedback.value  = null
+  showHint.value  = false
+  hintIndex.value = 0
+  if (!seenNotions.value.has(exercises[idx].notionTitle)) {
+    monacoEditor?.dispose()
+    monacoEditor = null
+    monacoInitialized = false
+    showLesson.value = true
+  } else {
+    setEditorValue(exercises[idx].starterCSS)
+    nextTick(() => monacoEditor?.focus())
+  }
 }
 
 function restart() {
+  monacoEditor?.dispose()
+  monacoEditor = null
+  monacoInitialized = false
   currentIndex.value = 0
   userCSS.value      = exercises[0]?.starterCSS ?? ''
   feedback.value     = null
@@ -568,64 +545,184 @@ function restart() {
   completed.value    = false
   hintsUsed.value    = 0
   completedIds.value = new Set()
-  nextTick(() => editorRef.value?.focus())
+  seenNotions.value  = new Set()
+  showLesson.value   = true
 }
 </script>
 
 <style scoped>
-/* ─────────────────────────────────────────────────────────────────
-   Page shell & CSS custom properties
-───────────────────────────────────────────────────────────────── */
 .exercise-page {
   --ex-blue:   #1cb0f6;
   --ex-green:  #58cc02;
   --ex-red:    #ff4b4b;
   --ex-card:   #ffffff;
-  --ex-text:   #3c3c3c;
+  --ex-text:   #1e293b;
   --ex-muted:  #64748b;
   --ex-border: #e2e8f0;
   --ex-code:   #1e1e2e;
   --ex-radius: 18px;
 
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0.5rem 0 5rem;
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+  padding: 0.5rem 1.25rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.lesson-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #f1f5f9;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.lesson-card {
+  background: var(--ex-card);
+  color: var(--ex-text);
+  border-radius: var(--ex-radius);
+  border: 2px solid #e0f2fe;
+  box-shadow: 0 4px 0 #bae6fd;
+  padding: 2.25rem 2.5rem;
+  max-width: 720px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   Header bar
-───────────────────────────────────────────────────────────────── */
-.ex-header {
+.lesson-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.lesson-module-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ex-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.lesson-tag {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  background: #bae6fd;
+  color: #0369a1;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.lesson-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0c4a6e;
+  line-height: 1.25;
+}
+
+.lesson-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lesson-text {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #0c4a6e;
+  line-height: 1.75;
+  :deep(code) {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.88em;
+  }
+  :deep(strong) { color: #0c4a6e; }
+}
+
+.lesson-code {
+  margin: 0;
+  background: var(--ex-code);
+  color: #cdd6f4;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  font-family: 'Roboto Mono', 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre;
+  code { font: inherit; }
+}
+
+.btn-start-exercise {
+  align-self: flex-end;
+  background: var(--ex-blue);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #0284c7;
+  transition: transform 0.1s, box-shadow 0.1s;
+  &:hover  { transform: translateY(-1px); box-shadow: 0 5px 0 #0284c7; }
+  &:active { transform: translateY(2px);  box-shadow: 0 2px 0 #0284c7; }
+}
+
+.ex-subbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.875rem;
+  background: #f1f5f9;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  flex-shrink: 0;
+}
+
+.ex-subbar-left {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.25rem 0;
+  min-width: 0;
 }
 
-.ex-close {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  color: rgba(255, 255, 255, 0.55);
-  text-decoration: none;
-  transition: background 0.15s, color 0.15s;
+.ex-subbar-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-  }
+.ex-subbar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .ex-progress-track {
-  flex: 1;
-  height: 14px;
-  background: rgba(255, 255, 255, 0.08);
+  width: 180px;
+  height: 12px;
+  background: #e2e8f0;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -635,62 +732,48 @@ function restart() {
   background: var(--ex-blue);
   border-radius: 999px;
   transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  box-shadow: 0 0 12px rgba(28, 176, 246, 0.45);
+  box-shadow: 0 0 10px rgba(28,176,246,0.45);
   min-width: 0;
 }
 
-.ex-lives {
-  display: flex;
-  gap: 4px;
-  flex-shrink: 0;
+.ex-counter {
+  color: #475569;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
-.heart {
-  font-size: 1.1rem;
-  line-height: 1;
-  transition: opacity 0.3s, transform 0.3s;
-}
-
-.heart--lost {
-  opacity: 0.2;
-  transform: scale(0.8);
-  filter: grayscale(1);
-}
-
-.ex-xp {
+.notion-dots {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.notion-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #cbd5e1;
+  border: 2px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  &:hover { transform: scale(1.3); }
+  &.notion-dot--current   { background: var(--ex-blue); border-color: #93c5fd; transform: scale(1.35); }
+  &.notion-dot--done      { background: var(--ex-green); }
+  &.notion-dot--challenge:not(.notion-dot--done) { background: #fde68a; border-color: #fbbf24; }
+  &.notion-dot--challenge.notion-dot--done       { background: #ffc800; }
+}
+
+.ex-objective-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  text-align: center;
+  padding: 0.5rem 1rem;
   flex-shrink: 0;
-  font-weight: 700;
-  font-size: 0.85rem;
-}
-
-.xp-icon  { font-size: 1rem; }
-.xp-value { color: #fbbf24; }
-
-/* ─────────────────────────────────────────────────────────────────
-   Exercise card
-───────────────────────────────────────────────────────────────── */
-.ex-content { display: contents; }
-
-.ex-card {
-  background: var(--ex-card);
-  color: var(--ex-text);
-  border-radius: var(--ex-radius);
-  border: 2px solid var(--ex-border);
-  box-shadow: 0 4px 0 #d1d5db;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-/* Meta ──────── */
-.ex-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 .ex-badge-row {
@@ -698,6 +781,7 @@ function restart() {
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .badge-css {
@@ -711,411 +795,6 @@ function restart() {
   border-radius: 999px;
 }
 
-.badge-beginner {
-  background: #fef3c7;
-  color: #92400e;
-  font-size: 0.63rem;
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-}
-
-.ex-counter {
-  color: var(--ex-muted);
-  font-size: 0.82rem;
-  font-weight: 600;
-  margin-left: auto;
-}
-
-.ex-title {
-  margin: 0;
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: #0f172a;
-  line-height: 1.3;
-}
-
-.ex-desc {
-  margin: 0;
-  color: #475569;
-  font-size: 0.95rem;
-  line-height: 1.65;
-
-  :deep(code) {
-    background: #f0f9ff;
-    padding: 0.1em 0.4em;
-    border-radius: 4px;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.88em;
-    color: var(--ex-blue);
-    border: 1px solid #bae6fd;
-  }
-
-  :deep(strong) { color: #0f172a; }
-}
-
-/* Workspace ──────── */
-.ex-workspace {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr 1fr;
-  gap: 0.875rem;
-  align-items: stretch;
-}
-
-@media (max-width: 700px) {
-  .ex-workspace { grid-template-columns: 1fr; }
-}
-
-.ex-pane {
-  border-radius: 12px;
-  border: 2px solid var(--ex-border);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.pane-header {
-  padding: 0.45rem 0.8rem;
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--ex-muted);
-  background: #f8fafc;
-  border-bottom: 2px solid var(--ex-border);
-  flex-shrink: 0;
-}
-
-.pane-body {
-  flex: 1;
-  display: flex;
-  align-items: stretch;
-  min-height: 160px;
-}
-
-.pane--target  { background: #f0f9ff; }
-.pane--preview { background: white; padding: 0; }
-
-.pane--code {
-  background: var(--ex-code);
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  padding: 0;
-}
-
-.css-textarea {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #cdd6f4;
-  font-family: 'Roboto Mono', 'Courier New', monospace;
-  font-size: 0.82rem;
-  line-height: 1.7;
-  padding: 0.9rem 0.9rem 0.9rem 0.5rem;
-  resize: none;
-  width: 100%;
-  caret-color: var(--ex-blue);
-
-  &::placeholder { color: #44475a; }
-  &:focus { background: rgba(255, 255, 255, 0.02); }
-}
-
-/* Hints ──────── */
-.ex-hints {
-  background: #fffbeb;
-  border: 2px solid #fde68a;
-  border-radius: 12px;
-  padding: 0.85rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
-
-/* Actions ──────── */
-.ex-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* Feedback banner ──────── */
-.ex-feedback {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem 1.25rem;
-  border-radius: 12px;
-  border: 2px solid;
-  flex-wrap: wrap;
-}
-
-.ex-feedback--success {
-  background: #f0fdf4;
-  border-color: #86efac;
-  color: #14532d;
-}
-
-.ex-feedback--error {
-  background: #fff1f2;
-  border-color: #fca5a5;
-  color: #7f1d1d;
-}
-
-.feedback-body {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.feedback-emoji { font-size: 1.4rem; line-height: 1.2; flex-shrink: 0; }
-.feedback-title { font-size: 1rem; font-weight: 700; display: block; }
-
-.feedback-errors {
-  margin: 0.4rem 0 0;
-  padding-left: 1.2rem;
-  font-size: 0.875rem;
-  line-height: 1.55;
-}
-
-.feedback-tip {
-  margin: 0.4rem 0 0;
-  font-size: 0.875rem;
-  opacity: 0.8;
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   Completion screen
-───────────────────────────────────────────────────────────────── */
-.ex-done {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 55vh;
-}
-
-.done-card {
-  background: white;
-  color: #1e293b;
-  border-radius: var(--ex-radius);
-  border: 2px solid #e2e8f0;
-  box-shadow: 0 4px 0 #d1d5db;
-  padding: 2.75rem 2.5rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  max-width: 440px;
-  width: 100%;
-}
-
-.done-trophy {
-  font-size: 4.5rem;
-  animation: pop-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-
-@keyframes pop-in {
-  0%   { transform: scale(0.4) rotate(-15deg); opacity: 0; }
-  100% { transform: scale(1) rotate(0); opacity: 1; }
-}
-
-.done-title { margin: 0; font-size: 1.8rem; font-weight: 800; color: #0f172a; }
-.done-sub   { margin: 0; color: #475569; font-size: 1rem; }
-
-.done-stats {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.done-stat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.done-val {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--ex-green);
-  line-height: 1.1;
-
-  small { font-size: 0.5em; font-weight: 600; opacity: 0.65; }
-}
-
-.done-label {
-  font-size: 0.7rem;
-  color: var(--ex-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 600;
-}
-
-.done-actions {
-  display: flex;
-  gap: 0.875rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   Vue transitions
-───────────────────────────────────────────────────────────────── */
-.slide-down-enter-active,
-.slide-down-leave-active { transition: all 0.22s ease; }
-.slide-down-enter-from,
-.slide-down-leave-to     { opacity: 0; transform: translateY(-6px); }
-
-.slide-up-enter-active,
-.slide-up-leave-active { transition: all 0.28s ease; }
-.slide-up-enter-from,
-.slide-up-leave-to     { opacity: 0; transform: translateY(8px); }
-
-/* ─────────────────────────────────────────────────────────────────
-   Theory panel
-───────────────────────────────────────────────────────────────── */
-.ex-theory {
-  border-radius: 12px;
-  border: 2px solid #e0f2fe;
-  background: #f0f9ff;
-  overflow: hidden;
-  transition: border-color 0.2s;
-  &.ex-theory--open { border-color: #1cb0f6; }
-}
-
-.theory-toggle {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.7rem 1rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.875rem;
-  color: #0369a1;
-  gap: 0.75rem;
-  text-align: left;
-  &:hover { background: rgba(28, 176, 246, 0.06); }
-}
-
-.theory-toggle-left { display: flex; align-items: center; gap: 0.5rem; }
-
-.theory-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: #1cb0f6;
-  flex-shrink: 0;
-}
-
-.theory-tag {
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  background: #bae6fd;
-  color: #0369a1;
-  padding: 0.15rem 0.5rem;
-  border-radius: 999px;
-}
-
-.theory-notion-name { font-weight: 700; color: #0369a1; font-size: 0.875rem; }
-
-.theory-chevron {
-  font-size: 1.1rem;
-  color: #1cb0f6;
-  transition: transform 0.25s ease;
-  flex-shrink: 0;
-  &.open { transform: rotate(180deg); }
-}
-
-.theory-body {
-  padding: 0 1rem 1rem;
-  border-top: 2px solid #e0f2fe;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.theory-text {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #0c4a6e;
-  line-height: 1.7;
-  :deep(code) {
-    background: #dbeafe;
-    color: #1e40af;
-    padding: 0.1em 0.35em;
-    border-radius: 4px;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 0.85em;
-  }
-  :deep(strong) { color: #0c4a6e; }
-}
-
-.theory-code {
-  margin: 0;
-  background: #1e1e2e;
-  color: #cdd6f4;
-  border-radius: 10px;
-  padding: 0.9rem 1rem;
-  font-family: 'Roboto Mono', 'Courier New', monospace;
-  font-size: 0.8rem;
-  line-height: 1.65;
-  overflow-x: auto;
-  white-space: pre;
-  code { font: inherit; }
-}
-
-/* expand transition */
-.expand-enter-active, .expand-leave-active { transition: max-height 0.3s ease, opacity 0.3s ease; overflow: hidden; }
-.expand-enter-from,  .expand-leave-to      { max-height: 0; opacity: 0; }
-.expand-enter-to,    .expand-leave-from    { max-height: 600px; opacity: 1; }
-
-/* ─────────────────────────────────────────────────────────────────
-   Updated Meta (ex-top-row + notion dots + badges)
-───────────────────────────────────────────────────────────────── */
-.ex-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.notion-dots {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  flex-wrap: wrap;
-}
-
-.notion-dot {
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: #cbd5e1;
-  border: 2px solid transparent;
-  padding: 0;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s, border-color 0.2s;
-  &:hover { transform: scale(1.3); }
-  &.notion-dot--current { background: #1cb0f6; border-color: #93c5fd; transform: scale(1.35); }
-  &.notion-dot--done    { background: #58cc02; }
-  &.notion-dot--challenge:not(.notion-dot--done) { background: #fde68a; border-color: #fbbf24; }
-  &.notion-dot--challenge.notion-dot--done       { background: #ffc800; }
-}
-
 .badge-challenge {
   background: linear-gradient(135deg, #fbbf24, #f59e0b);
   color: #78350f;
@@ -1127,21 +806,137 @@ function restart() {
   border-radius: 999px;
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   Preview iframe fill
-───────────────────────────────────────────────────────────────── */
+.badge-xp {
+  background: rgba(88,204,2,0.15);
+  color: #58cc02;
+  border: 1.5px solid rgba(88,204,2,0.3);
+  font-size: 0.63rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.ex-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.35;
+  :deep(code) {
+    background: #f0f9ff;
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.88em;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+  }
+  :deep(strong) { color: #0f172a; }
+}
+
+.ex-workspace-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  max-height: calc(100vh - 250px);
+  display: flex;
+  flex-direction: column;
+}
+
+.ex-workspace {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr 1fr;
+  gap: 0.875rem;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (max-width: 700px) {
+  .ex-workspace { grid-template-columns: 1fr; }
+}
+
+.ex-pane {
+  border-radius: 12px;
+  border: 2px solid var(--ex-border);
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+  position: relative;
+}
+
+.ex-pane--editor { border-color: #44475a; }
+
+.pane-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.pane-overlay--bottom { bottom: 0.9rem; }
+
+.pane-overlay > * { pointer-events: auto; }
+
+.pane-header {
+  padding: 0.45rem 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ex-muted);
+  background: #f8fafc;
+  border-bottom: 2px solid var(--ex-border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.pane-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pane-body {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pane--preview { background: white; padding: 0; }
+
+.pane--code {
+  background: var(--ex-code);
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+}
+
+.monaco-container {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+}
+
 .preview-iframe {
   width: 100%;
   height: 100%;
-  min-height: 160px;
   border: none;
   display: block;
 }
-
-/* ─────────────────────────────────────────────────────────────────
-   Editor upgrades
-───────────────────────────────────────────────────────────────── */
-.ex-pane--editor { border-color: #44475a; }
 
 .reset-btn {
   margin-left: auto;
@@ -1158,35 +953,9 @@ function restart() {
   &:hover { background: rgba(255,255,255,0.08); color: #e2e8f0; border-color: #94a3b8; }
 }
 
-.editor-wrapper {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-  min-height: 160px;
-}
-
-.line-nums {
-  display: flex;
-  flex-direction: column;
-  padding: 0.9rem 0.6rem 0.9rem 0.7rem;
-  background: rgba(0,0,0,0.2);
-  color: #4e5a72;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.8rem;
-  line-height: 1.7;
-  user-select: none;
-  overflow: hidden;
-  flex-shrink: 0;
-  text-align: right;
-  min-width: 2rem;
-}
-
-.line-num { line-height: 1.7; }
-
 .editor-footer {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0.3rem 0.75rem;
   background: rgba(0,0,0,0.25);
   border-top: 1px solid rgba(255,255,255,0.05);
@@ -1207,22 +976,114 @@ function restart() {
   }
 }
 
-.line-count-badge {
-  font-size: 0.63rem;
-  color: #3a4558;
-  font-family: 'Roboto Mono', monospace;
+.xp-float {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #58cc02, #3ea200);
+  color: white;
+  font-weight: 900;
+  font-size: 1.35rem;
+  padding: 0.45rem 1.35rem;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 20;
+  box-shadow: 0 4px 24px rgba(88,204,2,0.5);
+  white-space: nowrap;
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   Hints upgrades
-───────────────────────────────────────────────────────────────── */
+.xp-pop-enter-active { animation: xpFloat 1.8s ease forwards; }
+.xp-pop-leave-active { display: none; }
+
+@keyframes xpFloat {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(20px)  scale(0.7); }
+  20%  { opacity: 1; transform: translateX(-50%) translateY(0)      scale(1.1); }
+  70%  { opacity: 1; transform: translateX(-50%) translateY(-12px)  scale(1);   }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-45px)  scale(0.9); }
+}
+
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  width: min(560px, calc(100vw - 2rem));
+  pointer-events: auto;
+}
+
+.toast-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  border-radius: 14px;
+  border: 2px solid;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  backdrop-filter: blur(4px);
+}
+
+.toast--hint .toast-inner    { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+.toast--success .toast-inner { background: #f0fdf4; border-color: #86efac; color: #14532d; }
+.toast--error .toast-inner   { background: #fff1f2; border-color: #fca5a5; color: #7f1d1d; }
+
+.toast-actions { display: flex; justify-content: flex-end; }
+
+.toast-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #b45309;
+  opacity: 0.6;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  line-height: 1;
+  transition: opacity 0.15s;
+  &:hover { opacity: 1; }
+}
+
+.toast-enter-active { transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.toast-leave-active { transition: all 0.2s ease; }
+.toast-enter-from,
+.toast-leave-to     { opacity: 0; transform: translateX(-50%) translateY(20px); }
+
 .hints-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .hints-title    { font-size: 0.72rem; font-weight: 800; color: #92400e; text-transform: uppercase; letter-spacing: 0.06em; }
 .hints-progress { font-size: 0.72rem; color: #b45309; font-weight: 600; }
+
+.hint-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.hint-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.875rem;
+  color: #92400e;
+  line-height: 1.55;
+}
+
+.hint-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: #fbbf24;
+  color: #78350f;
+  font-size: 0.68rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
 
 .hint-next-btn {
   align-self: flex-start;
@@ -1238,39 +1099,6 @@ function restart() {
   &:hover { background: #fcd34d; }
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   XP float animation
-───────────────────────────────────────────────────────────────── */
-.xp-float {
-  position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(135deg, #58cc02, #3ea200);
-  color: white;
-  font-weight: 900;
-  font-size: 1.35rem;
-  padding: 0.45rem 1.35rem;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 20;
-  box-shadow: 0 4px 24px rgba(88, 204, 2, 0.5);
-  white-space: nowrap;
-}
-
-.xp-pop-enter-active { animation: xpFloat 1.8s ease forwards; }
-.xp-pop-leave-active { display: none; }
-
-@keyframes xpFloat {
-  0%   { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.7); }
-  20%  { opacity: 1; transform: translateX(-50%) translateY(0)    scale(1.1); }
-  70%  { opacity: 1; transform: translateX(-50%) translateY(-12px) scale(1); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-45px) scale(0.9); }
-}
-
-/* ─────────────────────────────────────────────────────────────────
-   New action buttons
-───────────────────────────────────────────────────────────────── */
 .btn-hint-toggle {
   display: flex;
   align-items: center;
@@ -1283,11 +1111,12 @@ function restart() {
   padding: 0.55rem 1rem;
   border-radius: 12px;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-  &:hover { border-color: #fbbf24; color: #92400e; background: #fffbeb; }
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.1s;
+  &:hover { border-color: #fbbf24; color: #92400e; background: #fffbeb; transform: translateY(-1px); }
 }
 
-.btn-hint-icon  { font-size: 1rem; }
+.btn-hint-icon { font-size: 1rem; }
 
 .hint-count-badge {
   background: #f1f5f9;
@@ -1308,9 +1137,9 @@ function restart() {
   font-weight: 800;
   padding: 0.65rem 1.75rem;
   cursor: pointer;
-  box-shadow: 0 4px 0 #3ea200;
+  box-shadow: 0 4px 0 #3ea200, 0 3px 12px rgba(88,204,2,0.35);
   transition: transform 0.1s, box-shadow 0.1s, opacity 0.2s;
-  &:hover:not(:disabled)  { transform: translateY(-1px); box-shadow: 0 5px 0 #3ea200; }
+  &:hover:not(:disabled)  { transform: translateY(-1px); box-shadow: 0 5px 0 #3ea200, 0 4px 14px rgba(88,204,2,0.4); }
   &:active:not(:disabled) { transform: translateY(2px);  box-shadow: 0 2px 0 #3ea200; }
   &:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 }
@@ -1334,6 +1163,24 @@ function restart() {
 @keyframes blink {
   0%, 80%, 100% { opacity: 0.3; }
   40%           { opacity: 1; }
+}
+
+.feedback-body {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.feedback-emoji { font-size: 1.4rem; line-height: 1.2; flex-shrink: 0; }
+.feedback-title { font-size: 1rem; font-weight: 700; display: block; }
+
+.feedback-errors {
+  margin: 0.4rem 0 0;
+  padding-left: 1.2rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
 }
 
 .btn-continue {
@@ -1366,22 +1213,70 @@ function restart() {
   &:hover { transform: translateY(-1px); }
 }
 
-/* ─────────────────────────────────────────────────────────────────
-   Upgraded completion screen
-───────────────────────────────────────────────────────────────── */
-.done-stars {
+.ex-done {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: -0.5rem;
+  align-items: center;
+  justify-content: center;
+  min-height: 55vh;
 }
+
+.done-card {
+  background: white;
+  color: #1e293b;
+  border-radius: var(--ex-radius);
+  border: 2px solid #e2e8f0;
+  box-shadow: 0 4px 0 #d1d5db;
+  padding: 2.75rem 2.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 440px;
+  width: 100%;
+}
+
+.done-stars { display: flex; gap: 0.5rem; margin-bottom: -0.5rem; }
 
 .done-star {
   font-size: 2.5rem;
   color: #e2e8f0;
   transition: color 0.4s, text-shadow 0.4s;
-  &.done-star--lit {
-    color: #ffc800;
-    text-shadow: 0 0 20px rgba(255, 200, 0, 0.65);
-  }
+  &.done-star--lit { color: #ffc800; text-shadow: 0 0 20px rgba(255,200,0,0.65); }
 }
+
+.done-trophy {
+  font-size: 4.5rem;
+  animation: pop-in 0.6s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+@keyframes pop-in {
+  0%   { transform: scale(0.4) rotate(-15deg); opacity: 0; }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.done-title { margin: 0; font-size: 1.8rem; font-weight: 800; color: #0f172a; }
+.done-sub   { margin: 0; color: #475569; font-size: 1rem; }
+
+.done-stats { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+
+.done-stat { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+
+.done-val {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--ex-green);
+  line-height: 1.1;
+  small { font-size: 0.5em; font-weight: 600; opacity: 0.65; }
+}
+
+.done-label {
+  font-size: 0.7rem;
+  color: var(--ex-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.done-actions { display: flex; gap: 0.875rem; flex-wrap: wrap; justify-content: center; }
 </style>
