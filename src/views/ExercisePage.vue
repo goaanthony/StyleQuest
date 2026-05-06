@@ -212,7 +212,7 @@
 import { ref, computed, nextTick, onMounted, onUnmounted } from 'vue'
 import loader from '@monaco-editor/loader'
 import type * as Monaco from 'monaco-editor'
-import cssData from '../../cssModules.json'
+import cssData from '../data/cssModules.json'
 
 interface FlatExercise {
   id: string

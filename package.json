@@ -13,9 +13,11 @@
   },
   "dependencies": {
     "@elysiajs/static": "^1.4.7",
+    "@monaco-editor/loader": "^1.4.0",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2",
     "elysia": "^1.4.16",
+    "monaco-editor": "^0.50.0",
     "pinia": "^3.0.4",
     "vue": "^3.5.27",
     "vue-router": "^4.6.4"

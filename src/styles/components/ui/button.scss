@@ -19,7 +19,7 @@
   box-shadow: 0 0.25em 0 var(--btn-shadow);
   transition: transform 0.1s, box-shadow 0.1s;
 
-  /* Etat survolé */
+  /* Etat survole */
   &:hover {
     filter: brightness(110%);
     // transform: translateY(-0.05em);

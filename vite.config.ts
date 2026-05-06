@@ -7,13 +7,10 @@ const host = process.env.TAURI_DEV_HOST;
 // https://vite.dev/config/
 export default defineConfig(async () => ({
   plugins: [vue()],
-  root: "src/public/pages",
-  publicDir: resolve(__dirname, "src/assets"),
   resolve: {
     alias: {
       "/src": resolve(__dirname, "src"),
       "@": resolve(__dirname, "src"),
-      "@public": resolve(__dirname, "src/public"),
     },
   },
   build: {

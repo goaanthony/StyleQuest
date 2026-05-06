@@ -2,8 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@public/*": ["src/public/*"]
+      "@/*": ["src/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
