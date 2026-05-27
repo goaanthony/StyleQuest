@@ -12,6 +12,8 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@elysiajs/cors": "^1.4.2",
+    "@elysiajs/jwt": "^1.4.2",
     "@elysiajs/static": "^1.4.7",
     "@monaco-editor/loader": "^1.4.0",
     "@tauri-apps/api": "^2",

@@ -1,21 +1,40 @@
 <template>
-  <div class="app-shell">
-    <Navbar />
+  <SplashScreen />
 
-    <main class="app-main">
+  <div v-if="appStore.splashComplete" class="app-layout">
+    <Navbar v-if="showNavbar" />
+    
+    <main class="main-content">
       <RouterView />
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import Navbar from "@/views/Navbar.vue";
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import { useAppStore } from '@/stores/app'
+import SplashScreen from '@/views/SplashScreen.vue'
+import Navbar from '@/views/Navbar.vue'
+
+const appStore = useAppStore()
+const route = useRoute()
+
+const showNavbar = computed(() => {
+  return !['Auth', 'Exercise'].includes(route.name as string)
+})
 </script>
 
-<style scoped>
-.app-main {
-  padding-top: 80px; /* leave space for fixed navbar (72px height + 8px gap) */
-  padding-left: 24px;
-  padding-right: 24px;
+<style>
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 </style>
