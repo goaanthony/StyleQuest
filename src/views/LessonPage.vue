@@ -1,12 +1,12 @@
 <template>
   <div class="lesson-layout" v-if="notion">
     <header class="lesson-topbar">
-      <button class="btn-close" @click="router.push('/pathway')" title="Quitter la leçon">✖</button>
+      <button class="btn-close" @click="closeLesson" title="Quitter la leçon">✖</button>
       <div class="topbar-title">Théorie : {{ notion.title }}</div>
       <div class="spacer"></div>
     </header>
 
-    <main class="lesson-main">
+    <main class="lesson-main" :class="{ 'no-footer': isFromLibrary }">
       <div class="lesson-card">
         
         <div class="lesson-header">
@@ -54,7 +54,7 @@
       </div>
     </main>
 
-    <footer class="lesson-bottom-bar">
+    <footer class="lesson-bottom-bar" v-if="!isFromLibrary">
       <div class="bottom-bar-content">
         <button class="btn-primary" @click="goToExercise">Passer à la pratique ➔</button>
       </div>
@@ -63,7 +63,7 @@
   
   <div v-else class="error-screen">
     <h2>Leçon introuvable.</h2>
-    <button class="btn-primary" @click="router.push('/pathway')">Retour au parcours</button>
+    <button class="btn-primary" @click="closeLesson">Retour</button>
   </div>
 </template>
 
@@ -76,6 +76,9 @@ const route = useRoute()
 const router = useRouter()
 
 const exerciseId = route.query.id as string
+
+// 👇 On vérifie si on vient de la page "Toutes les leçons"
+const isFromLibrary = computed(() => route.query.source === 'lessons')
 
 const notion = computed(() => {
   if (!exerciseId) return null
@@ -108,6 +111,15 @@ function markup(text: string): string {
 
 function goToExercise() {
   router.push(`/exercises?id=${exerciseId}`)
+}
+
+// 👇 Le bouton de fermeture s'adapte à ton point de départ
+function closeLesson() {
+  if (isFromLibrary.value) {
+    router.push('/lessons')
+  } else {
+    router.push('/pathway')
+  }
 }
 </script>
 
@@ -151,10 +163,15 @@ function goToExercise() {
 .lesson-main {
   flex: 1;
   overflow-y: auto;
-  padding: 2.5rem 1.5rem 8rem 1.5rem; /* Espace en bas pour la barre fixe */
+  padding: 2.5rem 1.5rem 8rem 1.5rem; 
   display: flex;
   justify-content: center;
   align-items: flex-start;
+}
+
+/* 👇 On réduit le padding si le footer est caché pour ne pas avoir un grand espace vide */
+.lesson-main.no-footer {
+  padding-bottom: 2.5rem; 
 }
 
 .lesson-card {
@@ -196,7 +213,6 @@ function goToExercise() {
   line-height: 1.2;
 }
 
-/* Blocage de la largeur pour forcer le code à scroller au lieu d'étirer la carte */
 .lesson-section {
   display: flex;
   flex-direction: column;
@@ -235,7 +251,7 @@ function goToExercise() {
   background: #1e293b;
   border-radius: 16px;
   border: 2px solid #0f172a;
-  overflow: hidden; /* Garde le conteneur propre */
+  overflow: hidden; 
 }
 
 .lesson-code {
@@ -245,8 +261,8 @@ function goToExercise() {
   font-family: 'Roboto Mono', 'Courier New', monospace;
   font-size: 0.95rem;
   line-height: 1.6;
-  overflow-x: auto; /* Défilement horizontal actif */
-  white-space: pre; /* Conserve l'indentation sans forcer les retours à la ligne destructeurs */
+  overflow-x: auto;
+  white-space: pre; 
   tab-size: 2;
 }
 

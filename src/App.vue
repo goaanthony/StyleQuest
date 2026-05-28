@@ -2,8 +2,6 @@
   <SplashScreen />
 
   <div v-if="appStore.splashComplete" class="app-layout">
-    <Navbar v-if="showNavbar" />
-    
     <main class="main-content">
       <RouterView />
     </main>
@@ -11,17 +9,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
 import { useAppStore } from '@/stores/app'
+import { useAuthStore } from '@/stores/auth'
+import { useProgressStore } from '@/stores/progress'
 import SplashScreen from '@/views/SplashScreen.vue'
-import Navbar from '@/views/Navbar.vue'
 
 const appStore = useAppStore()
-const route = useRoute()
+const authStore = useAuthStore()
+const progressStore = useProgressStore()
 
-const showNavbar = computed(() => {
-  return !['Auth', 'Exercise'].includes(route.name as string)
+onMounted(async () => {
+  if (authStore.isAuthenticated) {
+    await authStore.fetchProfile()
+    await progressStore.fetchProgress()
+  }
 })
 </script>
 

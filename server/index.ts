@@ -2,6 +2,7 @@ import { Elysia, t } from "elysia";
 import { staticPlugin } from "@elysiajs/static";
 import { jwt } from "@elysiajs/jwt";
 import { join } from "path";
+import { cors } from "@elysiajs/cors";
 import Database from "bun:sqlite";
 import { readFileSync } from "fs";
 import cssModules from "../src/data/cssModules.json";
@@ -41,10 +42,8 @@ function parseAllDeclarations(css: string): Record<string, string> {
 }
 
 // ─── DATABASE SETUP ──────────────────────────────────────────────────────────
-// Utilisation d'un fichier persistant au lieu de :memory: pour garder les comptes
 const db = new Database("stylequest.sqlite", { create: true });
 
-// Création de la table unifiée pour l'Auth et les Scores
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -57,7 +56,8 @@ db.exec(`
     longest_winstreak INTEGER DEFAULT 0,
     lessons_completed INTEGER DEFAULT 0,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_streak_date DATE
   );
 
   CREATE TABLE IF NOT EXISTS user_progress (
@@ -77,53 +77,17 @@ db.exec(`
   );
 `);
 
-// Tentative de charger ton ancien db.sql si besoin
 try {
   const dbSqlPath = join(import.meta.dir, "db.sql");
   const initSql = readFileSync(dbSqlPath, "utf-8");
   db.exec(initSql);
   console.log("✅ Custom db.sql loaded");
-} catch (e: any) {
-  console.log("ℹ️ No extra db.sql found or loaded (using default schema).");
-}
+} catch (e: any) {}
 
-// ─── RATE LIMITING ───────────────────────────────────────────────────────────
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-
-function checkRateLimit(ip: string, limit: number = 10, windowMs: number = 60000): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs });
-    return true;
-  }
-
-  if (record.count < limit) {
-    record.count++;
-    return true;
-  }
-  return false;
-}
-
-// ─── APP ELYSIA ─────────────────────────────────────────────────────────────
 const app = new Elysia();
 
-app.onAfterHandle(({ set }) => {
-  set.headers["Access-Control-Allow-Origin"]  = "*";
-  set.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS";
-  set.headers["Access-Control-Allow-Headers"] = "content-type, authorization";
-});
+app.use(cors());
 
-app.options("/*", ({ set }) => {
-  set.status = 204;
-  set.headers["Access-Control-Allow-Origin"]  = "*";
-  set.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS";
-  set.headers["Access-Control-Allow-Headers"] = "content-type, authorization";
-  return null;
-});
-
-// Plugin JWT
 app.use(
   jwt({
     name: 'jwt',
@@ -132,21 +96,13 @@ app.use(
 );
 
 // ── AUTHENTIFICATION ─────────────────────────────────────────────────────────
-
 app.post('/api/register', async ({ body, set, jwt }) => {
   const { username, email, password } = body as any;
-  
   try {
     const passwordHash = await Bun.password.hash(password);
-    
-    db.query(`INSERT INTO users (username, email, password_hash) VALUES ($username, $email, $hash)`)
-      .run({ $username: username, $email: email, $hash: passwordHash });
-      
-    const user = db.query(`SELECT id, username, email, current_winstreak, longest_winstreak, xp_points, lessons_completed, created_at FROM users WHERE username = $username`)
-      .get({ $username: username }) as any;
-
+    db.query(`INSERT INTO users (username, email, password_hash) VALUES ($username, $email, $hash)`).run({ $username: username, $email: email, $hash: passwordHash });
+    const user = db.query(`SELECT id, username, email, current_winstreak, longest_winstreak, xp_points, lessons_completed FROM users WHERE username = $username`).get({ $username: username }) as any;
     const token = await jwt.sign({ userId: user.id });
-
     return { success: true, user, session: { token, userId: user.id } };
   } catch (error) {
     set.status = 400;
@@ -156,26 +112,47 @@ app.post('/api/register', async ({ body, set, jwt }) => {
 
 app.post('/api/login', async ({ body, set, jwt }) => {
   const { username, password } = body as any;
-  
   const user = db.query(`SELECT * FROM users WHERE username = $username`).get({ $username: username }) as any;
-  
   if (!user || !(await Bun.password.verify(password, user.password_hash))) {
     set.status = 401;
     return { success: false, error: 'Identifiants incorrects' };
   }
-
   const token = await jwt.sign({ userId: user.id });
   const { password_hash, ...userWithoutPassword } = user;
-
   return { success: true, user: userWithoutPassword, session: { token, userId: user.id } };
 });
 
-// ── ROUTES CSS & SCORES ──────────────────────────────────────────────────────
+// ── NOUVEAU : RÉCUPÉRER PROFIL & PROGRESSION ────────────────────────────────
+app.get('/api/me', async ({ headers, set, jwt }) => {
+  const auth = headers.authorization;
+  const token = auth?.startsWith('Bearer ') ? auth.slice(7) : null;
+  if (!token) { set.status = 401; return { success: false, error: "Non autorisé" }; }
+  
+  const payload = await jwt.verify(token);
+  if (!payload) { set.status = 401; return { success: false, error: "Token invalide" }; }
 
+  const user = db.query(`SELECT id, username, email, current_winstreak, longest_winstreak, xp_points, lessons_completed, last_streak_date FROM users WHERE id = $id`).get({ $id: payload.userId });
+  return { success: true, user };
+});
+
+app.get('/api/progress', async ({ headers, set, jwt }) => {
+  const auth = headers.authorization;
+  const token = auth?.startsWith('Bearer ') ? auth.slice(7) : null;
+  if (!token) { set.status = 401; return { success: false }; }
+  
+  const payload = await jwt.verify(token);
+  if (!payload) { set.status = 401; return { success: false }; }
+
+  const progress = db.query("SELECT exercise_id FROM user_progress WHERE user_id = ?").all(payload.userId) as any[];
+  const completedIds = progress.map(p => p.exercise_id);
+  
+  return { success: true, completedIds };
+});
+
+// ── VÉRIFICATION CSS ────────────────────────────────────────────────────────
 app.post("/api/exercise/check", ({ body }) => {
   const { exerciseId, userCSS } = body as any;
   const exercise = findExercise(exerciseId);
-
   if (!exercise) return { success: false, message: "Exercice introuvable.", errors: [], tip: "" };
 
   const target = parseAllDeclarations(exercise.targetCSS);
@@ -189,89 +166,64 @@ app.post("/api/exercise/check", ({ body }) => {
   }
 
   if (errors.length === 0) return { success: true, message: "🎉 Parfait ! Beau travail !", errors: [], tip: "" };
-  
-  return {
-    success: false,
-    message: "Pas tout à fait… réessaie !",
-    errors,
-    tip: `Indice : vérifie la propriété « ${errors[0]?.match(/«\s*([^»]+)\s*»/)?.[1] ?? ""} »`,
-  };
+  return { success: false, message: "Pas tout à fait… réessaie !", errors, tip: `Indice : vérifie la propriété « ${errors[0]?.match(/«\s*([^»]+)\s*»/)?.[1] ?? ""} »` };
 });
 
-app.post("/api/scores", ({ body, request, set }) => {
-  const ip = request.headers.get("x-forwarded-for") || "unknown";
+// ── SAUVEGARDE & LOGIQUE WINSTREAK (SÉCURISÉ) ──────────────────────────────
+app.post("/api/scores", async ({ body, headers, set, jwt }) => {
+  const auth = headers.authorization;
+  const token = auth?.startsWith('Bearer ') ? auth.slice(7) : null;
+  if (!token) { set.status = 401; return { success: false, error: "Connecte-toi pour sauvegarder." }; }
 
-  if (!checkRateLimit(ip, 10, 60000)) {
-    set.status = 429;
-    return { success: false, error: "Trop de requêtes. Réessaie dans une minute." };
+  const payload = await jwt.verify(token);
+  if (!payload) { set.status = 401; return { success: false, error: "Session expirée." }; }
+
+  const { exerciseId, xpGained } = body as any;
+  const user = db.query("SELECT * FROM users WHERE id = ?").get(payload.userId) as any;
+  if (!user) { set.status = 404; return { success: false, error: "Utilisateur introuvable." }; }
+
+  const existingProgress = db.query("SELECT * FROM user_progress WHERE user_id = ? AND exercise_id = ?").get(user.id, exerciseId);
+
+  let newXP = user.xp_points || 0;
+  let newStreak = user.current_winstreak || 0;
+  let newLongestStreak = user.longest_winstreak || 0;
+  let lessonsCompleted = user.lessons_completed || 0;
+  let lastStreakDate = user.last_streak_date;
+
+  // Calcul du jour actuel (UTC)
+  const today = new Date().toISOString().split('T')[0];
+  const yesterdayDate = new Date();
+  yesterdayDate.setDate(yesterdayDate.getDate() - 1);
+  const yesterday = yesterdayDate.toISOString().split('T')[0];
+
+  // LOGIQUE WINSTREAK
+  if (lastStreakDate !== today) {
+    if (lastStreakDate === yesterday) {
+      newStreak += 1; // A joué hier, on incrémente
+    } else {
+      newStreak = 1; // A raté un jour, on remet à 1
+    }
+    if (newStreak > newLongestStreak) newLongestStreak = newStreak;
+    lastStreakDate = today;
   }
 
-  try {
-    const { username, exerciseId, xpGained } = body as any; // Remplacé pseudo par username
-
-    if (!username || !exerciseId || !xpGained) {
-      set.status = 400;
-      return { success: false, error: "Données manquantes." };
-    }
-
-    const user = db.query("SELECT * FROM users WHERE username = ?").get(username) as any;
-    if (!user) {
-      set.status = 404;
-      return { success: false, error: "Utilisateur introuvable." };
-    }
-
-    const existingProgress = db.query("SELECT * FROM user_progress WHERE user_id = ? AND exercise_id = ?").get(user.id, exerciseId);
-
-    if (!existingProgress) {
-      db.query("INSERT INTO user_progress (user_id, exercise_id, xp_gained) VALUES (?, ?, ?)").run(user.id, exerciseId, xpGained);
-
-      const newXP = (user.xp_points || 0) + xpGained;
-      const oldLevel = user.current_level || 1;
-      const newLevel = Math.floor(newXP / 100) + 1;
-
-      db.query("UPDATE users SET xp_points = ?, current_level = ?, updated_at = ? WHERE id = ?").run(newXP, newLevel, new Date().toISOString(), user.id);
-
-      if (newLevel > oldLevel) {
-        db.query("INSERT INTO level_ups (user_id, previous_level, new_level) VALUES (?, ?, ?)").run(user.id, oldLevel, newLevel);
-      }
-    }
-
-    return {
-      success: true,
-      message: `+${xpGained} XP enregistrés !`,
-      userXP: (user.xp_points || 0) + (existingProgress ? 0 : xpGained),
-      userLevel: Math.floor(((user.xp_points || 0) + (existingProgress ? 0 : xpGained)) / 100) + 1,
-    };
-  } catch (e) {
-    set.status = 500;
-    return { success: false, error: "Erreur serveur lors de l'enregistrement." };
+  if (!existingProgress) {
+    db.query("INSERT INTO user_progress (user_id, exercise_id, xp_gained) VALUES (?, ?, ?)").run(user.id, exerciseId, xpGained);
+    newXP += xpGained;
+    lessonsCompleted += 1;
+    const newLevel = Math.floor(newXP / 100) + 1;
+    
+    db.query(`UPDATE users SET xp_points = ?, current_level = ?, current_winstreak = ?, longest_winstreak = ?, lessons_completed = ?, last_streak_date = ?, updated_at = ? WHERE id = ?`)
+      .run(newXP, newLevel, newStreak, newLongestStreak, lessonsCompleted, lastStreakDate, new Date().toISOString(), user.id);
+  } else {
+    // S'il a déjà fait l'exo, on met juste à jour sa winstreak si besoin
+    db.query(`UPDATE users SET current_winstreak = ?, longest_winstreak = ?, last_streak_date = ? WHERE id = ?`)
+      .run(newStreak, newLongestStreak, lastStreakDate, user.id);
   }
+
+  const updatedUser = db.query("SELECT id, username, email, current_winstreak, longest_winstreak, xp_points, lessons_completed FROM users WHERE id = ?").get(user.id);
+  return { success: true, message: `Sauvegardé !`, user: updatedUser };
 });
-
-app.get("/api/leaderboard", () => {
-  try {
-    const leaderboard = db.query(`SELECT username, xp_points, current_level, current_winstreak, longest_winstreak FROM users ORDER BY xp_points DESC, current_level DESC LIMIT 100`).all() as any[];
-    return {
-      success: true,
-      data: leaderboard.map((user, idx) => ({
-        rank: idx + 1,
-        username: user.username,
-        xp_points: user.xp_points,
-        current_level: user.current_level,
-        current_winstreak: user.current_winstreak,
-        longest_winstreak: user.longest_winstreak,
-      })),
-    };
-  } catch (e) {
-    return { success: false, error: "Erreur lors du chargement du classement." };
-  }
-});
-
-app.get("/health", () => ({ ok: true }));
-
-if (process.env.SERVE_STATIC === "true") {
-  app.use(staticPlugin({ assets: join(process.cwd(), "dist"), prefix: "/" }));
-}
 
 app.listen(port);
 console.log(`🚀 API listening on http://localhost:${app.server?.port}`);

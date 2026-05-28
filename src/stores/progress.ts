@@ -1,140 +1,67 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
+import { useAuthStore } from './auth'
 import cssData from '@/data/cssModules.json'
 
-interface ExerciseProgress {
-  exerciseId: string
-  completed: boolean
-  xpGained: number
-  attempts: number
-}
-
-interface ModuleProgress {
-  moduleId: number
-  moduleId: number
-  title: string
-  icon: string
-  notions: {
-    notionId: string
-    title: string
-    completed: boolean
-    exercises: ExerciseProgress[]
-  }[]
-}
-
 export const useProgressStore = defineStore('progress', () => {
-  const progressData = ref<Map<string, ExerciseProgress>>(new Map())
-  const totalXP = ref(0)
-  const lessonsCompleted = ref(0)
-  const currentStreak = ref(0)
-  const longestStreak = ref(0)
+  // Liste des IDs des exercices complétés venant directement de la BDD
+  const completedExercises = ref<string[]>([])
 
-  const lastActiveDate = ref<string>('')
+  // 1. Récupération depuis le backend
+  async function fetchProgress() {
+    const authStore = useAuthStore()
+    if (!authStore.token) return
 
-  function loadProgress(): void {
-    const saved = localStorage.getItem('stylequest_progress')
-    if (saved) {
-      const data = JSON.parse(saved)
-      progressData.value = new Map(Object.entries(data.progressData || {}))
-      totalXP.value = data.totalXP || 0
-      lessonsCompleted.value = data.lessonsCompleted || 0
-      currentStreak.value = data.currentStreak || 0
-      longestStreak.value = data.longestStreak || 0
-      lastActiveDate.value = data.lastActiveDate || ''
-    }
-  }
-
-  function saveProgress(): void {
-    const data = {
-      progressData: Object.fromEntries(progressData.value),
-      totalXP: totalXP.value,
-      lessonsCompleted: lessonsCompleted.value,
-      currentStreak: currentStreak.value,
-      longestStreak: longestStreak.value,
-      lastActiveDate: lastActiveDate.value,
-    }
-    localStorage.setItem('stylequest_progress', JSON.stringify(data))
-  }
-
-  function markExerciseComplete(exerciseId: string, xp: number): void {
-    if (progressData.value.has(exerciseId)) return
-
-    progressData.value.set(exerciseId, {
-      exerciseId,
-      completed: true,
-      xpGained: xp,
-      attempts: 1,
-    })
-
-    totalXP.value += xp
-    lessonsCompleted.value += 1
-
-    // Update streak
-    const today = new Date().toISOString().split('T')[0]
-    if (lastActiveDate.value !== today) {
-      const yesterday = new Date()
-      yesterday.setDate(yesterday.getDate() - 1)
-      const yesterdayStr = yesterday.toISOString().split('T')[0]
-
-      if (lastActiveDate.value === yesterdayStr) {
-        currentStreak.value += 1
-      } else {
-        currentStreak.value = 1
-      }
-
-      if (currentStreak.value > longestStreak.value) {
-        longestStreak.value = currentStreak.value
-      }
-
-      lastActiveDate.value = today
-    }
-
-    saveProgress()
-  }
-
-  function getExerciseProgress(exerciseId: string): ExerciseProgress | undefined {
-    return progressData.value.get(exerciseId)
-  }
-
-  function isExerciseCompleted(exerciseId: string): boolean {
-    return progressData.value.has(exerciseId)
-  }
-
-  function getAccuracyRate(): number {
-    let total = 0
-    let completed = 0
-    for (const mod of cssData) {
-      for (const notion of mod.notions) {
-        for (const ex of notion.exercises) {
-          total++
-          if (isExerciseCompleted(ex.id)) completed++
+    try {
+      const res = await fetch('http://localhost:3000/api/progress', {
+        headers: { 'Authorization': `Bearer ${authStore.token}` }
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (data.success) {
+          // On met à jour notre liste avec les données du serveur
+          completedExercises.value = data.completedIds || []
         }
       }
+    } catch (e) {
+      console.error("Erreur synchro progression", e)
     }
+  }
+
+  // 2. Vérifie si un exercice est terminé (utilisé pour les cadenas du parcours)
+  function isExerciseCompleted(exerciseId: string): boolean {
+    return completedExercises.value.includes(exerciseId)
+  }
+
+  // 3. Ajoute un exercice complété localement (la vraie sauvegarde BDD est gérée par ExercisePage)
+  function markExerciseComplete(exerciseId: string) {
+    if (!completedExercises.value.includes(exerciseId)) {
+      completedExercises.value.push(exerciseId)
+    }
+  }
+
+  // 4. Calcule le % de complétion global (utile pour la page d'accueil ou de profil)
+  function getAccuracyRate(): number {
+    let total = 0
+    for (const mod of cssData) {
+      for (const notion of mod.notions) {
+        total += notion.exercises.length
+      }
+    }
+    const completed = completedExercises.value.length
     return total > 0 ? Math.round((completed / total) * 100) : 0
   }
 
+  // 5. Réinitialisation lors de la déconnexion
   function resetProgress(): void {
-    progressData.value = new Map()
-    totalXP.value = 0
-    lessonsCompleted.value = 0
-    currentStreak.value = 0
-    longestStreak.value = 0
-    lastActiveDate.value = ''
-    saveProgress()
+    completedExercises.value = []
   }
 
   return {
-    progressData,
-    totalXP,
-    lessonsCompleted,
-    currentStreak,
-    longestStreak,
-    loadProgress,
-    saveProgress,
-    markExerciseComplete,
-    getExerciseProgress,
+    completedExercises,
+    fetchProgress,
     isExerciseCompleted,
+    markExerciseComplete,
     getAccuracyRate,
     resetProgress,
   }

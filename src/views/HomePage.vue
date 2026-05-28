@@ -1,382 +1,338 @@
 <template>
-  <div class="home">
-
-    <section class="hero">
-      <div class="hero-badge">🎮 Apprends le CSS en t'amusant</div>
-      <h1 class="hero-title">
-        Maîtrise le <span class="hero-accent">CSS</span><br>pas à pas
+  <div class="home-dashboard">
+    <header class="dashboard-header">
+      <h1 class="welcome-text">
+        Salut, <span class="accent">{{ authStore.user?.username || 'Dev' }}</span> 👋
       </h1>
-      <p class="hero-sub">
-        Des exercices interactifs, une progression claire et un retour immédiat sur ton code.
-        Conçu pour les débutants, structuré pour progresser.
-      </p>
-      <RouterLink class="btn-simple btn-md" to="/exercises">
-        Commencer l'aventure 🚀
+      <p class="subtitle">Prêt à maîtriser le CSS aujourd'hui ?</p>
+    </header>
+
+    <main class="bento-grid">
+      
+      <div class="bento-card card-resume" :class="{ 'all-done': !nextExerciseInfo }">
+        <div class="card-content">
+          <div class="resume-badge">{{ nextExerciseInfo?.isLesson ? '📖 Leçon' : '💻 Pratique' }}</div>
+          <h2 class="resume-title">{{ nextExerciseInfo ? nextExerciseInfo.title : 'Parcours terminé !' }}</h2>
+          <p class="resume-desc">
+            {{ nextExerciseInfo ? "Reprends exactement là où tu t'es arrêté." : "Tu as complété tous les modules disponibles." }}
+          </p>
+        </div>
+        <button v-if="nextExerciseInfo" class="btn-main" @click="goResume">
+          Continuer ➔
+        </button>
+        <button v-else class="btn-main btn-done" @click="router.push('/pathway')">
+          Revoir le parcours
+        </button>
+      </div>
+
+      <div class="bento-card widget-card card-streak">
+        <div class="widget-icon">🔥</div>
+        <div class="widget-info">
+          <span class="widget-value">{{ authStore.user?.current_winstreak || 0 }}</span>
+          <span class="widget-label">Jours de suite</span>
+        </div>
+      </div>
+
+      <div class="bento-card widget-card card-xp">
+        <div class="widget-icon">⚡</div>
+        <div class="widget-info">
+          <span class="widget-value">{{ authStore.user?.xp_points || 0 }}</span>
+          <span class="widget-label">XP Total</span>
+        </div>
+      </div>
+
+      <RouterLink to="/pathway" class="bento-card nav-card card-pathway">
+        <div class="nav-icon">🗺️</div>
+        <h3 class="nav-title">Parcours</h3>
+        <p class="nav-sub">Ta carte de progression</p>
       </RouterLink>
-    </section>
 
-    <!-- ── Bento UI ── -->
-    <section class="bento-grid">
-      <div class="bento-large winstreak">
-        <div class="w-head">🔥 Série actuelle</div>
-        <div class="w-value">{{ streak }} <span class="w-sub">jours</span></div>
-        <div class="w-help">Continue ta série pour conserver ton momentum.</div>
-      </div>
+      <RouterLink to="/lessons" class="bento-card nav-card card-lessons">
+        <div class="nav-icon">📚</div>
+        <h3 class="nav-title">Leçons</h3>
+        <p class="nav-sub">Toute la théorie</p>
+      </RouterLink>
 
-      <div class="bento-large resume">
-        <div class="w-head">Reprendre</div>
-        <div class="w-body">
-          <p class="resume-label">Dernier exercice non terminé</p>
-          <button class="btn-primary cta-resume" @click="goResume">Continuer l'exercice</button>
-        </div>
-      </div>
+      <RouterLink to="/profile" class="bento-card nav-card card-profile">
+        <div class="nav-icon">👤</div>
+        <h3 class="nav-title">Profil</h3>
+        <p class="nav-sub">Tes statistiques</p>
+      </RouterLink>
 
-      <div class="bento-large theory">
-        <div class="w-head">Théorie</div>
-        <div class="w-body">
-          <p>Accède rapidement à toutes les leçons théoriques.</p>
-          <RouterLink to="/lessons" class="btn-simple">Voir les leçons</RouterLink>
-        </div>
-      </div>
-
-      <div class="bento-small stats">
-        <div class="stats-head">Statistiques rapides</div>
-        <div class="stats-body">
-          <div class="stat-row">
-            <strong>{{ accuracy }}%</strong>
-            <span>Précision</span>
-          </div>
-          <RouterLink to="/profile" class="link-small">Voir mon profil</RouterLink>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Stats ── -->
-    <section class="stats-row">
-      <div class="stat-card">
-        <strong class="stat-val">{{ totalExercises }}</strong>
-        <span class="stat-label">Exercices</span>
-      </div>
-      <div class="stat-card">
-        <strong class="stat-val">{{ totalModules }}</strong>
-        <span class="stat-label">Modules</span>
-      </div>
-      <div class="stat-card">
-        <strong class="stat-val">{{ totalXP }}</strong>
-        <span class="stat-label">XP à gagner</span>
-      </div>
-      <div class="stat-card">
-        <strong class="stat-val">100%</strong>
-        <span class="stat-label">Gratuit</span>
-      </div>
-    </section>
-
-    <!-- ── Modules ── -->
-    <section class="modules-section">
-      <h2 class="section-title">Programme de cours</h2>
-      <div class="modules-grid">
-        <div v-for="(mod, i) in modules" :key="mod.id" class="module-card">
-          <div class="module-icon">{{ mod.icon }}</div>
-          <div class="module-info">
-            <span class="module-num">Module {{ i + 1 }}</span>
-            <h3 class="module-name">{{ mod.title }}</h3>
-            <p class="module-meta">
-              {{ countExercises(mod) }} exercices &bull; {{ countXP(mod) }} XP
-            </p>
-          </div>
-          <RouterLink to="/exercises" class="module-cta">Commencer →</RouterLink>
-        </div>
-      </div>
-    </section>
-
+    </main>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import cssData from '../data/cssModules.json'
+import { useAuthStore } from '@/stores/auth'
 import { useProgressStore } from '@/stores/progress'
+import cssData from '@/data/cssModules.json'
 
-type Module = typeof cssData[number]
-
-const modules = cssData
-const totalModules = cssData.length
-const totalExercises = cssData.reduce(
-  (acc, m) => acc + m.notions.reduce((a, n) => a + n.exercises.length, 0), 0
-)
-const totalXP = cssData.reduce(
-  (acc, m) => acc + m.notions.reduce(
-    (a, n) => a + n.exercises.reduce((b, e) => b + e.xp, 0), 0
-  ), 0
-)
-
-function countExercises(mod: Module): number {
-  return mod.notions.reduce((a, n) => a + n.exercises.length, 0)
-}
-
-function countXP(mod: Module): number {
-  return mod.notions.reduce((a, n) => a + n.exercises.reduce((b, e) => b + e.xp, 0), 0)
-}
-
-// Bento widgets data
 const router = useRouter()
-const progress = useProgressStore()
-progress.loadProgress()
+const authStore = useAuthStore()
+const progressStore = useProgressStore()
 
-const streak = computed(() => progress.currentStreak)
-const accuracy = computed(() => progress.getAccuracyRate())
-
-function findNextExerciseId(): string | null {
+// Cherche le premier exercice NON complété dans la BDD pour le bouton "Reprendre"
+const nextExerciseInfo = computed(() => {
   for (const mod of cssData) {
     for (const notion of mod.notions) {
-      for (const ex of notion.exercises) {
-        if (!progress.isExerciseCompleted(ex.id)) return ex.id
+      for (let i = 0; i < notion.exercises.length; i++) {
+        const ex = notion.exercises[i]
+        if (!progressStore.isExerciseCompleted(ex.id)) {
+          return {
+            id: ex.id,
+            title: notion.title,
+            // C'est une leçon si c'est le 1er exercice et que le titre ne contient pas "éval"
+            isLesson: i === 0 && !notion.title.toLowerCase().includes('éval') && !notion.title.toLowerCase().includes('eval')
+          }
+        }
       }
     }
   }
   return null
-}
+})
 
 function goResume() {
-  const id = findNextExerciseId()
-  if (id) router.push(`/exercises?id=${id}`)
-  else router.push('/exercises')
+  const next = nextExerciseInfo.value
+  if (next) {
+    if (next.isLesson) {
+      router.push(`/lesson?id=${next.id}`)
+    } else {
+      router.push(`/exercises?id=${next.id}`)
+    }
+  }
 }
 </script>
 
 <style scoped>
-.home {
-  max-width: 960px;
+.home-dashboard {
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 5rem;
+  padding: 3rem 1.5rem 5rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
-/* Hero */
-.hero {
-  text-align: center;
-  padding: 1.5rem 0;
+.dashboard-header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
+  gap: 0.5rem;
 }
 
-.hero-badge {
-  background: #e8f7fe;
-  color: #1cb0f6;
-  font-size: 0.875rem;
-  font-weight: 700;
-  padding: 0.4rem 1.1rem;
-  border-radius: 999px;
-  border: 2px solid #bae6fd;
-}
-
-.hero-title {
-  margin: 0;
-  font-size: clamp(2rem, 5vw, 3rem);
+.welcome-text {
+  font-size: 2.5rem;
   font-weight: 900;
   color: #0f172a;
-  line-height: 1.15;
-}
-
-.hero-accent { color: #1cb0f6; }
-
-.hero-sub {
   margin: 0;
-  max-width: 520px;
-  color: #64748b;
-  font-size: 1.05rem;
-  line-height: 1.7;
+  letter-spacing: -0.02em;
 }
 
-/* Bento Grid */
+.accent { color: #1cb0f6; }
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #64748b;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* --- LA GRILLE BENTO --- */
 .bento-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 0.8fr;
-  gap: 1rem;
-  align-items: start;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(140px, auto);
+  gap: 1.5rem;
 }
 
-.bento-large {
+.bento-card {
   background: white;
   border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 3px 0 #e2e8f0;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 0 #e2e8f0;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  text-decoration: none;
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
 }
 
-.bento-small.stats {
-  background: linear-gradient(180deg,#ffffff,#f8fafc);
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 0.8rem 1rem;
-  display: flex;
+.nav-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 #cbd5e1;
+  border-color: #cbd5e1;
+}
+
+/* 1. CARTE GÉANTE (REPRENDRE) */
+.card-resume {
+  grid-column: 1 / 3; /* Prend 2 colonnes */
+  grid-row: 1 / 3;    /* Prend 2 lignes */
   flex-direction: column;
   justify-content: space-between;
+  align-items: flex-start;
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  padding: 2.5rem;
 }
 
-.w-head { font-weight: 800; color: #0f172a; }
-.w-value { font-size: 2.4rem; font-weight: 900; color: #f97316; }
-.w-sub { font-size: 0.85rem; font-weight: 700; color: #64748b; }
-.w-help { color: #64748b; font-size: 0.95rem; }
+.card-resume.all-done {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
 
-.resume .resume-label { font-weight: 700; color: #0f172a; margin-bottom: 0.6rem; }
-.cta-resume { width: 100%; }
-
-/* Primary CTA (reused) */
-.btn-primary {
+.resume-badge {
   background: #1cb0f6;
   color: white;
-  border: none;
-  border-radius: 12px;
-  font-size: 1rem;
   font-weight: 800;
-  padding: 0.7rem 1rem;
-  cursor: pointer;
-  box-shadow: 0 6px 0 #0284c7;
-  transition: transform 0.12s, box-shadow 0.12s;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #0284c7; }
-.btn-primary:active { transform: translateY(2px); box-shadow: 0 3px 0 #0284c7; }
-
-.cta-resume.btn-primary { display: inline-block; text-align: center; }
-
-.stats-head { font-weight: 800; color: #0f172a; }
-.stat-row { display: flex; align-items: baseline; gap: 0.5rem; }
-.stat-row strong { font-size: 1.6rem; color: #06b6d4; }
-.link-small { font-size: 0.9rem; color: #2563eb; font-weight: 800; text-decoration: none; }
-
-@media (max-width: 900px) {
-  .bento-grid { grid-template-columns: 1fr; }
-}
-
-/* Stats */
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-@media (max-width: 640px) {
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
-}
-
-.stat-card {
-  background: white;
-  border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1.25rem 1rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  box-shadow: 0 2px 0 #e2e8f0;
-}
-
-.stat-val {
-  font-size: 2rem;
-  font-weight: 900;
-  color: #1cb0f6;
-  line-height: 1;
-}
-
-.stat-label {
-  font-size: 0.72rem;
-  color: #94a3b8;
-  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 1.5rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-/* Modules */
-.section-title {
-  margin: 0 0 1.25rem;
-  font-size: 1.4rem;
-  font-weight: 800;
+.all-done .resume-badge { background: #22c55e; }
+
+.resume-title {
+  font-size: 2.2rem;
+  font-weight: 900;
   color: #0f172a;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
 }
 
-.modules-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.module-card {
-  background: white;
-  border: 2px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 1.25rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  box-shadow: 0 2px 0 #e2e8f0;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.module-card:hover {
-  border-color: #1cb0f6;
-  box-shadow: 0 2px 0 #1899d6;
-}
-
-.module-icon {
-  font-size: 2rem;
-  flex-shrink: 0;
-  width: 3rem;
-  text-align: center;
-}
-
-.module-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.module-num {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #1cb0f6;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.module-name {
+.resume-desc {
+  font-size: 1.1rem;
+  color: #475569;
   margin: 0;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #0f172a;
+  max-width: 90%;
+  line-height: 1.5;
 }
 
-.module-meta {
-  margin: 0;
-  font-size: 0.8rem;
-  color: #94a3b8;
-  font-weight: 500;
-}
-
-.module-cta {
-  flex-shrink: 0;
-  background: #e8f7fe;
-  color: #1cb0f6;
-  font-weight: 700;
-  font-size: 0.875rem;
-  padding: 0.5rem 1.1rem;
-  border-radius: 8px;
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background 0.15s, color 0.15s;
-}
-
-.module-cta:hover {
+.btn-main {
   background: #1cb0f6;
   color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  border-radius: 16px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #0284c7;
+  transition: transform 0.1s, box-shadow 0.1s;
+  align-self: flex-end; /* Aligné en bas à droite */
+}
+
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #0284c7; }
+.btn-main:active { transform: translateY(2px); box-shadow: 0 2px 0 #0284c7; }
+.btn-done { background: #22c55e; box-shadow: 0 4px 0 #16a34a; }
+
+/* 2 & 3. WIDGETS STATS */
+.widget-card {
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.card-streak {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.card-xp {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.widget-icon {
+  font-size: 3rem;
+  background: #f8fafc;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: 2px solid #e2e8f0;
+}
+
+.widget-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.widget-value {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.widget-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+.card-streak .widget-value { color: #ff9600; }
+.card-xp .widget-value { color: #1cb0f6; }
+
+/* 4, 5 & 6. RACCOURCIS NAVIGATION */
+.nav-card {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.card-pathway { grid-column: 1; grid-row: 3; }
+.card-lessons { grid-column: 2; grid-row: 3; }
+.card-profile { grid-column: 3; grid-row: 3; }
+
+.nav-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.nav-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0;
+}
+
+.nav-sub {
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card-resume { grid-column: 1 / 3; }
+  .card-streak { grid-column: 1; grid-row: 3; }
+  .card-xp { grid-column: 2; grid-row: 3; }
+  .card-pathway { grid-column: 1; grid-row: 4; }
+  .card-lessons { grid-column: 2; grid-row: 4; }
+  .card-profile { grid-column: 1 / 3; grid-row: 5; } /* Le profil prend toute la largeur en bas */
+}
+
+@media (max-width: 600px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .card-resume { grid-column: 1; }
+  .card-streak, .card-xp, .card-pathway, .card-lessons, .card-profile {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .btn-main { width: 100%; text-align: center; }
 }
 </style>

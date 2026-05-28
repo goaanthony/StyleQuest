@@ -9,7 +9,7 @@ const router = createRouter({
     { path: '/pathway', name: 'Pathway', component: () => import('@/views/PathwayPage.vue'), meta: { requiresAuth: true } },
     { path: '/profile', name: 'Profile', component: () => import('@/views/ProfilePage.vue'), meta: { requiresAuth: true } },
     { path: '/lesson', name: 'Lesson', component: () => import('@/views/LessonPage.vue'), meta: { requiresAuth: true } },
-    { path: '/lessons', name: 'Lessons', component: () => import('@/views/AllLessons.vue'), meta: { requiresAuth: true } },
+    { path: '/lessons', name: 'Lessons', component: () => import('@/views/LessonsPage.vue'), meta: { requiresAuth: true } },
     { path: '/exercises', name: 'Exercise', component: () => import('@/views/ExercisePage.vue'), meta: { requiresAuth: true } }
   ]
 })

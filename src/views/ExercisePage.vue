@@ -265,25 +265,30 @@ async function syncProgressWithDB(xpGained: number) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authStore.token}` },
       body: JSON.stringify({
-        exerciseId: currentExercise.value.id, moduleId: currentExercise.value.moduleId,
-        notionId: currentExercise.value.notionId, xpGained: xpGained
+        exerciseId: currentExercise.value.id, 
+        moduleId: currentExercise.value.moduleId,
+        notionId: currentExercise.value.notionId, 
+        xpGained: xpGained
       })
     })
+    
     if (res.ok) {
       const data = await res.json()
       if (data.user && authStore.user) {
         const oldStreak = authStore.user.current_winstreak || 0
-        authStore.user.xp_points = data.user.xp_points;
-        authStore.user.current_winstreak = data.user.current_winstreak;
-        authStore.user.longest_winstreak = data.user.longest_winstreak;
         
-        // Si la winstreak a augmenté dans la DB, on joue l'animation !
+        // Utilise la nouvelle fonction pour mettre à jour proprement (State + LocalStorage)
+        authStore.updateUser(data.user)
+        
+        // Trigger animations si la winstreak augmente
         if (data.user.current_winstreak > oldStreak) {
           triggerStreakAnimation()
         }
       }
     }
-  } catch (e) { console.error("Erreur DB:", e) }
+  } catch (e) { 
+    console.error("Erreur DB:", e) 
+  }
 }
 
 async function checkAnswer() {
@@ -301,8 +306,7 @@ async function checkAnswer() {
       await syncProgressWithDB(currentExercise.value.xp)
       totalXP.value += currentExercise.value.xp
       lastXPGain.value = currentExercise.value.xp
-      progressStore.markExerciseComplete(currentExercise.value.id, currentExercise.value.xp)
-      
+      progressStore.markExerciseComplete(currentExercise.value.id)      
       // Déclenche l'animation XP
       showXPGain.value = true
       setTimeout(() => { showXPGain.value = false }, 1500)

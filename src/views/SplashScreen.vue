@@ -22,10 +22,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useAppStore } from '@/stores/app'
-import { useProgressStore } from '@/stores/progress'
 
 const appStore = useAppStore()
-const progressStore = useProgressStore()
 
 const progressWidth = ref(0)
 let animationFrame: number
@@ -38,7 +36,6 @@ function animateProgress() {
 }
 
 onMounted(async () => {
-  progressStore.loadProgress()
   animateProgress()
 
   setTimeout(() => {

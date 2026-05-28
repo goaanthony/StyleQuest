@@ -2,13 +2,10 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
 export const useAuthStore = defineStore('auth', () => {
-  // Initialisation depuis le localStorage pour garder la session active
   const user = ref(JSON.parse(localStorage.getItem('sq_user') || 'null'))
   const token = ref(localStorage.getItem('sq_token') || null)
 
   const isAuthenticated = computed(() => !!token.value && !!user.value)
-
-  // Assure-toi que ce port correspond bien à celui de ton serveur Elysia
   const API_URL = 'http://localhost:3000/api'
 
   function saveSession(userData: any, sessionToken: string) {
@@ -18,6 +15,34 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('sq_token', sessionToken)
   }
 
+  // 👇 NOUVELLE FONCTION : Met à jour le state ET le localStorage proprement
+  function updateUser(newData: any) {
+    if (user.value) {
+      user.value = { ...user.value, ...newData }
+      localStorage.setItem('sq_user', JSON.stringify(user.value))
+    }
+  }
+
+  async function fetchProfile() {
+    if (!token.value) return
+    try {
+      const res = await fetch(`${API_URL}/me`, {
+        headers: { 'Authorization': `Bearer ${token.value}` }
+      })
+      if (res.ok) {
+        const data = await res.json()
+        if (data.success && data.user) {
+          // On utilise la nouvelle fonction ici aussi
+          updateUser(data.user)
+        }
+      } else {
+        logout() // Token invalide ou expiré
+      }
+    } catch (e) {
+      console.error('Erreur Fetch Profile:', e)
+    }
+  }
+
   async function login(username: string, password: string): Promise<boolean> {
     try {
       const res = await fetch(`${API_URL}/login`, {
@@ -25,19 +50,11 @@ export const useAuthStore = defineStore('auth', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
       })
-      
       const data = await res.json()
-      
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Identifiants incorrects')
-      }
-
+      if (!res.ok || !data.success) throw new Error(data.error)
       saveSession(data.user, data.session.token)
       return true
-    } catch (e) {
-      console.error('Erreur Login:', e)
-      return false
-    }
+    } catch (e) { return false }
   }
 
   async function register(username: string, email: string, password: string): Promise<boolean> {
@@ -47,19 +64,11 @@ export const useAuthStore = defineStore('auth', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
       })
-      
       const data = await res.json()
-      
-      if (!res.ok || !data.success) {
-        throw new Error(data.error || "Erreur lors de l'inscription")
-      }
-
+      if (!res.ok || !data.success) throw new Error(data.error)
       saveSession(data.user, data.session.token)
       return true
-    } catch (e) {
-      console.error('Erreur Register:', e)
-      return false
-    }
+    } catch (e) { return false }
   }
 
   function logout() {
@@ -69,12 +78,5 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('sq_token')
   }
 
-  return {
-    user,
-    token,
-    isAuthenticated,
-    login,
-    register,
-    logout
-  }
+  return { user, token, isAuthenticated, login, register, logout, fetchProfile, updateUser }
 })
