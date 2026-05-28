@@ -3,7 +3,7 @@
     "id": 1,
     "icon": "⚡",
     "title": "Bases & HTML + CSS",
-    "color": "#00ff88",
+    "color": "#51cf66",
     "notions": [
       {
         "id": "1-1",
@@ -24,7 +24,7 @@
         "exercises": [
           {
             "id": "1-1-1",
-            "objective": "Établissez l'ambiance visuelle globale de la page en configurant un mode 'sombre'. Le fond doit être noir foncé (#0d0d0d) pour reposer les yeux, et le texte doit contraster en étant blanc.",
+            "objective": "Établissez l'ambiance visuelle globale de la page en configurant un mode 'sombre'. Le fond doit être noir pour reposer les yeux, et le texte doit contraster en étant blanc.",
             "xp": 30,
             "hints": [
               "Quelle propriété permet de définir la couleur de l'arrière-plan d'un élément ?",
@@ -32,7 +32,7 @@
               "Assurez-vous de cibler la balise qui englobe tout le contenu visible de la page."
             ],
             "html": "Hello WorldCeci est mon premier style.",
-            "targetCSS": "body { background-color: #0d0d0d; color: white; }",
+            "targetCSS": "body { background-color: #000000; color: white; }",
             "starterCSS": "body {\n  \n}"
           },
           {
@@ -45,7 +45,7 @@
               "Ces deux règles doivent être appliquées globalement sur le conteneur principal."
             ],
             "html": "CSS c'est coolCentré et stylé.",
-            "targetCSS": "body { text-align: center; font-family: Georgia, serif; }",
+            "targetCSS": "body { text-align: center; font-family: Georgia }",
             "starterCSS": "body {\n  \n}"
           },
           {
@@ -63,15 +63,15 @@
           },
           {
             "id": "1-1-4",
-            "objective": "CHALLENGE : Donnez de la profondeur à l'interface en créant un fond moderne. Appliquez un dégradé linéaire vertical allant du bleu nuit (#1a1a2e) vers une teinte plus profonde (#16213e). Le texte devra être blanc et aéré avec un espacement intérieur généreux de 60px.",
+            "objective": "CHALLENGE : Donnez de la profondeur à l'interface en créant un fond moderne. Appliquez un dégradé linéaire vertical allant du bleu vif (#667eea) vers un violet (#764ba2). Le texte devra être blanc et aéré avec un espacement intérieur généreux de 60px.",
             "xp": 80,
             "hints": [
               "Les dégradés ne s'appliquent pas avec `background-color`, mais nécessitent une fonction spécifique liée à l'arrière-plan global.",
               "La fonction de dégradé prend d'abord une direction, puis les couleurs de transition.",
-              "N'oubliez pas d'appliquer les propriétés de couleur de texte et d'espacement intérieur requises."
+              "Assurez-vous d'appliquer les propriétés de couleur de texte et d'espacement intérieur requises."
             ],
-            "html": "🚀 Challenge !Un fond dégradé stylé.",
-            "targetCSS": "body { background: linear-gradient(to bottom, #1a1a2e, #16213e); color: white; padding: 60px; }",
+            "html": "🚀 Challenge ! Un fond dégradé stylé.",
+            "targetCSS": "body { background: linear-gradient(to bottom, #667eea, #764ba2); color: white; padding: 60px; }",
             "starterCSS": "body {\n  \n}"
           }
         ]
@@ -84,7 +84,7 @@
           "[https://developer.mozilla.org/fr/docs/Learn/CSS/Building_blocks/Styling_text](https://www.google.com/search?q=https://developer.mozilla.org/fr/docs/Learn/CSS/Building_blocks/Styling_text)",
           "[https://developer.mozilla.org/fr/docs/Web/CSS/text-decoration](https://developer.mozilla.org/fr/docs/Web/CSS/text-decoration)"
         ],
-        "example": "h1 { color: #00ff88; }\nbutton { cursor: pointer; }\na { text-decoration: none; }",
+        "example": "h1 { color: #51cf66; }\nbutton { cursor: pointer; }\na { text-decoration: none; }",
         "checklist": [
           "Différencier block et inline",
           "Styler div et span",
@@ -95,20 +95,20 @@
         "exercises": [
           {
             "id": "1-2-1",
-            "objective": "Mettez en évidence le titre principal de la page en lui attribuant une couleur vive (#00ff88) et une taille imposante (48px) pour affirmer la hiérarchie visuelle.",
+            "objective": "Mettez en évidence le titre principal de la page en lui attribuant une couleur vive (#51cf66) et une taille imposante (48px) pour affirmer la hiérarchie visuelle.",
             "xp": 30,
             "hints": [
               "Identifiez la balise HTML qui correspond au titre de plus haut niveau.",
-              "Rappelez-vous de la propriété qui gère la taille de la typographie.",
+              "Souvenez-vous de la propriété qui gère la taille de la typographie.",
               "Utilisez la propriété de coloration du texte vue précédemment."
             ],
             "html": "Titre PrincipalSous-titreParagraphe normal.",
-            "targetCSS": "h1 { color: #00ff88; font-size: 48px; }",
+            "targetCSS": "h1 { color: #51cf66; font-size: 48px; }",
             "starterCSS": "h1 {\n  \n}"
           },
           {
             "id": "1-2-2",
-            "objective": "Transformez un bouton basique en élément interactif moderne : appliquez un fond violet (#6c63ff), un texte blanc, un espacement intérieur confortable (12px en haut/bas, 24px sur les côtés), et supprimez la bordure native du navigateur.",
+            "objective": "Transformez un bouton basique en élément interactif moderne : appliquez un fond violet (#667eea), un texte blanc, un espacement intérieur confortable (12px en haut/bas, 24px sur les côtés), et supprimez la bordure native du navigateur.",
             "xp": 40,
             "hints": [
               "Quelle propriété gère la couleur de fond d'un élément ?",
@@ -116,12 +116,12 @@
               "L'espacement intérieur peut prendre deux valeurs : la première pour l'axe vertical, la seconde pour l'axe horizontal."
             ],
             "html": "Clique moi",
-            "targetCSS": "button { background-color: #6c63ff; color: white; padding: 12px 24px; border: none; cursor: pointer; }",
+            "targetCSS": "button { background-color: #667eea; color: white; padding: 12px 24px; border: none; cursor: pointer; }",
             "starterCSS": "button {\n  \n}"
           },
           {
             "id": "1-2-3",
-            "objective": "Nettoyez l'apparence des liens de navigation. Retirez leur soulignement par défaut et appliquez-leur une couleur corail chaleureuse (#ff6b6b).",
+            "objective": "Nettoyez l'apparence des liens de navigation. Retirez leur soulignement par défaut et appliquez-leur une couleur corail chaleureuse (#f77f88).",
             "xp": 40,
             "hints": [
               "Le soulignement est considéré comme une 'décoration' du texte. Trouvez la propriété associée pour l'annuler.",
@@ -129,12 +129,12 @@
               "Appliquez la couleur demandée au texte."
             ],
             "html": "<a href=\"#\">Lien 1 | <a href=\"#\">Lien 2",
-            "targetCSS": "a { text-decoration: none; color: #ff6b6b; }",
+            "targetCSS": "a { text-decoration: none; color: #f77f88; }",
             "starterCSS": "a {\n  \n}"
           },
           {
             "id": "1-2-4",
-            "objective": "CHALLENGE : Créez une liste stylisée sans puces, où les éléments (li) alternent visuellement pour faciliter la lecture. Les éléments impairs auront un texte vert (#00ff88) et les pairs un texte blanc. Supprimez l'espacement intérieur de la liste.",
+            "objective": "CHALLENGE : Créez une liste stylisée sans puces, où les éléments (li) alternent visuellement pour faciliter la lecture. Les éléments impairs auront un texte vert (#51cf66) et les pairs un texte blanc. Supprimez l'espacement intérieur de la liste.",
             "xp": 80,
             "hints": [
               "Pour la liste entière, cherchez comment retirer le style des puces et mettre l'espacement intérieur à zéro.",
@@ -142,7 +142,7 @@
               "Cherchez les mots-clés anglais pour 'pair' et 'impair' à utiliser dans `nth-child()`."
             ],
             "html": "<body style=\"background:#111;padding: 20px\">Item 1Item 2Item 3Item 4",
-            "targetCSS": "ul { list-style: none; padding: 0; } li { margin-bottom: 8px; font-size: 18px; } li:nth-child(odd) { color: #00ff88; } li:nth-child(even) { color: #ffffff; }",
+            "targetCSS": "ul { list-style: none; padding: 0; } li { margin-bottom: 8px; font-size: 18px; } li:nth-child(odd) { color: #51cf66; } li:nth-child(even) { color: #ffffff; }",
             "starterCSS": "ul {\n  \n}\nli {\n  \n}\nli:nth-child(odd) {\n  \n}\nli:nth-child(even) {\n  \n}"
           }
         ]
@@ -166,7 +166,7 @@
         "exercises": [
           {
             "id": "1-3-1",
-            "objective": "Façonnez un bloc rectangulaire strict : donnez-lui des dimensions précises (200x200px), un fond violet (#6c63ff), un espacement interne pour décoller le texte des bords (20px), et centrez-le horizontalement en lui laissant 30px d'espace vertical extérieur.",
+            "objective": "Façonnez un bloc rectangulaire strict : donnez-lui des dimensions précises (200x200px), un fond violet (#667eea), un espacement interne pour décoller le texte des bords (20px), et centrez-le horizontalement en lui laissant 30px d'espace vertical extérieur.",
             "xp": 40,
             "hints": [
               "Utilisez les propriétés définissant explicitement la largeur et la hauteur.",
@@ -174,7 +174,7 @@
               "Pour le centrage via la marge, utilisez une valeur combinée pour l'axe vertical et l'axe horizontal."
             ],
             "html": "<body style=\"background:#111\"><div class=\"box\">",
-            "targetCSS": ".box { width: 200px; height: 200px; background-color: #6c63ff; padding: 20px; margin: 30px auto; }",
+            "targetCSS": ".box { width: 200px; height: 200px; background-color: #667eea; padding: 20px; margin: 30px auto; }",
             "starterCSS": ".box {\n  \n}"
           },
           {
@@ -187,8 +187,8 @@
               "Appliquez le modèle de boîte alternatif."
             ],
             "html": "<body style=\"background:#111\"><div class=\"box\">",
-            "targetCSS": ".box { width: 200px; height: 200px; background-color: #6c63ff; box-sizing: border-box; border: 4px solid #00ff88; margin: 30px auto; }",
-            "starterCSS": ".box {\n  width: 200px;\n  height: 200px;\n  background-color: #6c63ff;\n  margin: 30px auto;\n  \n}"
+            "targetCSS": ".box { width: 200px; height: 200px; background-color: #667eea; box-sizing: border-box; border: 4px solid #51cf66; margin: 30px auto; }",
+            "starterCSS": ".box {\n  width: 200px;\n  height: 200px;\n  background-color: #667eea;\n  margin: 30px auto;\n  \n}"
           },
           {
             "id": "1-3-3",
@@ -200,8 +200,8 @@
               "Souvenez-vous de l'acronyme mnémotechnique : TRBL (Top, Right, Bottom, Left)."
             ],
             "html": "<body style=\"background:#111\"><div class=\"box\">Contenu",
-            "targetCSS": ".box { background: #6c63ff; color: white; margin: 10px 20px; padding: 5px 10px 15px 20px; }",
-            "starterCSS": ".box {\n  background: #6c63ff;\n  color: white;\n  \n}"
+            "targetCSS": ".box { background: #667eea; color: white; margin: 10px 20px; padding: 5px 10px 15px 20px; }",
+            "starterCSS": ".box {\n  background: #667eea;\n  color: white;\n  \n}"
           },
           {
             "id": "1-3-4",
@@ -247,15 +247,15 @@
         "exercises": [
           {
             "id": "1-4-1",
-            "objective": "PROJET : Stylisez le body avec un fond sombre (#111), centrez le texte. La carte (.profile-card) doit être blanche, centrée (margin auto), avec un padding de 30px, une largeur max de 350px et des coins arrondis (16px). Le nom (h2) est noir, le métier (p) gris (#888). Le bouton doit avoir un fond vert (#00ff88), texte noir, pas de bordure, padding 10px 20px et coins arrondis (8px).",
+            "objective": "PROJET : Stylisez le body avec un fond sombre (#111), centrez le texte. La carte (.profile-card) doit être blanche, centrée (margin auto), avec un padding de 30px, une largeur max de 350px et des coins arrondis (16px). Le nom (h2) est noir, le métier (p) gris (#888). Le bouton doit avoir un fond vert (#51cf66), texte noir, pas de bordure, padding 10px 20px et coins arrondis (8px).",
             "xp": 150,
             "hints": [
               "Séparez bien les règles : une pour le body, une pour la carte, et des règles pour le contenu textuel et le bouton.",
-              "N'oubliez pas les marges automatiques sur la carte pour la centrer horizontalement.",
-              "Rappelez-vous comment retirer la décoration par défaut du bouton et arrondir ses angles."
+              "Assurez-vous de les marges automatiques sur la carte pour la centrer horizontalement.",
+              "Souvenez-vous comment retirer la décoration par défaut du bouton et arrondir ses angles."
             ],
             "html": "<div class=\"profile-card\">Alice DupontDéveloppeuse Front-endSuivre",
-            "targetCSS": "body { background-color: #111; text-align: center; padding: 40px; } .profile-card { background-color: white; max-width: 350px; margin: 0 auto; padding: 30px; border-radius: 16px; } h2 { color: black; margin-bottom: 5px; } p { color: #888; margin-top: 0; margin-bottom: 20px; } button { background-color: #00ff88; color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }",
+            "targetCSS": "body { background-color: #111; text-align: center; padding: 40px; } .profile-card { background-color: white; max-width: 350px; margin: 0 auto; padding: 30px; border-radius: 16px; } h2 { color: black; margin-bottom: 5px; } p { color: #888; margin-top: 0; margin-bottom: 20px; } button { background-color: #51cf66; color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }",
             "starterCSS": "body {\n  \n}\n.profile-card {\n  \n}\nh2 {\n  \n}\np {\n  \n}\nbutton {\n  \n}"
           }
         ]
@@ -266,7 +266,7 @@
     "id": 2,
     "icon": "🎯",
     "title": "Sélecteurs CSS",
-    "color": "#ff6b6b",
+    "color": "#f77f88",
     "notions": [
       {
         "id": "2-1",
@@ -287,7 +287,7 @@
         "exercises": [
           {
             "id": "2-1-1",
-            "objective": "Identifiez le sélecteur correct pour cibler un groupe d'éléments partageant la même classe, et attribuez-leur une couleur orange avec une taille de texte de 36px.",
+            "objective": "Identifiez le sélecteur correct pour cibler un groupe d'éléments partageant la même classe, et attribuez-leur une couleur orange (#ff8c00), du gras, et une taille de texte de 36px.",
             "xp": 30,
             "hints": [
               "Regardez l'attribut HTML de l'élément à cibler.",
@@ -305,10 +305,10 @@
             "hints": [
               "L'identifiant (id) nécessite un préfixe différent de la classe (symbole dièse).",
               "Pour le dégradé diagonal, le premier paramètre de la fonction `linear-gradient` sera un angle (ex: `135deg`).",
-              "N'oubliez pas les propriétés d'espacement et d'alignement vues précédemment."
+              "Assurez-vous de les propriétés d'espacement et d'alignement vues précédemment."
             ],
             "html": "<div id=\"hero\">Hero Section<div style=\"padding: 20px\">Autre div",
-            "targetCSS": "#hero { background: linear-gradient(135deg, #6c63ff, #ff6b6b); color: white; padding: 40px; text-align: center; }",
+            "targetCSS": "#hero { background: linear-gradient(135deg, #667eea, #f77f88); color: white; padding: 40px; text-align: center; }",
             "starterCSS": "#hero {\n  \n}"
           },
           {
@@ -318,15 +318,15 @@
             "hints": [
               "Il existe un caractère joker (astérisque) permettant de cibler absolument tous les nœuds du document.",
               "Mettez à zéro les propriétés d'espacement externe et interne.",
-              "Rappelez-vous de la propriété vue au module précédent pour fiabiliser les largeurs."
+              "Souvenez-vous de la propriété vue au module précédent pour fiabiliser les largeurs."
             ],
-            "html": "Reset globalPlus de marges bizarres !<div style=\"background:#6c63ff;color:white\">Box",
+            "html": "Reset globalPlus de marges bizarres !<div style=\"background:#667eea;color:white\">Box",
             "targetCSS": "* { box-sizing: border-box; margin: 0; padding: 0; }",
             "starterCSS": "* {\n  \n}"
           },
           {
             "id": "2-1-4",
-            "objective": "CHALLENGE : Mettez en pratique la spécificité CSS. Stylisez trois niveaux d'importance : les paragraphes normaux (couleur #aaa), les paragraphes spéciaux (couleur #6c63ff, texte en gras), et un paragraphe unique (couleur #00ff88, taille 20px). L'ordre des règles importe moins que la puissance du sélecteur.",
+            "objective": "CHALLENGE : Mettez en pratique la spécificité CSS. Stylisez trois niveaux d'importance : les paragraphes normaux (couleur #aaa), les paragraphes spéciaux (couleur #667eea, texte en gras), et un paragraphe unique (couleur #51cf66, taille 20px). L'ordre des règles importe moins que la puissance du sélecteur.",
             "xp": 80,
             "hints": [
               "Vous devrez créer trois blocs de règles différents ciblant les bonnes entités HTML.",
@@ -334,7 +334,7 @@
               "La mise en gras d'un texte se fait via une propriété relative au 'poids' de la police."
             ],
             "html": "<body style=\"padding: 20px\">Paragraphe normal<p class=\"special\">Paragraphe spécial<p id=\"unique\">Paragraphe unique",
-            "targetCSS": "p { color: #aaa; } .special { color: #6c63ff; font-weight: bold; } #unique { color: #00ff88; font-size: 20px; }",
+            "targetCSS": "p { color: #aaa; } .special { color: #667eea; font-weight: bold; } #unique { color: #51cf66; font-size: 20px; }",
             "starterCSS": "p {\n  \n}\n.special {\n  \n}\n#unique {\n  \n}"
           }
         ]
@@ -371,7 +371,7 @@
           },
           {
             "id": "2-2-2",
-            "objective": "Ciblez exclusivement les éléments de liste de premier niveau d'un menu. Modifiez leur couleur (#6c63ff), mettez-les en gras et enlevez leurs puces, sans affecter les éventuels sous-menus imbriqués.",
+            "objective": "Ciblez exclusivement les éléments de liste de premier niveau d'un menu. Modifiez leur couleur (#667eea), mettez-les en gras et enlevez leurs puces, sans affecter les éventuels sous-menus imbriqués.",
             "xp": 50,
             "hints": [
               "Le chevron pointant vers la droite `>` permet de restreindre la sélection aux enfants directs (niveau 1 seulement).",
@@ -379,12 +379,12 @@
               "Pensez à retirer le style de liste par défaut et à ajuster le poids et la taille de la police."
             ],
             "html": "<ul class=\"menu\">Item 1Item 2Sous-itemItem 3",
-            "targetCSS": "ul.menu { padding: 20px; } ul.menu > li { color: #6c63ff; font-weight: bold; font-size: 18px; list-style: none; }",
+            "targetCSS": "ul.menu { padding: 20px; } ul.menu > li { color: #667eea; font-weight: bold; font-size: 18px; list-style: none; }",
             "starterCSS": "ul.menu {\n  padding: 20px;\n}\nul.menu > li {\n  \n}"
           },
           {
             "id": "2-2-3",
-            "objective": "Dans un formulaire, ciblez précisément les champs de saisie de type 'texte' pour leur ajouter une bordure solide de 2px violette (#6c63ff) et un remplissage intérieur sans toucher aux champs email ou mot de passe.",
+            "objective": "Dans un formulaire, ciblez précisément les champs de saisie de type 'texte' pour leur ajouter une bordure solide de 2px violette (#667eea) et un remplissage intérieur sans toucher aux champs email ou mot de passe.",
             "xp": 50,
             "hints": [
               "Les sélecteurs d'attributs utilisent des crochets `[]` collés au nom de la balise.",
@@ -392,12 +392,12 @@
               "Pour un rendu net, il est souvent utile de retirer la surbrillance (outline) native ajoutée par le navigateur lors du clic."
             ],
             "html": "<body style=\"padding: 20px\"><input type=\"text\" placeholder=\"Texte\">\n<input type=\"email\" placeholder=\"Email (non ciblé)\">\n<input type=\"password\" placeholder=\"Mot de passe (non ciblé)\">",
-            "targetCSS": "input[type='text'] { border: 2px solid #6c63ff; padding: 8px 12px; border-radius: 4px; outline: none; }",
+            "targetCSS": "input[type='text'] { border: 2px solid #667eea; padding: 8px 12px; border-radius: 4px; outline: none; }",
             "starterCSS": "input[type='text'] {\n  \n}"
           },
           {
             "id": "2-2-4",
-            "objective": "Mettez en valeur les textes introductifs en ciblant spécifiquement le premier paragraphe qui suit immédiatement un titre secondaire (h2). Mettez ce texte en violet (#6c63ff) et en italique.",
+            "objective": "Mettez en valeur les textes introductifs en ciblant spécifiquement le premier paragraphe qui suit immédiatement un titre secondaire (h2). Mettez ce texte en violet (#667eea) et en italique.",
             "xp": 60,
             "hints": [
               "Le signe plus `+` permet de cibler un élément qui en suit directement un autre dans le flux HTML (frère adjacent).",
@@ -405,12 +405,12 @@
               "Le style du texte (normal ou italique) se gère via une propriété dédiée."
             ],
             "html": "<body style=\"padding: 20px\">Section 1Ce paragraphe suit h2 directement.Celui-ci est le deuxième après h2.Section 2Ce paragraphe suit h2 directement.",
-            "targetCSS": "h2 + p { color: #6c63ff; font-style: italic; }",
+            "targetCSS": "h2 + p { color: #667eea; font-style: italic; }",
             "starterCSS": "h2 + p {\n  \n}"
           },
           {
             "id": "2-2-5",
-            "objective": "CHALLENGE : Domptez un formulaire complet en combinant vos connaissances. Stylisez les labels enfants du formulaire (en bloc, gras, marge basse), les messages d'erreur adjacents aux inputs (texte rouge #ff6b6b, petit, marge gauche), et le bouton de type submit (fond violet #6c63ff, texte blanc, sans bordure, bouton arrondi).",
+            "objective": "CHALLENGE : Domptez un formulaire complet en combinant vos connaissances. Stylisez les labels enfants du formulaire (en bloc, gras, marge basse), les messages d'erreur adjacents aux inputs (texte rouge #f77f88, petit, marge gauche), et le bouton de type submit (fond violet #667eea, texte blanc, sans bordure, bouton arrondi).",
             "xp": 100,
             "hints": [
               "Pour les labels, utilisez le sélecteur descendant. Un affichage 'bloc' force le passage à la ligne.",
@@ -418,7 +418,7 @@
               "Pour le bouton d'envoi, utilisez le sélecteur d'attribut `[type='submit']` combiné à la balise `input`."
             ],
             "html": "<body style=\"padding: 20px\">Nom<input type=\"text\">Requis\nEmail<input type=\"email\">\n<input type=\"submit\" value=\"Envoyer\">",
-            "targetCSS": "form label { display: block; margin-bottom: 4px; font-weight: bold; color: #333; } input + span { color: #ff6b6b; font-size: 12px; margin-left: 8px; } input[type='submit'] { background: #6c63ff; color: white; border: none; padding: 10px 24px; border-radius: 4px; cursor: pointer; margin-top: 10px; }",
+            "targetCSS": "form label { display: block; margin-bottom: 4px; font-weight: bold; color: #333; } input + span { color: #f77f88; font-size: 12px; margin-left: 8px; } input[type='submit'] { background: #667eea; color: white; border: none; padding: 10px 24px; border-radius: 4px; cursor: pointer; margin-top: 10px; }",
             "starterCSS": "form label {\n  \n}\ninput + span {\n  \n}\ninput[type='submit'] {\n  \n}"
           }
         ]
@@ -480,7 +480,7 @@
         "exercises": [
           {
             "id": "3-1-1",
-            "objective": "Construisez une barre de progression fluide. Elle doit occuper 70% de la largeur de son parent, avoir une épaisseur fixe de 20px, un fond violet (#6c63ff) et des extrémités parfaitement arrondies.",
+            "objective": "Construisez une barre de progression fluide. Elle doit occuper 70% de la largeur de son parent, avoir une épaisseur fixe de 20px, un fond violet (#667eea) et des extrémités parfaitement arrondies.",
             "xp": 40,
             "hints": [
               "Exprimez la largeur avec le symbole de pourcentage.",
@@ -488,7 +488,7 @@
               "La hauteur, elle, reste une contrainte fixe en pixels."
             ],
             "html": "<body style=\"background:#111;padding: 40px\"><div class=\"progress-bar\">",
-            "targetCSS": ".progress-bar { width: 70%; height: 20px; background-color: #6c63ff; border-radius: 10px; }",
+            "targetCSS": ".progress-bar { width: 70%; height: 20px; background-color: #667eea; border-radius: 10px; }",
             "starterCSS": ".progress-bar {\n  \n}"
           },
           {
@@ -519,15 +519,15 @@
           },
           {
             "id": "3-1-4",
-            "objective": "CHALLENGE : Concevez une section 'Hero' qui couvre toute la largeur de l'écran et s'adapte à sa hauteur. Elle doit prendre 100% de la largeur et au minimum 60% de la hauteur visible de la fenêtre du navigateur, avec un fond dégradé diagonal du bleu sombre (#1a1a2e) vers le violet (#6c63ff).",
+            "objective": "CHALLENGE : Concevez une section 'Hero' qui couvre toute la largeur de l'écran et s'adapte à sa hauteur. Elle doit prendre 100% de la largeur et au minimum 60% de la hauteur visible de la fenêtre du navigateur, avec un fond dégradé diagonal du bleu sombre (#1a1a2e) vers le violet (#667eea).",
             "xp": 80,
             "hints": [
               "La largeur à 100% garantit l'occupation totale horizontale.",
               "Pour se baser sur la hauteur visible de l'écran, utilisez l'unité `vh` (Viewport Height).",
-              "N'oubliez pas d'utiliser la bonne fonction pour créer le fond en diagonale."
+              "Assurez-vous de d'utiliser la bonne fonction pour créer le fond en diagonale."
             ],
             "html": "<body style=\"margin: 0\"><div class=\"hero\"><h1 style=\"color:white;text-align:center;padding-top: 80px\">Hero Section",
-            "targetCSS": ".hero { width: 100%; min-height: 60vh; background: linear-gradient(135deg, #1a1a2e, #6c63ff); }",
+            "targetCSS": ".hero { width: 100%; min-height: 60vh; background: linear-gradient(135deg, #1a1a2e, #667eea); }",
             "starterCSS": ".hero {\n  \n}"
           }
         ]
@@ -564,7 +564,7 @@
           },
           {
             "id": "3-2-2",
-            "objective": "Mettez en forme une belle citation (quote). Elle doit être en italique, affichée en 22px, avec une couleur grise (#888) et surtout respirer visuellement grâce à une hauteur de ligne de 1.8. Ajoutez une fine bordure verticale violette (#6c63ff) sur la gauche, espacée de 20px du texte.",
+            "objective": "Mettez en forme une belle citation (quote). Elle doit être en italique, affichée en 22px, avec une couleur grise (#888) et surtout respirer visuellement grâce à une hauteur de ligne de 1.8. Ajoutez une fine bordure verticale violette (#667eea) sur la gauche, espacée de 20px du texte.",
             "xp": 40,
             "hints": [
               "Le style de la police permet de basculer en italique.",
@@ -572,7 +572,7 @@
               "Une bordure ciblée uniquement sur le côté gauche, combinée à un remplissage intérieur gauche, crée l'effet d'encart classique."
             ],
             "html": "<body style=\"padding: 40px;max-width: 600px\"><blockquote class=\"quote\">Le CSS est un outil de création, pas seulement un outil de mise en page.",
-            "targetCSS": ".quote { font-style: italic; font-size: 22px; line-height: 1.8; color: #888; border-left: 4px solid #6c63ff; padding-left: 20px; }",
+            "targetCSS": ".quote { font-style: italic; font-size: 22px; line-height: 1.8; color: #888; border-left: 4px solid #667eea; padding-left: 20px; }",
             "starterCSS": ".quote {\n  \n}"
           },
           {
@@ -584,7 +584,7 @@
               "Augmentez l'espace entre les caractères pour un aspect moderne et épuré.",
               "La graisse 600 correspond au 'semi-bold' classique."
             ],
-            "html": "<body style=\"padding: 40px;background:#111\"><span class=\"nav-label\" style=\"color:#00ff88\">Accueil",
+            "html": "<body style=\"padding: 40px;background:#111\"><span class=\"nav-label\" style=\"color:#51cf66\">Accueil",
             "targetCSS": ".nav-label { text-transform: uppercase; letter-spacing: 4px; font-size: 12px; font-weight: 600; }",
             "starterCSS": ".nav-label {\n  \n}"
           },
@@ -597,7 +597,7 @@
               "Le centrage du texte s'applique de la même manière sur chaque élément.",
               "Utilisez `rgba(255,255,255,0.7)` pour obtenir le blanc translucide demandé sur le sous-titre."
             ],
-            "html": "<body style=\"background:linear-gradient(135deg,#1a1a2e,#6c63ff);padding: 80px 40px;margin: 0\"><h1 class=\"hero-title\">Maître le CSS<p class=\"hero-sub\">Un exercice à la fois.",
+            "html": "<body style=\"background: linear-gradient(135deg, #667eea, #764ba2);padding: 80px 40px;margin: 0\"><h1 class=\"hero-title\">Maître le CSS<p class=\"hero-sub\">Un exercice à la fois.",
             "targetCSS": ".hero-title { font-size: 64px; font-weight: 900; color: white; text-align: center; margin: 0 0 16px; } .hero-sub { font-size: 20px; font-weight: 400; color: rgba(255,255,255,0.7); text-align: center; }",
             "starterCSS": ".hero-title {\n  \n}\n.hero-sub {\n  \n}"
           }
@@ -665,7 +665,7 @@
               "Utilisez les coordonnées spatiales (depuis le haut et depuis la gauche) pour pousser l'élément.",
               "Remarquez que l'espace initial de l'élément est conservé, le texte autour ne bouge pas."
             ],
-            "html": "<body style=\"padding: 40px\"><div style=\"background:#eee;padding: 20px\">Texte avant<div class=\"box\" style=\"background:#6c63ff;color:white;padding: 12px;display:inline-block\">Je bougeTexte après",
+            "html": "<body style=\"padding: 40px\"><div style=\"background:#eee;padding: 20px\">Texte avant<div class=\"box\" style=\"background:#667eea;color:white;padding: 12px;display:inline-block\">Je bougeTexte après",
             "targetCSS": ".box { position: relative; top: 20px; left: 10px; }",
             "starterCSS": ".box {\n  \n}"
           },
@@ -679,8 +679,8 @@
               "Fixez ses coordonnées en l'accrochant en haut et à droite avec des valeurs négatives pour le faire déborder."
             ],
             "html": "<body style=\"padding: 40px\"><div class=\"card\" style=\"background:white;padding: 24px;border-radius: 12px;box-shadow: 0 4px 20px rgba(0,0,0,0.1);max-width: 200px\"><span class=\"badge\">NEW<h3 style=\"margin: 0\">Produit<p style=\"color:#888\">Description courte.",
-            "targetCSS": ".card { position: relative; } .badge { position: absolute; top: -10px; right: -10px; background: #ff6b6b; color: white; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 20px; }",
-            "starterCSS": ".card {\n  \n}\n.badge {\n  background: #ff6b6b;\n  color: white;\n  font-size: 11px;\n  font-weight: 700;\n  padding: 4px 8px;\n  border-radius: 20px;\n  \n}"
+            "targetCSS": ".card { position: relative; } .badge { position: absolute; top: -10px; right: -10px; background: #f77f88; color: white; font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 20px; }",
+            "starterCSS": ".card {\n  \n}\n.badge {\n  background: #f77f88;\n  color: white;\n  font-size: 11px;\n  font-weight: 700;\n  padding: 4px 8px;\n  border-radius: 20px;\n  \n}"
           },
           {
             "id": "4-1-3",
@@ -705,8 +705,8 @@
               "Ne touchez pas au contenu direct, concentrez-vous sur la mécanique de superposition et de découpe."
             ],
             "html": "<body style=\"padding: 40px;background:#f0f0f0\"><div class=\"product-card\"><img src=\"https://picsum.photos/300/180\" alt=\"produit\" style=\"width:100%;display:block\"><span class=\"badge\">NEW<div class=\"content\"><h3 style=\"margin:0 0 8px\">Produit Cool<p style=\"margin:0;color:#666\">29,99 €",
-            "targetCSS": ".product-card { position: relative; background: white; border-radius: 12px; overflow: hidden; max-width: 300px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); } .badge { position: absolute; top: 12px; left: 12px; background: #00ff88; color: #111; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; } .content { padding: 16px; }",
-            "starterCSS": ".product-card {\n  background: white;\n  border-radius: 12px;\n  max-width: 300px;\n  box-shadow: 0 4px 20px rgba(0,0,0,0.1);\n  \n}\n.badge {\n  background: #00ff88;\n  color: #111;\n  font-size: 11px;\n  font-weight: 700;\n  padding: 4px 10px;\n  border-radius: 20px;\n  \n}\n.content {\n  padding: 16px;\n}"
+            "targetCSS": ".product-card { position: relative; background: white; border-radius: 12px; overflow: hidden; max-width: 300px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); } .badge { position: absolute; top: 12px; left: 12px; background: #51cf66; color: #111; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 20px; } .content { padding: 16px; }",
+            "starterCSS": ".product-card {\n  background: white;\n  border-radius: 12px;\n  max-width: 300px;\n  box-shadow: 0 4px 20px rgba(0,0,0,0.1);\n  \n}\n.badge {\n  background: #51cf66;\n  color: #111;\n  font-size: 11px;\n  font-weight: 700;\n  padding: 4px 10px;\n  border-radius: 20px;\n  \n}\n.content {\n  padding: 16px;\n}"
           }
         ]
       },
@@ -736,7 +736,7 @@
               "Définissez un point d'ancrage en haut et à gauche à 0.",
               "Utilisez la propriété qui contrôle l'axe Z (profondeur) pour éviter que d'autres éléments passent au-dessus."
             ],
-            "html": "<body style=\"margin: 0\"><nav class=\"navbar\"><span style=\"color:#00ff88;font-weight: 900\">⚡ Brand<div style=\"height: 200vh;padding: 80px 20px 20px\">Scrolle pour voir la navbar rester en place.",
+            "html": "<body style=\"margin: 0\"><nav class=\"navbar\"><span style=\"color:#51cf66;font-weight: 900\">⚡ Brand<div style=\"height: 200vh;padding: 80px 20px 20px\">Scrolle pour voir la navbar rester en place.",
             "targetCSS": ".navbar { position: fixed; top: 0; left: 0; width: 100%; background: #1a1a2e; padding: 16px 32px; z-index: 100; box-sizing: border-box; }",
             "starterCSS": ".navbar {\n  background: #1a1a2e;\n  padding: 16px 32px;\n  box-sizing: border-box;\n  \n}"
           },
@@ -750,8 +750,8 @@
               "Le bouton a déjà ses dimensions et son arrondi, ne touchez qu'aux paramètres spatiaux."
             ],
             "html": "<body style=\"margin: 0\"><div style=\"height: 200vh;padding: 20px\">Contenu de la page...<button class=\"fab\">+",
-            "targetCSS": ".fab { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #6c63ff; color: white; border: none; border-radius: 50%; font-size: 28px; cursor: pointer; z-index: 200; box-shadow: 0 4px 20px rgba(108,99,255,0.5); }",
-            "starterCSS": ".fab {\n  width: 56px;\n  height: 56px;\n  background: #6c63ff;\n  color: white;\n  border: none;\n  border-radius: 50%;\n  font-size: 28px;\n  cursor: pointer;\n  box-shadow: 0 4px 20px rgba(108,99,255,0.5);\n  \n}"
+            "targetCSS": ".fab { position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #667eea; color: white; border: none; border-radius: 50%; font-size: 28px; cursor: pointer; z-index: 200; box-shadow: 0 4px 20px rgba(108,99,255,0.5); }",
+            "starterCSS": ".fab {\n  width: 56px;\n  height: 56px;\n  background: #667eea;\n  color: white;\n  border: none;\n  border-radius: 50%;\n  font-size: 28px;\n  cursor: pointer;\n  box-shadow: 0 4px 20px rgba(108,99,255,0.5);\n  \n}"
           },
           {
             "id": "4-2-3",
@@ -775,7 +775,7 @@
               "La modale doit elle aussi être fixée, placée à 50% en haut et à gauche, avec un index de profondeur supérieur à la bâche.",
               "Utilisez `transform: translate(-50%, -50%)` sur la modale pour la recentrer parfaitement."
             ],
-            "html": "<body style=\"margin: 0\"><div style=\"height: 100vh;padding: 40px;background:linear-gradient(135deg,#1a1a2e,#6c63ff)\"><h1 style=\"color:white\">Contenu de la page<div class=\"overlay\"><div class=\"modal\"><h2 style=\"margin: 0 0 12px\">Modale<p style=\"color:#666;margin: 0\">Au-dessus de tout !",
+            "html": "<body style=\"margin: 0\"><div style=\"height: 100vh;padding: 40px;background: linear-gradient(135deg, #667eea, #764ba2)\"><h1 style=\"color:white\">Contenu de la page<div class=\"overlay\"><div class=\"modal\"><h2 style=\"margin: 0 0 12px\">Modale<p style=\"color:#666;margin: 0\">Au-dessus de tout !",
             "targetCSS": ".overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 100; } .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 32px; border-radius: 16px; z-index: 101; min-width: 280px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }",
             "starterCSS": ".overlay {\n  \n}\n.modal {\n  background: white;\n  padding: 32px;\n  border-radius: 16px;\n  min-width: 280px;\n  box-shadow: 0 20px 60px rgba(0,0,0,0.3);\n  \n}"
           }
@@ -805,8 +805,8 @@
               "Pensez à arrondir complètement le point vert."
             ],
             "html": "<body style=\"background:#111; padding: 50px;\"><div class=\"card-container\"><div class=\"ribbon\">PRO<div class=\"pic-wrapper\" style=\"display:inline-block;\"><img src=\"https://picsum.photos/100\" class=\"profile-pic\"><div class=\"status-dot\">Jean DupontOnline",
-            "targetCSS": ".card-container { position: relative; background: white; padding: 20px; border-radius: 12px; max-width: 250px; text-align: center; margin: 0 auto; } .ribbon { position: absolute; top: 10px; right: -10px; background: red; color: white; padding: 5px 15px; font-weight: bold; z-index: 5; border-radius: 3px; } .pic-wrapper { position: relative; display: inline-block; } .profile-pic { width: 100px; height: 100px; border-radius: 50%; display: block; } .status-dot { position: absolute; bottom: 5px; right: 5px; width: 15px; height: 15px; background: #00ff88; border-radius: 50%; border: 2px solid white; }",
-            "starterCSS": ".card-container {\n  background: white;\n  padding: 20px;\n  border-radius: 12px;\n  max-width: 250px;\n  text-align: center;\n  margin: 0 auto;\n  \n}\n.ribbon {\n  background: red;\n  color: white;\n  padding: 5px 15px;\n  font-weight: bold;\n  border-radius: 3px;\n  \n}\n.pic-wrapper {\n  display: inline-block;\n  \n}\n.profile-pic {\n  width: 100px;\n  height: 100px;\n  display: block;\n  \n}\n.status-dot {\n  width: 15px;\n  height: 15px;\n  background: #00ff88;\n  border: 2px solid white;\n  \n}"
+            "targetCSS": ".card-container { position: relative; background: white; padding: 20px; border-radius: 12px; max-width: 250px; text-align: center; margin: 0 auto; } .ribbon { position: absolute; top: 10px; right: -10px; background: red; color: white; padding: 5px 15px; font-weight: bold; z-index: 5; border-radius: 3px; } .pic-wrapper { position: relative; display: inline-block; } .profile-pic { width: 100px; height: 100px; border-radius: 50%; display: block; } .status-dot { position: absolute; bottom: 5px; right: 5px; width: 15px; height: 15px; background: #51cf66; border-radius: 50%; border: 2px solid white; }",
+            "starterCSS": ".card-container {\n  background: white;\n  padding: 20px;\n  border-radius: 12px;\n  max-width: 250px;\n  text-align: center;\n  margin: 0 auto;\n  \n}\n.ribbon {\n  background: red;\n  color: white;\n  padding: 5px 15px;\n  font-weight: bold;\n  border-radius: 3px;\n  \n}\n.pic-wrapper {\n  display: inline-block;\n  \n}\n.profile-pic {\n  width: 100px;\n  height: 100px;\n  display: block;\n  \n}\n.status-dot {\n  width: 15px;\n  height: 15px;\n  background: #51cf66;\n  border: 2px solid white;\n  \n}"
           }
         ]
       }
@@ -842,7 +842,7 @@
               "Un élément avec un type de rendu de 'bloc' s'étendra sur toute la largeur disponible et forcera les frères suivants à aller à la ligne.",
               "Utilisez la propriété qui altère la manière dont le navigateur dessine la boîte."
             ],
-            "html": "<body style=\"padding: 20px\"><span class=\"item\" style=\"background:#6c63ff;color:white;padding: 8px\">Item 1<span class=\"item\" style=\"background:#ff6b6b;color:white;padding: 8px\">Item 2<span class=\"item\" style=\"background:#00ff88;color:#111;padding: 8px\">Item 3",
+            "html": "<body style=\"padding: 20px\"><span class=\"item\" style=\"background:#667eea;color:white;padding: 8px\">Item 1<span class=\"item\" style=\"background:#f77f88;color:white;padding: 8px\">Item 2<span class=\"item\" style=\"background:#51cf66;color:#111;padding: 8px\">Item 3",
             "targetCSS": ".item { display: block; margin-bottom: 8px; }",
             "starterCSS": ".item {\n  \n}"
           },
@@ -855,7 +855,7 @@
               "Définissez une hauteur et largeur fixe à 100px.",
               "Utilisez `vertical-align: top` pour aligner correctement ces boîtes sur la ligne de texte invisible."
             ],
-            "html": "<body style=\"padding: 20px\"><div class=\"box\" style=\"background:#6c63ff\">A<div class=\"box\" style=\"background:#ff6b6b\">B<div class=\"box\" style=\"background:#00ff88\">C",
+            "html": "<body style=\"padding: 20px\"><div class=\"box\" style=\"background:#667eea\">A<div class=\"box\" style=\"background:#f77f88\">B<div class=\"box\" style=\"background:#51cf66\">C",
             "targetCSS": ".box { display: inline-block; width: 100px; height: 100px; text-align: center; line-height: 100px; color: white; font-weight: bold; margin: 4px; vertical-align: top; }",
             "starterCSS": ".box {\n  text-align: center;\n  line-height: 100px;\n  color: white;\n  font-weight: bold;\n  margin: 4px;\n  \n}"
           },
@@ -867,7 +867,7 @@
               "L'opacité à 0 rend l'élément transparent mais garde le trou dans la page. Préférez altérer son type d'affichage.",
               "Attribuez la valeur correspondant au néant absolu à la propriété d'affichage."
             ],
-            "html": "<body style=\"padding: 20px\"><div style=\"background:#00ff88;padding: 20px;color:#111\">Je suis visible !<div class=\"secret\" style=\"background:#ff6b6b;padding: 20px;color:white\">Cache moi !",
+            "html": "<body style=\"padding: 20px\"><div style=\"background:#51cf66;padding: 20px;color:#111\">Je suis visible !<div class=\"secret\" style=\"background:#f77f88;padding: 20px;color:white\">Cache moi !",
             "targetCSS": ".secret { display: none; }",
             "starterCSS": ".secret {\n  \n}"
           },
@@ -911,7 +911,7 @@
               "Utilisez la propriété gérant l'axe de lecture principal pour centrer.",
               "Utilisez la propriété gérant l'axe transversal pour centrer la profondeur."
             ],
-            "html": "<body style=\"margin: 0;padding: 20px\"><div class=\"container\"><div style=\"width: 80px;height: 80px;background:#6c63ff;border-radius: 8px\">",
+            "html": "<body style=\"margin: 0;padding: 20px\"><div class=\"container\"><div style=\"width: 80px;height: 80px;background:#667eea;border-radius: 8px\">",
             "targetCSS": ".container { display: flex; justify-content: center; align-items: center; width: 300px; height: 300px; background: #1a1a2e; border-radius: 12px; }",
             "starterCSS": ".container {\n  width: 300px;\n  height: 300px;\n  background: #1a1a2e;\n  border-radius: 12px;\n  \n}"
           },
@@ -924,7 +924,7 @@
               "Sur l'axe principal, utilisez une valeur qui place un espace maximal entre les différents enfants, les rejetant contre les bords extérieurs.",
               "Assurez l'alignement central transversal."
             ],
-            "html": "<body style=\"margin: 0\"><nav class=\"navbar\"><span style=\"color:#00ff88;font-weight: 900;font-size: 20px\">⚡ CSSMaster<a style=\"color:white;text-decoration:none;margin-left: 20px\" href=\"#\">Home<a style=\"color:white;text-decoration:none;margin-left: 20px\" href=\"#\">Cours",
+            "html": "<body style=\"margin: 0\"><nav class=\"navbar\"><span style=\"color:#51cf66;font-weight: 900;font-size: 20px\">⚡ CSSMaster<a style=\"color:white;text-decoration:none;margin-left: 20px\" href=\"#\">Home<a style=\"color:white;text-decoration:none;margin-left: 20px\" href=\"#\">Cours",
             "targetCSS": ".navbar { display: flex; justify-content: space-between; align-items: center; background: #1a1a2e; padding: 16px 32px; }",
             "starterCSS": ".navbar {\n  background: #1a1a2e;\n  padding: 16px 32px;\n  \n}"
           },
@@ -937,7 +937,7 @@
               "L'espacement interne entre éléments flexibles d'une même liste se règle avec un mot-clé très court (trois lettres).",
               "Assurez-vous que le mode flex est activé."
             ],
-            "html": "<body style=\"padding: 20px\"><div class=\"stack\"><div style=\"background:#6c63ff;color:white;padding: 16px;border-radius: 8px\">Item A<div style=\"background:#ff6b6b;color:white;padding: 16px;border-radius: 8px\">Item B<div style=\"background:#00ff88;color:#111;padding: 16px;border-radius: 8px\">Item C",
+            "html": "<body style=\"padding: 20px\"><div class=\"stack\"><div style=\"background:#667eea;color:white;padding: 16px;border-radius: 8px\">Item A<div style=\"background:#f77f88;color:white;padding: 16px;border-radius: 8px\">Item B<div style=\"background:#51cf66;color:#111;padding: 16px;border-radius: 8px\">Item C",
             "targetCSS": ".stack { display: flex; flex-direction: column; gap: 16px; }",
             "starterCSS": ".stack {\n  \n}"
           },
@@ -979,7 +979,7 @@
             "hints": [
               "Sur le parent global, ajoutez la règle autorisant le pliage/passage à la ligne.",
               "Sur chaque enfant, donnez une capacité d'extension à 1 et installez une contrainte de largeur minimale.",
-              "N'oubliez pas d'espacer tout le monde de façon égale."
+              "Assurez-vous de d'espacer tout le monde de façon égale."
             ],
             "html": "<body style=\"padding: 20px;background:#f0f0f0\"><div class=\"cards\"><div class=\"card\" style=\"background:white;padding: 20px;border-radius: 8px\">Carte 1<div class=\"card\" style=\"background:white;padding: 20px;border-radius: 8px\">Carte 2<div class=\"card\" style=\"background:white;padding: 20px;border-radius: 8px\">Carte 3",
             "targetCSS": ".cards { display: flex; flex-wrap: wrap; gap: 20px; } .card { flex: 1; min-width: 150px; }",
@@ -994,7 +994,7 @@
               "Utilisez la valeur désignant la fin de l'axe de symétrie.",
               "L'enfant s'arrachera du plafond pour venir se coller au plancher du conteneur."
             ],
-            "html": "<body style=\"padding: 20px\"><div style=\"display:flex;gap: 16px;background:#1a1a2e;padding: 20px;border-radius: 12px;height: 150px\"><div style=\"background:#6c63ff;color:white;padding: 16px;border-radius: 8px\">Normal<div class=\"bottom\" style=\"background:#ff6b6b;color:white;padding: 16px;border-radius: 8px\">En bas<div style=\"background:#00ff88;color:#111;padding: 16px;border-radius: 8px\">Normal",
+            "html": "<body style=\"padding: 20px\"><div style=\"display:flex;gap: 16px;background:#1a1a2e;padding: 20px;border-radius: 12px;height: 150px\"><div style=\"background:#667eea;color:white;padding: 16px;border-radius: 8px\">Normal<div class=\"bottom\" style=\"background:#f77f88;color:white;padding: 16px;border-radius: 8px\">En bas<div style=\"background:#51cf66;color:#111;padding: 16px;border-radius: 8px\">Normal",
             "targetCSS": ".bottom { align-self: flex-end; }",
             "starterCSS": ".bottom {\n  \n}"
           },
@@ -1018,7 +1018,7 @@
             "hints": [
               "Appliquez la propriété `flex` qui condense trois valeurs en une ligne, suivie de la largeur minimale de sauvegarde.",
               "La propriété `flex` acceptera : `1 1 calc(33.33% - 20px)`.",
-              "N'oubliez pas d'initialiser correctement la grille parente pour accepter le retour à la ligne."
+              "Assurez-vous de d'initialiser correctement la grille parente pour accepter le retour à la ligne."
             ],
             "html": "<body style=\"padding: 24px;background:#111\"><div class=\"grid\"><div class=\"card\" style=\"background:#1a1a2e;padding: 20px;border-radius: 8px;color:white\"><h3 style=\"margin: 0 0 8px\">Card 1<p style=\"color:#888;margin: 0\">Description.<div class=\"card\" style=\"background:#1a1a2e;padding: 20px;border-radius: 8px;color:white\"><h3 style=\"margin: 0 0 8px\">Card 2<p style=\"color:#888;margin: 0\">Description.<div class=\"card\" style=\"background:#1a1a2e;padding: 20px;border-radius: 8px;color:white\"><h3 style=\"margin: 0 0 8px\">Card 3<p style=\"color:#888;margin: 0\">Description.",
             "targetCSS": ".grid { display: flex; flex-wrap: wrap; gap: 20px; } .card { flex: 1 1 calc(33.33% - 20px); min-width: 250px; }",
@@ -1089,7 +1089,7 @@
               "Pour écrire des modèles répétitifs sans douleur, utilisez la fonction CSS `repeat()`.",
               "Une propriété magique (déjà vue avec Flexbox) permet de créer des allées entre les cellules."
             ],
-            "html": "<body style=\"padding: 20px;background:#111\"><div class=\"grid\"><div style=\"background:#6c63ff;padding: 20px;color:white;border-radius: 8px\">1<div style=\"background:#ff6b6b;padding: 20px;color:white;border-radius: 8px\">2<div style=\"background:#00ff88;padding: 20px;color:#111;border-radius: 8px\">3<div style=\"background:#ffd93d;padding: 20px;color:#111;border-radius: 8px\">4<div style=\"background:#6c63ff;padding: 20px;color:white;border-radius: 8px\">5<div style=\"background:#ff6b6b;padding: 20px;color:white;border-radius: 8px\">6",
+            "html": "<body style=\"padding: 20px;background:#111\"><div class=\"grid\"><div style=\"background:#667eea;padding: 20px;color:white;border-radius: 8px\">1<div style=\"background:#f77f88;padding: 20px;color:white;border-radius: 8px\">2<div style=\"background:#51cf66;padding: 20px;color:#111;border-radius: 8px\">3<div style=\"background:#ffd93d;padding: 20px;color:#111;border-radius: 8px\">4<div style=\"background:#667eea;padding: 20px;color:white;border-radius: 8px\">5<div style=\"background:#f77f88;padding: 20px;color:white;border-radius: 8px\">6",
             "targetCSS": ".grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }",
             "starterCSS": ".grid {\n  \n}"
           },
@@ -1115,7 +1115,7 @@
               "Le deuxième paramètre inclura une fonction CSS mathématique fixant le plafond bas et haut de taille (`minmax(...)`).",
               "Observez comment le rendu évolue en redimensionnant l'écran."
             ],
-            "html": "<body style=\"padding: 20px;background:#111\"><div class=\"grid\"><div style=\"background:#6c63ff;padding: 20px;color:white;border-radius: 8px\">Item 1<div style=\"background:#ff6b6b;padding: 20px;color:white;border-radius: 8px\">Item 2<div style=\"background:#00ff88;padding: 20px;color:#111;border-radius: 8px\">Item 3<div style=\"background:#ffd93d;padding: 20px;color:#111;border-radius: 8px\">Item 4<div style=\"background:#a29bfe;padding: 20px;color:white;border-radius: 8px\">Item 5",
+            "html": "<body style=\"padding: 20px;background:#111\"><div class=\"grid\"><div style=\"background:#667eea;padding: 20px;color:white;border-radius: 8px\">Item 1<div style=\"background:#f77f88;padding: 20px;color:white;border-radius: 8px\">Item 2<div style=\"background:#51cf66;padding: 20px;color:#111;border-radius: 8px\">Item 3<div style=\"background:#ffd93d;padding: 20px;color:#111;border-radius: 8px\">Item 4<div style=\"background:#a29bfe;padding: 20px;color:white;border-radius: 8px\">Item 5",
             "targetCSS": ".grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }",
             "starterCSS": ".grid {\n  \n}"
           },
@@ -1128,7 +1128,7 @@
               "Ordonnez à l'enfant rebelle d'enjamber (span) plusieurs couloirs d'un coup.",
               "Saisissez la syntaxe `grid-column:` suivie du terme de chevauchement."
             ],
-            "html": "<body style=\"padding: 20px;background:#111\"><div class=\"grid\"><div class=\"wide\" style=\"background:#00ff88;padding: 20px;color:#111;border-radius: 8px;font-weight:bold\">Large (span 2)<div style=\"background:#6c63ff;padding: 20px;color:white;border-radius: 8px\">Normal 1<div style=\"background:#ff6b6b;padding: 20px;color:white;border-radius: 8px\">Normal 2<div style=\"background:#ffd93d;padding: 20px;color:#111;border-radius: 8px\">Normal 3",
+            "html": "<body style=\"padding: 20px;background:#111\"><div class=\"grid\"><div class=\"wide\" style=\"background:#51cf66;padding: 20px;color:#111;border-radius: 8px;font-weight:bold\">Large (span 2)<div style=\"background:#667eea;padding: 20px;color:white;border-radius: 8px\">Normal 1<div style=\"background:#f77f88;padding: 20px;color:white;border-radius: 8px\">Normal 2<div style=\"background:#ffd93d;padding: 20px;color:#111;border-radius: 8px\">Normal 3",
             "targetCSS": ".grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; } .wide { grid-column: span 2; }",
             "starterCSS": ".grid {\n  \n}\n.wide {\n  \n}"
           }
@@ -1160,7 +1160,7 @@
               "Vérifiez que le parent structure deux colonnes physiques (200px et 1fr).",
               "Associez les enfants à leurs 'territoires' cartographiés sans ajouter de guillemets aux valeurs `grid-area`."
             ],
-            "html": "<body style=\"margin: 0\"><div class=\"layout\"><header class=\"header\" style=\"background:#6c63ff;color:white;padding: 16px\">Header<aside class=\"sidebar\" style=\"background:#1a1a2e;color:white;padding: 16px\">Sidebar<main class=\"content\" style=\"padding: 16px;background:#f0f0f0\">Contenu",
+            "html": "<body style=\"margin: 0\"><div class=\"layout\"><header class=\"header\" style=\"background:#667eea;color:white;padding: 16px\">Header<aside class=\"sidebar\" style=\"background:#1a1a2e;color:white;padding: 16px\">Sidebar<main class=\"content\" style=\"padding: 16px;background:#f0f0f0\">Contenu",
             "targetCSS": ".layout { display: grid; grid-template-columns: 200px 1fr; grid-template-rows: 60px 1fr; grid-template-areas: \"header header\" \"sidebar content\"; min-height: 100vh; } .header { grid-area: header; } .sidebar { grid-area: sidebar; } .content { grid-area: content; }",
             "starterCSS": ".layout {\n  display: grid;\n  grid-template-columns: 200px 1fr;\n  grid-template-rows: 60px 1fr;\n  min-height: 100vh;\n  \n}\n.header { grid-area: header; }\n.sidebar { grid-area: sidebar; }\n.content { grid-area: content; }"
           },
@@ -1187,8 +1187,8 @@
               "Pointez vers le centre absolu."
             ],
             "html": "<body style=\"margin: 0\"><div class=\"center-grid\"><div style=\"background:white;padding: 32px;border-radius: 16px;box-shadow: 0 4px 20px rgba(0,0,0,0.1);text-align:center\"><h2 style=\"margin: 0 0 8px\">✨ Centré !<p style=\"color:#888;margin: 0\">Parfaitement au milieu.",
-            "targetCSS": ".center-grid { display: grid; place-items: center; min-height: 100vh; background: linear-gradient(135deg, #1a1a2e, #6c63ff); }",
-            "starterCSS": ".center-grid {\n  min-height: 100vh;\n  background: linear-gradient(135deg, #1a1a2e, #6c63ff);\n  \n}"
+            "targetCSS": ".center-grid { display: grid; place-items: center; min-height: 100vh; background: linear-gradient(135deg, #1a1a2e, #667eea); }",
+            "starterCSS": ".center-grid {\n  min-height: 100vh;\n  background: linear-gradient(135deg, #1a1a2e, #667eea);\n  \n}"
           },
           {
             "id": "6-2-4",
@@ -1199,7 +1199,7 @@
               "Identifiez attentivement les quatre sous-sections et distribuez-leur leur zone assignée avec la propriété individuelle.",
               "Attention à la rigueur de l'alignement syntaxique de vos chaînes matricielles pour la relecture."
             ],
-            "html": "<body style=\"margin: 0;height: 100vh\"><div class=\"dashboard\"><header class=\"dash-header\" style=\"background:#6c63ff;color:white;padding: 0 24px;display:flex;align-items:center\">Header<aside class=\"dash-nav\" style=\"background:#1a1a2e;color:white;padding: 20px\">Nav<main class=\"dash-main\" style=\"padding: 24px;background:#f0f0f0\">Main Content<footer class=\"dash-footer\" style=\"background:#111;color:#666;padding: 0 24px;display:flex;align-items:center;font-size: 14px\">Footer",
+            "html": "<body style=\"margin: 0;height: 100vh\"><div class=\"dashboard\"><header class=\"dash-header\" style=\"background:#667eea;color:white;padding: 0 24px;display:flex;align-items:center\">Header<aside class=\"dash-nav\" style=\"background:#1a1a2e;color:white;padding: 20px\">Nav<main class=\"dash-main\" style=\"padding: 24px;background:#f0f0f0\">Main Content<footer class=\"dash-footer\" style=\"background:#111;color:#666;padding: 0 24px;display:flex;align-items:center;font-size: 14px\">Footer",
             "targetCSS": ".dashboard { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: 60px 1fr 40px; min-height: 100vh; grid-template-areas: \"header header\" \"nav main\" \"footer footer\"; } .dash-header { grid-area: header; } .dash-nav { grid-area: nav; } .dash-main { grid-area: main; } .dash-footer { grid-area: footer; }",
             "starterCSS": ".dashboard {\n  display: grid;\n  grid-template-columns: 220px 1fr;\n  grid-template-rows: 60px 1fr 40px;\n  min-height: 100vh;\n  \n}\n.dash-header { grid-area: header; }\n.dash-nav { grid-area: nav; }\n.dash-main { grid-area: main; }\n.dash-footer { grid-area: footer; }"
           }
@@ -1230,8 +1230,8 @@
               "Utilisez `grid-area: nom_zone;` pour relier le code visuel au HTML."
             ],
             "html": "<body style=\"background:#0f172a; padding: 40px;\"><div class=\"bento-grid\"><div class=\"hero box\">Bonjour, Alex !<div class=\"stat1 box\">+42%<div class=\"chart box\">Graphique d'activité<div class=\"stat2 box\">5 Nouveaux messages",
-            "targetCSS": ".bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; grid-template-areas: \"hero hero stat1\" \"chart chart stat2\"; } .box { background: #1e293b; border-radius: 16px; padding: 25px; color: white; font-weight: bold; } .hero { grid-area: hero; background: linear-gradient(135deg, #6c63ff, #ff6b6b); font-size: 24px; } .stat1 { grid-area: stat1; color: #00ff88; font-size: 20px; } .chart { grid-area: chart; } .stat2 { grid-area: stat2; color: #ffd93d; }",
-            "starterCSS": ".bento-grid {\n  \n}\n.box {\n  background: #1e293b;\n  border-radius: 16px;\n  padding: 25px;\n  color: white;\n  font-weight: bold;\n}\n.hero {\n  background: linear-gradient(135deg, #6c63ff, #ff6b6b);\n  font-size: 24px;\n  \n}\n.stat1 {\n  color: #00ff88;\n  font-size: 20px;\n  \n}\n.chart {\n  \n}\n.stat2 {\n  color: #ffd93d;\n  \n}"
+            "targetCSS": ".bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; grid-template-areas: \"hero hero stat1\" \"chart chart stat2\"; } .box { background: #1e293b; border-radius: 16px; padding: 25px; color: white; font-weight: bold; } .hero { grid-area: hero; background: linear-gradient(135deg, #667eea, #f77f88); font-size: 24px; } .stat1 { grid-area: stat1; color: #51cf66; font-size: 20px; } .chart { grid-area: chart; } .stat2 { grid-area: stat2; color: #ffd93d; }",
+            "starterCSS": ".bento-grid {\n  \n}\n.box {\n  background: #1e293b;\n  border-radius: 16px;\n  padding: 25px;\n  color: white;\n  font-weight: bold;\n}\n.hero {\n  background: linear-gradient(135deg, #667eea, #f77f88);\n  font-size: 24px;\n  \n}\n.stat1 {\n  color: #51cf66;\n  font-size: 20px;\n  \n}\n.chart {\n  \n}\n.stat2 {\n  color: #ffd93d;\n  \n}"
           }
         ]
       }
@@ -1251,7 +1251,7 @@
           "[https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties](https://developer.mozilla.org/fr/docs/Web/CSS/Using_CSS_custom_properties)",
           "[https://developer.mozilla.org/fr/docs/Web/CSS/:root](https://developer.mozilla.org/fr/docs/Web/CSS/:root)"
         ],
-        "example": ":root {\n  --color-primary: #6c63ff;\n  --spacing: 16px;\n  --radius: 8px;\n}\n.button {\n  background: var(--color-primary);\n  padding: var(--spacing);\n  border-radius: var(--radius);\n}",
+        "example": ":root {\n  --color-primary: #667eea;\n  --spacing: 16px;\n  --radius: 8px;\n}\n.button {\n  background: var(--color-primary);\n  padding: var(--spacing);\n  border-radius: var(--radius);\n}",
         "checklist": [
           "Déclarer des variables dans :root avec la syntaxe en double tiret",
           "Consommer (appeler) les données par la fonction CSS `var()`",
@@ -1262,7 +1262,7 @@
         "exercises": [
           {
             "id": "7-1-1",
-            "objective": "Établissez votre première 'Source de Vérité'. Construisez une balise virtuelle de racines globales et gravez-y la variable de marque `color-primary` pointant sur `#6c63ff`. Aspirez cette donnée pour tapisser le fond du bouton en l'invoquant dynamiquement.",
+            "objective": "Établissez votre première 'Source de Vérité'. Construisez une balise virtuelle de racines globales et gravez-y la variable de marque `color-primary` pointant sur `#667eea`. Aspirez cette donnée pour tapisser le fond du bouton en l'invoquant dynamiquement.",
             "xp": 40,
             "hints": [
               "La pseudo-classe globale cible l'élément HTML le plus haut. Initialisez vos noms avec deux tirets (`--`).",
@@ -1270,7 +1270,7 @@
               "Un appel de variable ne requiert pas de guillemets."
             ],
             "html": "<body style=\"padding: 40px;background:#111\"><button class=\"btn\">Mon bouton",
-            "targetCSS": ":root { --color-primary: #6c63ff; } .btn { background: var(--color-primary); color: white; padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }",
+            "targetCSS": ":root { --color-primary: #667eea; } .btn { background: var(--color-primary); color: white; padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; }",
             "starterCSS": ":root {\n  \n}\n.btn {\n  color: white;\n  padding: 12px 28px;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  \n}"
           },
           {
@@ -1282,13 +1282,13 @@
               "Réglez méticuleusement l'orthographe entre vos dépôts et vos prélèvements sous `var(...)`.",
               "Vérifiez que le stockage se fait bien au niveau le plus haut possible."
             ],
-            "html": "<body style=\"padding: 40px;background:#111\"><div class=\"card\"><h3 style=\"margin: 0 0 8px;color:#00ff88\">Design System<p style=\"margin: 0;color:#aaa\">Tout est géré par des variables.",
+            "html": "<body style=\"padding: 40px;background:#111\"><div class=\"card\"><h3 style=\"margin: 0 0 8px;color:#51cf66\">Design System<p style=\"margin: 0;color:#aaa\">Tout est géré par des variables.",
             "targetCSS": ":root { --color-surface: #1a1a2e; --spacing: 24px; --radius: 12px; } .card { background: var(--color-surface); padding: var(--spacing); border-radius: var(--radius); max-width: 300px; }",
             "starterCSS": ":root {\n  \n}\n.card {\n  max-width: 300px;\n  \n}"
           },
           {
             "id": "7-1-3",
-            "objective": "Ébranlez les règles établies. Comprenez la surcharge locale : alors que la teinte primaire est mondiale, forcez un composant `.card--danger` à redéfinir sa propre vision de cette variable primaire (`#ff6b6b`) pour que ses propres enfants bouton s'allument en rouge sans toucher au code natif du bouton.",
+            "objective": "Ébranlez les règles établies. Comprenez la surcharge locale : alors que la teinte primaire est mondiale, forcez un composant `.card--danger` à redéfinir sa propre vision de cette variable primaire (`#f77f88`) pour que ses propres enfants bouton s'allument en rouge sans toucher au code natif du bouton.",
             "xp": 60,
             "hints": [
               "Écrasez la définition de la variable, non pas au niveau de la racine globale, mais directement au sein du sélecteur parent hostile.",
@@ -1296,8 +1296,8 @@
               "Observez l'économie monumentale de syntaxe évitant l'écriture de `.card--danger .btn { ... }`."
             ],
             "html": "<body style=\"padding: 20px;display:flex;gap: 20px\"><div class=\"card\"><button class=\"btn\">Normal<div class=\"card card--danger\"><button class=\"btn\">Danger",
-            "targetCSS": ":root { --color-primary: #6c63ff; } .card { background: #f0f0f0; padding: 24px; border-radius: 12px; } .card--danger { --color-primary: #ff6b6b; } .btn { background: var(--color-primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }",
-            "starterCSS": ":root {\n  --color-primary: #6c63ff;\n}\n.card {\n  background: #f0f0f0;\n  padding: 24px;\n  border-radius: 12px;\n}\n.card--danger {\n  \n}\n.btn {\n  background: var(--color-primary);\n  color: white;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 6px;\n  cursor: pointer;\n}"
+            "targetCSS": ":root { --color-primary: #667eea; } .card { background: #f0f0f0; padding: 24px; border-radius: 12px; } .card--danger { --color-primary: #f77f88; } .btn { background: var(--color-primary); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; }",
+            "starterCSS": ":root {\n  --color-primary: #667eea;\n}\n.card {\n  background: #f0f0f0;\n  padding: 24px;\n  border-radius: 12px;\n}\n.card--danger {\n  \n}\n.btn {\n  background: var(--color-primary);\n  color: white;\n  border: none;\n  padding: 10px 20px;\n  border-radius: 6px;\n  cursor: pointer;\n}"
           },
           {
             "id": "7-1-4",
@@ -1309,8 +1309,8 @@
               "Gardez à l'esprit que ce pont unifiant garantit l'évolution souple du composant vers d'éventuels thèmes futurs (mode jour/nuit par exemple)."
             ],
             "html": "<body style=\"padding: 40px;background:#0d0d0d\"><div class=\"ui-card\"><div class=\"ui-header\"><span class=\"ui-tag\">Premium<h2 class=\"ui-title\">Forfait Pro<p class=\"ui-desc\">Accès illimité à toutes les fonctionnalités.<button class=\"ui-btn\">Commencer →",
-            "targetCSS": ":root { --c-bg: #1a1a2e; --c-primary: #6c63ff; --c-accent: #00ff88; --c-text: #ffffff; --c-muted: #888; --space: 24px; --radius: 16px; --font-lg: 28px; } .ui-card { background: var(--c-bg); padding: var(--space); border-radius: var(--radius); max-width: 320px; border: 1px solid rgba(255,255,255,0.08); } .ui-header { margin-bottom: 16px; } .ui-tag { background: var(--c-accent); color: #111; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; } .ui-title { color: var(--c-text); font-size: var(--font-lg); margin: 8px 0 0; } .ui-desc { color: var(--c-muted); font-size: 15px; line-height: 1.6; margin-bottom: var(--space); } .ui-btn { background: var(--c-primary); color: var(--c-text); border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; width: 100%; }",
-            "starterCSS": ":root {\n  --c-bg: #1a1a2e;\n  --c-primary: #6c63ff;\n  --c-accent: #00ff88;\n  --c-text: #ffffff;\n  --c-muted: #888;\n  --space: 24px;\n  --radius: 16px;\n  --font-lg: 28px;\n}\n.ui-card {\n  max-width: 320px;\n  border: 1px solid rgba(255,255,255,0.08);\n  \n}\n.ui-tag {\n  font-size: 11px;\n  font-weight: 700;\n  padding: 3px 10px;\n  border-radius: 20px;\n  text-transform: uppercase;\n  \n}\n.ui-title {\n  margin: 8px 0 0;\n  \n}\n.ui-desc {\n  font-size: 15px;\n  line-height: 1.6;\n  \n}\n.ui-btn {\n  border: none;\n  padding: 12px 24px;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  font-weight: 600;\n  width: 100%;\n  \n}"
+            "targetCSS": ":root { --c-bg: #1a1a2e; --c-primary: #667eea; --c-accent: #51cf66; --c-text: #ffffff; --c-muted: #888; --space: 24px; --radius: 16px; --font-lg: 28px; } .ui-card { background: var(--c-bg); padding: var(--space); border-radius: var(--radius); max-width: 320px; border: 1px solid rgba(255,255,255,0.08); } .ui-header { margin-bottom: 16px; } .ui-tag { background: var(--c-accent); color: #111; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; } .ui-title { color: var(--c-text); font-size: var(--font-lg); margin: 8px 0 0; } .ui-desc { color: var(--c-muted); font-size: 15px; line-height: 1.6; margin-bottom: var(--space); } .ui-btn { background: var(--c-primary); color: var(--c-text); border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600; width: 100%; }",
+            "starterCSS": ":root {\n  --c-bg: #1a1a2e;\n  --c-primary: #667eea;\n  --c-accent: #51cf66;\n  --c-text: #ffffff;\n  --c-muted: #888;\n  --space: 24px;\n  --radius: 16px;\n  --font-lg: 28px;\n}\n.ui-card {\n  max-width: 320px;\n  border: 1px solid rgba(255,255,255,0.08);\n  \n}\n.ui-tag {\n  font-size: 11px;\n  font-weight: 700;\n  padding: 3px 10px;\n  border-radius: 20px;\n  text-transform: uppercase;\n  \n}\n.ui-title {\n  margin: 8px 0 0;\n  \n}\n.ui-desc {\n  font-size: 15px;\n  line-height: 1.6;\n  \n}\n.ui-btn {\n  border: none;\n  padding: 12px 24px;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  font-weight: 600;\n  width: 100%;\n  \n}"
           }
         ]
       },
@@ -1330,7 +1330,7 @@
         "exercises": [
           {
             "id": "7-2-1",
-            "objective": "PROJET : Implémentez un basculeur virtuel de thème sombre. Établissez vos variables sous `:root` (`--bg: #ffffff`, `--text: #111111`, `--border: #dddddd`, `--link: #0055ff`). Utilisez ces variables dans vos sélecteurs (`body`, `.content p`, `.content a`). Ensuite, redéfinissez magiquement toutes ces variables à l'intérieur du modificateur global `.theme-dark` (qui englobe toute la page ici) pour inverser le spectre : `--bg: #1a1a2e`, `--text: #f8f9fa`, `--border: #333`, `--link: #00ff88`. Observez le changement opérer d'un coup.",
+            "objective": "PROJET : Implémentez un basculeur virtuel de thème sombre. Établissez vos variables sous `:root` (`--bg: #ffffff`, `--text: #111111`, `--border: #dddddd`, `--link: #0055ff`). Utilisez ces variables dans vos sélecteurs (`body`, `.content p`, `.content a`). Ensuite, redéfinissez magiquement toutes ces variables à l'intérieur du modificateur global `.theme-dark` (qui englobe toute la page ici) pour inverser le spectre : `--bg: #1a1a2e`, `--text: #f8f9fa`, `--border: #333`, `--link: #51cf66`. Observez le changement opérer d'un coup.",
             "xp": 150,
             "hints": [
               "Posez les données primaires du thème Light sous le repère de plus haut niveau.",
@@ -1338,7 +1338,7 @@
               "Consommez ces variables via la syntaxe `var(...)` sur vos entités terminales."
             ],
             "html": "<body class=\"theme-dark\"><div class=\"content\">Mettre à jour ses composantsLe système répond automatiquement. Voir <a href=\"#\">la doc technique.",
-            "targetCSS": ":root { --bg: #ffffff; --text: #111111; --border: #dddddd; --link: #0055ff; } .theme-dark { --bg: #1a1a2e; --text: #f8f9fa; --border: #333333; --link: #00ff88; } body { background-color: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; padding: 40px; } .content { border-left: 4px solid var(--border); padding-left: 20px; } a { color: var(--link); }",
+            "targetCSS": ":root { --bg: #ffffff; --text: #111111; --border: #dddddd; --link: #0055ff; } .theme-dark { --bg: #1a1a2e; --text: #f8f9fa; --border: #333333; --link: #51cf66; } body { background-color: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; padding: 40px; } .content { border-left: 4px solid var(--border); padding-left: 20px; } a { color: var(--link); }",
             "starterCSS": ":root {\n  \n}\n.theme-dark {\n  \n}\nbody {\n  background-color: var(--bg);\n  color: var(--text);\n  transition: background 0.3s, color 0.3s;\n  padding: 40px;\n}\n.content {\n  \n}\na {\n  \n}"
           }
         ]
@@ -1359,7 +1359,7 @@
           "[https://developer.mozilla.org/fr/docs/Web/CSS/Pseudo-classes](https://www.google.com/search?q=https://developer.mozilla.org/fr/docs/Web/CSS/Pseudo-classes)",
           "[https://developer.mozilla.org/fr/docs/Web/CSS/transition](https://developer.mozilla.org/fr/docs/Web/CSS/transition)"
         ],
-        "example": "button { transition: background 0.3s; }\nbutton:hover { background: #5a52e0; }\ninput:focus { outline: none; border-color: #00ff88; }\ntr:nth-child(even) { background: #f0f0f0; }",
+        "example": "button { transition: background 0.3s; }\nbutton:hover { background: #5a52e0; }\ninput:focus { outline: none; border-color: #51cf66; }\ntr:nth-child(even) { background: #f0f0f0; }",
         "checklist": [
           "Utiliser :hover pour les effets au survol",
           "Styler :focus sur les inputs",
@@ -1378,12 +1378,12 @@
               "Le déplacement vers le haut nécessite une poussée négative sur l'axe vertical."
             ],
             "html": "<body style=\"padding: 40px;background:#111\"><button class=\"btn\">Hover moi !",
-            "targetCSS": ".btn { background: #6c63ff; color: white; padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: background 0.3s, transform 0.1s; } .btn:hover { background: #5a52e0; transform: translateY(-2px); }",
-            "starterCSS": ".btn {\n  background: #6c63ff;\n  color: white;\n  padding: 12px 28px;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  \n}\n.btn:hover {\n  \n}"
+            "targetCSS": ".btn { background: #667eea; color: white; padding: 12px 28px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; transition: background 0.3s, transform 0.1s; } .btn:hover { background: #5a52e0; transform: translateY(-2px); }",
+            "starterCSS": ".btn {\n  background: #667eea;\n  color: white;\n  padding: 12px 28px;\n  border: none;\n  border-radius: 8px;\n  cursor: pointer;\n  font-size: 16px;\n  \n}\n.btn:hover {\n  \n}"
           },
           {
             "id": "8-1-2",
-            "objective": "Prenez le contrôle d'un champ textuel. Dès que l'utilisateur clique ou tape dedans, le contour rigide par défaut du système hôte s'efface, laissant l'endroit à une bordure verte brillante (#00ff88) et un halo lumineux assorti via l'ombre de boîte.",
+            "objective": "Prenez le contrôle d'un champ textuel. Dès que l'utilisateur clique ou tape dedans, le contour rigide par défaut du système hôte s'efface, laissant l'endroit à une bordure verte brillante (#51cf66) et un halo lumineux assorti via l'ombre de boîte.",
             "xp": 60,
             "hints": [
               "Utilisez le filtre de déclenchement d'un champ qui reçoit de l'interaction (le focus).",
@@ -1391,7 +1391,7 @@
               "Pour l'éclat haloïde, le quatrième paramètre d'épaisseur d'une projection fantôme suffit (ex: `0 0 0 4px couleur_rgba`)."
             ],
             "html": "<body style=\"padding: 40px;background:#111\"><input class=\"custom-input\" type=\"text\" placeholder=\"Clique ici pour focus...\">",
-            "targetCSS": ".custom-input { background: #1a1a2e; color: white; border: 2px solid #333; padding: 12px 16px; border-radius: 8px; font-size: 16px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; } .custom-input:focus { border-color: #00ff88; box-shadow: 0 0 0 4px rgba(0,255,136,0.15); }",
+            "targetCSS": ".custom-input { background: #1a1a2e; color: white; border: 2px solid #333; padding: 12px 16px; border-radius: 8px; font-size: 16px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; } .custom-input:focus { border-color: #51cf66; box-shadow: 0 0 0 4px rgba(0,255,136,0.15); }",
             "starterCSS": ".custom-input {\n  background: #1a1a2e;\n  color: white;\n  border: 2px solid #333;\n  padding: 12px 16px;\n  border-radius: 8px;\n  font-size: 16px;\n  outline: none;\n  transition: border-color 0.2s, box-shadow 0.2s;\n}\n.custom-input:focus {\n  \n}"
           },
           {
@@ -1485,7 +1485,7 @@
               "Le délai et le mode transitoire doux de l'état doivent s'intégrer dans le code de la base du composant.",
               "Le suffixe typique est en degrés (deg)."
             ],
-            "html": "<body style=\"padding: 80px;background:#111;display:flex;justify-content:center\"><div class=\"box\" style=\"width: 80px;height: 80px;background:#6c63ff;border-radius: 8px\">",
+            "html": "<body style=\"padding: 80px;background:#111;display:flex;justify-content:center\"><div class=\"box\" style=\"width: 80px;height: 80px;background:#667eea;border-radius: 8px\">",
             "targetCSS": ".box { transition: transform 0.4s ease; } .box:hover { transform: rotate(45deg); }",
             "starterCSS": ".box {\n  \n}\n.box:hover {\n  \n}"
           },
@@ -1504,7 +1504,7 @@
           },
           {
             "id": "9-1-3",
-            "objective": "Implémentez une barre d'activation très sobre. Au survol d'un maillon hyper-textuel de cette suite, faites littéralement glisser cette entrée de 12px depuis sa place intiale vers l'Est, en peignant ses lettres d'un vert très clair (#00ff88).",
+            "objective": "Implémentez une barre d'activation très sobre. Au survol d'un maillon hyper-textuel de cette suite, faites littéralement glisser cette entrée de 12px depuis sa place intiale vers l'Est, en peignant ses lettres d'un vert très clair (#51cf66).",
             "xp": 60,
             "hints": [
               "Faites glisser visuellement par translation horizontale, sans endommager le flux ou déplacer ses compagnons.",
@@ -1512,7 +1512,7 @@
               "La base native requerra la spécification de temps sur les multiples éléments modifiés (translation et colorisation)."
             ],
             "html": "<body style=\"padding: 40px;background:#1a1a2e\"><div class=\"menu-item\" style=\"padding: 12px 0;border-bottom: 1px solid #333;cursor:pointer;color:#aaa\">→ Accueil<div class=\"menu-item\" style=\"padding: 12px 0;border-bottom: 1px solid #333;cursor:pointer;color:#aaa\">→ Projets<div class=\"menu-item\" style=\"padding: 12px 0;cursor:pointer;color:#aaa\">→ Contact",
-            "targetCSS": ".menu-item { transition: transform 0.2s ease, color 0.2s; } .menu-item:hover { transform: translateX(12px); color: #00ff88; }",
+            "targetCSS": ".menu-item { transition: transform 0.2s ease, color 0.2s; } .menu-item:hover { transform: translateX(12px); color: #51cf66; }",
             "starterCSS": ".menu-item {\n  \n}\n.menu-item:hover {\n  \n}"
           },
           {
@@ -1525,8 +1525,8 @@
               "L'explosion lumineuse fantôme en support donnera de la lourdeur à cette montée."
             ],
             "html": "<body style=\"padding: 80px;display:flex;justify-content:center;background:#111\"><button class=\"bounce-btn\">🚀 Lancer !",
-            "targetCSS": ".bounce-btn { background: linear-gradient(135deg, #6c63ff, #00ff88); color: #111; font-size: 18px; font-weight: 700; padding: 16px 36px; border: none; border-radius: 50px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; } .bounce-btn:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 20px 40px rgba(108,99,255,0.4); }",
-            "starterCSS": ".bounce-btn {\n  background: linear-gradient(135deg, #6c63ff, #00ff88);\n  color: #111;\n  font-size: 18px;\n  font-weight: 700;\n  padding: 16px 36px;\n  border: none;\n  border-radius: 50px;\n  cursor: pointer;\n  \n}\n.bounce-btn:hover {\n  \n}"
+            "targetCSS": ".bounce-btn { background: linear-gradient(135deg, #667eea, #51cf66); color: #111; font-size: 18px; font-weight: 700; padding: 16px 36px; border: none; border-radius: 50px; cursor: pointer; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; } .bounce-btn:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 20px 40px rgba(108,99,255,0.4); }",
+            "starterCSS": ".bounce-btn {\n  background: linear-gradient(135deg, #667eea, #51cf66);\n  color: #111;\n  font-size: 18px;\n  font-weight: 700;\n  padding: 16px 36px;\n  border: none;\n  border-radius: 50px;\n  cursor: pointer;\n  \n}\n.bounce-btn:hover {\n  \n}"
           }
         ]
       },
@@ -1570,7 +1570,7 @@
               "Ordonnez la reproduction perpétuelle de l'ordre d'animation."
             ],
             "html": "<body style=\"background:#111;display:flex;justify-content:center;align-items:center;height: 200px\"><div class=\"spinner\">",
-            "targetCSS": "@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .spinner { width: 48px; height: 48px; border: 4px solid rgba(108,99,255,0.2); border-top-color: #6c63ff; border-radius: 50%; animation: spin 0.8s linear infinite; }",
+            "targetCSS": "@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } } .spinner { width: 48px; height: 48px; border: 4px solid rgba(108,99,255,0.2); border-top-color: #667eea; border-radius: 50%; animation: spin 0.8s linear infinite; }",
             "starterCSS": "@keyframes spin {\n  from { transform: rotate(0deg); }\n  to { transform: rotate(360deg); }\n}\n.spinner {\n  width: 48px;\n  height: 48px;\n  border-radius: 50%;\n  \n}"
           },
           {
@@ -1583,8 +1583,8 @@
               "Générez cette mécanique sur un temps assez long (1.5s) en flux élastique aller-retour (ease-in-out)."
             ],
             "html": "<body style=\"background:#1a1a2e;display:flex;justify-content:center;align-items:center;height: 200px\"><div class=\"badge\">3",
-            "targetCSS": "@keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,107,0.4); } 50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,107,107,0); } } .badge { width: 40px; height: 40px; background: #ff6b6b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; animation: pulse 1.5s ease-in-out infinite; }",
-            "starterCSS": "@keyframes pulse {\n  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,107,0.4); }\n  50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,107,107,0); }\n}\n.badge {\n  width: 40px;\n  height: 40px;\n  background: #ff6b6b;\n  color: white;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: bold;\n  \n}"
+            "targetCSS": "@keyframes pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,107,0.4); } 50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,107,107,0); } } .badge { width: 40px; height: 40px; background: #f77f88; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; animation: pulse 1.5s ease-in-out infinite; }",
+            "starterCSS": "@keyframes pulse {\n  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,107,107,0.4); }\n  50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,107,107,0); }\n}\n.badge {\n  width: 40px;\n  height: 40px;\n  background: #f77f88;\n  color: white;\n  border-radius: 50%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: bold;\n  \n}"
           },
           {
             "id": "9-2-4",
@@ -1596,8 +1596,8 @@
               "Ne modifiez ni la trame du dégradé, ni la sur-extension de ses 4 dimensions."
             ],
             "html": "<body style=\"margin: 0\"><div class=\"animated-bg\"><h1 style=\"color:white;font-size: 48px;font-weight: 900\">Dégradé Vivant ✨",
-            "targetCSS": "@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } } .animated-bg { background: linear-gradient(-45deg, #6c63ff, #ff6b6b, #00ff88, #ffd93d); background-size: 400% 400%; animation: gradientShift 6s ease infinite; min-height: 100vh; display: flex; align-items: center; justify-content: center; }",
-            "starterCSS": "@keyframes gradientShift {\n  0% { background-position: 0% 50%; }\n  50% { background-position: 100% 50%; }\n  100% { background-position: 0% 50%; }\n}\n.animated-bg {\n  background: linear-gradient(-45deg, #6c63ff, #ff6b6b, #00ff88, #ffd93d);\n  background-size: 400% 400%;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  \n}"
+            "targetCSS": "@keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } } .animated-bg { background: linear-gradient(-45deg, #667eea, #f77f88, #51cf66, #ffd93d); background-size: 400% 400%; animation: gradientShift 6s ease infinite; min-height: 100vh; display: flex; align-items: center; justify-content: center; }",
+            "starterCSS": "@keyframes gradientShift {\n  0% { background-position: 0% 50%; }\n  50% { background-position: 100% 50%; }\n  100% { background-position: 0% 50%; }\n}\n.animated-bg {\n  background: linear-gradient(-45deg, #667eea, #f77f88, #51cf66, #ffd93d);\n  background-size: 400% 400%;\n  min-height: 100vh;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  \n}"
           }
         ]
       },
@@ -1625,8 +1625,8 @@
               "Liez fermement le nom de votre animation avec son exécution sur le badge (durée 1s, infinie, flux continu)."
             ],
             "html": "<body style=\"background:#2d3436; padding: 100px; display:flex; justify-content:center;\"><div class=\"bell-wrapper\" style=\"position:relative; background:#636e72; border-radius: 50%; padding: 20px; font-size: 30px; cursor:pointer; color:white;\">🔔<div class=\"alert-badge\">3",
-            "targetCSS": "@keyframes heartbeat { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,118,117, 0.7); } 50% { transform: scale(1.2); box-shadow: 0 0 0 15px rgba(255,118,117, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,118,117, 0); } } .bell-wrapper { transition: transform 0.3s; } .bell-wrapper:hover { transform: translateY(-5px); } .alert-badge { position: absolute; top: -5px; right: -5px; background: #ff7675; color: white; width: 25px; height: 25px; border-radius: 50%; font-size: 14px; font-family: sans-serif; display: flex; align-items: center; justify-content: center; font-weight: bold; animation: heartbeat 1.5s infinite; }",
-            "starterCSS": "@keyframes heartbeat {\n  \n}\n.bell-wrapper {\n  \n}\n.bell-wrapper:hover {\n  \n}\n.alert-badge {\n  position: absolute;\n  top: -5px;\n  right: -5px;\n  background: #ff7675;\n  color: white;\n  width: 25px;\n  height: 25px;\n  border-radius: 50%;\n  font-size: 14px;\n  font-family: sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: bold;\n  \n}"
+            "targetCSS": "@keyframes heartbeat { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,118,117, 0.7); } 50% { transform: scale(1.2); box-shadow: 0 0 0 15px rgba(255,118,117, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,118,117, 0); } } .bell-wrapper { transition: transform 0.3s; } .bell-wrapper:hover { transform: translateY(-5px); } .alert-badge { position: absolute; top: -5px; right: -5px; background: #f77f88; color: white; width: 25px; height: 25px; border-radius: 50%; font-size: 14px; font-family: sans-serif; display: flex; align-items: center; justify-content: center; font-weight: bold; animation: heartbeat 1.5s infinite; }",
+            "starterCSS": "@keyframes heartbeat {\n  \n}\n.bell-wrapper {\n  \n}\n.bell-wrapper:hover {\n  \n}\n.alert-badge {\n  position: absolute;\n  top: -5px;\n  right: -5px;\n  background: #f77f88;\n  color: white;\n  width: 25px;\n  height: 25px;\n  border-radius: 50%;\n  font-size: 14px;\n  font-family: sans-serif;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  font-weight: bold;\n  \n}"
           }
         ]
       }
@@ -1700,7 +1700,7 @@
               "Appliquez ce modèle au petit bloc encapsulant la liaison (les nav-links) et brisez sa direction.",
               "Vérifiez que cet espace sous-jacent couvre formellement les cent pourcents de ligne dispo."
             ],
-            "html": "<body style=\"margin: 0\"><nav class=\"nav\" style=\"background:#1a1a2e;padding: 16px 24px\"><div style=\"color:#00ff88;font-weight: 900;font-size: 20px\">⚡ Brand<div class=\"nav-links\"><a style=\"color:white;text-decoration:none;padding: 8px 16px;display:block\" href=\"#\">Home<a style=\"color:white;text-decoration:none;padding: 8px 16px;display:block\" href=\"#\">About<a style=\"color:white;text-decoration:none;padding: 8px 16px;display:block\" href=\"#\">Contact",
+            "html": "<body style=\"margin: 0\"><nav class=\"nav\" style=\"background:#1a1a2e;padding: 16px 24px\"><div style=\"color:#51cf66;font-weight: 900;font-size: 20px\">⚡ Brand<div class=\"nav-links\"><a style=\"color:white;text-decoration:none;padding: 8px 16px;display:block\" href=\"#\">Home<a style=\"color:white;text-decoration:none;padding: 8px 16px;display:block\" href=\"#\">About<a style=\"color:white;text-decoration:none;padding: 8px 16px;display:block\" href=\"#\">Contact",
             "targetCSS": ".nav { display: flex; justify-content: space-between; align-items: center; } .nav-links { display: flex; } @media (max-width: 768px) { .nav { flex-direction: column; align-items: flex-start; gap: 8px; } .nav-links { flex-direction: column; width: 100%; } }",
             "starterCSS": ".nav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.nav-links {\n  display: flex;\n}\n@media (max-width: 768px) {\n  .nav {\n    \n  }\n  .nav-links {\n    \n  }\n}"
           }
@@ -1729,7 +1729,7 @@
               "Le passage de l'alignement flex de la forme `row` (par défaut) vers la direction `column` se fera sous l'instruction `@media`.",
               "Garantissez que la police redescend drastiquement sans que le CSS de secours d'un autre module n'intervienne."
             ],
-            "html": "<body style=\"background:#111; color:white; margin: 0;\"><div class=\"landing-wrap\"><div class=\"text-block\">Démarrez Fort<p style=\"color:#aaa\">Créez des outils majestueux en combinant la beauté du design et l'hyper flexibilité mathématique.<div class=\"img-block\"><div style=\"width: 100%; height: 200px; background:linear-gradient(45deg,#6c5ce7,#00b894); border-radius: 12px;\">",
+            "html": "<body style=\"background:#111; color:white; margin: 0;\"><div class=\"landing-wrap\"><div class=\"text-block\">Démarrez Fort<p style=\"color:#aaa\">Créez des outils majestueux en combinant la beauté du design et l'hyper flexibilité mathématique.<div class=\"img-block\"><div style=\"width: 100%; height: 200px; background:linear-gradient(45deg,#6c5ce7,#51cf66); border-radius: 12px;\">",
             "targetCSS": ".landing-wrap { display: flex; align-items: center; gap: 40px; padding: 80px; } .text-block, .img-block { flex: 1; } h1 { font-size: 60px; margin-top: 0; } @media (max-width: 800px) { .landing-wrap { flex-direction: column; padding: 20px; } .text-block { text-align: center; } h1 { font-size: 38px; } }",
             "starterCSS": ".landing-wrap {\n  display: flex;\n  align-items: center;\n  gap: 40px;\n  padding: 80px;\n}\n.text-block, .img-block {\n  flex: 1;\n}\nh1 {\n  font-size: 60px;\n  margin-top: 0;\n}\n@media (max-width: 800px) {\n  .landing-wrap {\n    \n  }\n  .text-block {\n    \n  }\n  h1 {\n    \n  }\n}"
           }
@@ -1738,3 +1738,6 @@
     ]
   }
 ]
+
+
+
