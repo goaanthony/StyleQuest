@@ -6,6 +6,7 @@ import { cors } from "@elysiajs/cors";
 import Database from "bun:sqlite";
 import { readFileSync } from "fs";
 import cssModules from "../src/data/cssModules.json";
+import { checkExerciseFlexible } from "./cssNormalizer"; // ← IMPORT
 
 const port = Number(process.env.PORT ?? 3000);
 
@@ -22,23 +23,6 @@ function findExercise(id: string): ExRecord | undefined {
     }
   }
   return undefined;
-}
-
-function parseAllDeclarations(css: string): Record<string, string> {
-  const result: Record<string, string> = {};
-  const cleaned    = css.replace(/\/\*[\s\S]*?\*\//g, "");
-  const blockRegex = /[^{]*\{([^}]+)\}/g;
-  let match: RegExpExecArray | null;
-  while ((match = blockRegex.exec(cleaned)) !== null) {
-    for (const decl of match[1].split(";")) {
-      const idx = decl.indexOf(":");
-      if (idx === -1) continue;
-      const prop = decl.slice(0, idx).trim().toLowerCase();
-      const val  = decl.slice(idx + 1).trim().toLowerCase().replace(/\s+/g, " ");
-      if (prop && val) result[prop] = val;
-    }
-  }
-  return result;
 }
 
 // ─── DATABASE SETUP ──────────────────────────────────────────────────────────
@@ -122,7 +106,7 @@ app.post('/api/login', async ({ body, set, jwt }) => {
   return { success: true, user: userWithoutPassword, session: { token, userId: user.id } };
 });
 
-// ── NOUVEAU : RÉCUPÉRER PROFIL & PROGRESSION ────────────────────────────────
+// ── RÉCUPÉRER PROFIL & PROGRESSION ─────────────────────────────────────────
 app.get('/api/me', async ({ headers, set, jwt }) => {
   const auth = headers.authorization;
   const token = auth?.startsWith('Bearer ') ? auth.slice(7) : null;
@@ -149,24 +133,31 @@ app.get('/api/progress', async ({ headers, set, jwt }) => {
   return { success: true, completedIds };
 });
 
-// ── VÉRIFICATION CSS ────────────────────────────────────────────────────────
+// ── VÉRIFICATION CSS (AVEC NORMALISEUR FLEXIBLE) ────────────────────────────
 app.post("/api/exercise/check", ({ body }) => {
   const { exerciseId, userCSS } = body as any;
   const exercise = findExercise(exerciseId);
-  if (!exercise) return { success: false, message: "Exercice introuvable.", errors: [], tip: "" };
-
-  const target = parseAllDeclarations(exercise.targetCSS);
-  const parsed = parseAllDeclarations(userCSS);
-  const errors: string[] = [];
-
-  for (const [prop, targetVal] of Object.entries(target)) {
-    const actual = parsed[prop];
-    if (!actual) errors.push(`Propriété manquante : ajoute « ${prop} »`);
-    else if (actual !== targetVal) errors.push(`« ${prop} » incorrect — attendu : « ${targetVal} »`);
+  
+  if (!exercise) {
+    return { 
+      success: false, 
+      message: "Exercice introuvable.", 
+      errors: [], 
+      warnings: [],
+      tip: "" 
+    };
   }
 
-  if (errors.length === 0) return { success: true, message: "🎉 Parfait ! Beau travail !", errors: [], tip: "" };
-  return { success: false, message: "Pas tout à fait… réessaie !", errors, tip: `Indice : vérifie la propriété « ${errors[0]?.match(/«\s*([^»]+)\s*»/)?.[1] ?? ""} »` };
+  // Utiliser le normaliseur flexible
+  const result = checkExerciseFlexible(exercise.targetCSS, userCSS);
+  
+  return {
+    success: result.success,
+    message: result.message,
+    errors: result.errors,
+    warnings: result.warnings,
+    tip: result.tip,
+  };
 });
 
 // ── SAUVEGARDE & LOGIQUE WINSTREAK (SÉCURISÉ) ──────────────────────────────
