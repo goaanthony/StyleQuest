@@ -2,7 +2,10 @@
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-header">
-        <h1 class="auth-title">Style<span class="auth-accent">Quest</span></h1>
+        <div class="auth-brand">
+          <img class="auth-logo-img" :src="logoUrl" alt="StyleQuest logo" />
+          <h1 class="auth-title">Stylequest</h1>
+        </div>
         <p class="auth-subtitle">Rejoins l'aventure CSS</p>
       </div>
 
@@ -77,6 +80,8 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+// @ts-ignore
+import logoUrl from '../assets/Logo/StyleQuest_Logo_Couleur.svg'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -141,16 +146,27 @@ async function handleSubmit() {
   margin-bottom: 2rem;
 }
 
-.auth-title {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: #0f172a;
-  margin: 0;
-  letter-spacing: -1px;
+.auth-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 0.25rem;
 }
 
-.auth-accent {
-  color: #1cb0f6;
+.auth-logo-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+.auth-title {
+  font-family: "DuolingoFeather", sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  font-palette: --duolingo-blue;
+  color: #3B82F6;
+  margin: 0;
 }
 
 .auth-subtitle {

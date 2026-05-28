@@ -2,7 +2,10 @@
   <div v-if="!appStore.splashComplete" class="splash-screen">
     <div class="splash-content">
       <div class="splash-logo">
-        <span class="splash-title">Style<span class="splash-accent">Quest</span></span>
+        <div class="splash-brand">
+          <img class="splash-logo-img" :src="logoUrl" alt="StyleQuest logo" />
+          <span class="splash-title">Stylequest</span>
+        </div>
         <div class="splash-subtitle">Apprends le CSS en t'amusant</div>
       </div>
 
@@ -22,6 +25,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useAppStore } from '@/stores/app'
+
+const logoUrl = new URL('@/assets/Logo/StyleQuest_Logo_Couleur.svg', import.meta.url).href
 
 const appStore = useAppStore()
 
@@ -80,15 +85,27 @@ onUnmounted(() => {
   100% { transform: scale(1); opacity: 1; }
 }
 
-.splash-title {
-  font-size: 3.5rem;
-  font-weight: 900;
-  color: #0f172a;
-  letter-spacing: -2px;
+.splash-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 0;
 }
 
-.splash-accent {
-  color: #1cb0f6; /* Bleu officiel Exercise/Home */
+.splash-logo-img {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+.splash-title {
+  font-family: "DuolingoFeather", sans-serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  font-palette: --duolingo-blue;
+  color: #3B82F6;
+  letter-spacing: normal;
 }
 
 .splash-subtitle {

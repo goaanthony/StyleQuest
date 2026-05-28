@@ -123,11 +123,12 @@ function goResume() {
 }
 
 .welcome-text {
+  font-family: "DuolingoFeather", sans-serif;
   font-size: 2.5rem;
-  font-weight: 900;
+  font-weight: bold;
+  font-palette: --duolingo-blue;
   color: #0f172a;
   margin: 0;
-  letter-spacing: -0.02em;
 }
 
 .accent { color: #1cb0f6; }
