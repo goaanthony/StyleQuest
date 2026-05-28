@@ -26,7 +26,7 @@ function findExercise(id: string): ExRecord | undefined {
 }
 
 // ─── DATABASE SETUP ──────────────────────────────────────────────────────────
-const db = new Database("stylequest.sqlite", { create: true });
+const db = new Database(join(import.meta.dir, "stylequest.sqlite"), { create: true });
 
 db.exec(`
   CREATE TABLE IF NOT EXISTS users (

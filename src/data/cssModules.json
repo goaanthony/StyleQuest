@@ -31,8 +31,8 @@
               "Il existe une propriété spécifique, au nom très court, pour changer la couleur du texte.",
               "Assurez-vous de cibler la balise qui englobe tout le contenu visible de la page."
             ],
-            "html": "Hello WorldCeci est mon premier style.",
-            "targetCSS": "body { background-color: #000000; color: white; }",
+            "html": "Hello World, Ceci est mon premier style.",
+            "targetCSS": "body { background-color: #black; color: white; }",
             "starterCSS": "body {\n  \n}"
           },
           {
@@ -44,7 +44,7 @@
               "Quelle propriété définit la famille de polices à utiliser ?",
               "Ces deux règles doivent être appliquées globalement sur le conteneur principal."
             ],
-            "html": "CSS c'est coolCentré et stylé.",
+            "html": "CSS c'est cool Centré et stylé.",
             "targetCSS": "body { text-align: center; font-family: Georgia }",
             "starterCSS": "body {\n  \n}"
           },
@@ -57,7 +57,7 @@
               "Pour empêcher un élément de devenir trop large, on utilise une contrainte de dimension maximale.",
               "Astuce classique : on centre un élément bloc en attribuant une marge automatique sur les côtés horizontaux."
             ],
-            "html": "Mise en pageLe contenu doit être limité et centré.",
+            "html": "Mise en page. Le contenu doit être limité et centré.",
             "targetCSS": "body { padding: 40px; max-width: 800px; margin: 0 auto; }",
             "starterCSS": "body {\n  \n}"
           },
@@ -102,7 +102,7 @@
               "Souvenez-vous de la propriété qui gère la taille de la typographie.",
               "Utilisez la propriété de coloration du texte vue précédemment."
             ],
-            "html": "Titre PrincipalSous-titreParagraphe normal.",
+            "html": "Titre Principal Sous-titre Paragraphe normal.",
             "targetCSS": "h1 { color: #51cf66; font-size: 48px; }",
             "starterCSS": "h1 {\n  \n}"
           },
@@ -224,7 +224,7 @@
               "L'ombre se crée avec une propriété spécifique qui projette la forme de la boîte. Elle prend des valeurs de décalage X/Y, de flou, et de couleur (ex: `0 4px 20px rgba(0,0,0,0.1)`).",
               "Assurez-vous que les marges horizontales sont automatiques pour garantir le centrage."
             ],
-            "html": "<body style=\"background:#f0f0f0\"><div class=\"card\">CarteCeci est une belle carte.",
+            "html": "<body style=\"background:#f0f0f0\"><div class=\"card\">Carte Ceci est une belle carte.",
             "targetCSS": ".card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); max-width: 300px; margin: 40px auto; }",
             "starterCSS": ".card {\n  \n}"
           }
@@ -254,7 +254,7 @@
               "Assurez-vous de les marges automatiques sur la carte pour la centrer horizontalement.",
               "Souvenez-vous comment retirer la décoration par défaut du bouton et arrondir ses angles."
             ],
-            "html": "<div class=\"profile-card\">Alice DupontDéveloppeuse Front-endSuivre",
+            "html": "<div class=\"profile-card\">Alice Dupont Développeuse Front-end Suivre",
             "targetCSS": "body { background-color: #111; text-align: center; padding: 40px; } .profile-card { background-color: white; max-width: 350px; margin: 0 auto; padding: 30px; border-radius: 16px; } h2 { color: black; margin-bottom: 5px; } p { color: #888; margin-top: 0; margin-bottom: 20px; } button { background-color: #51cf66; color: black; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }",
             "starterCSS": "body {\n  \n}\n.profile-card {\n  \n}\nh2 {\n  \n}\np {\n  \n}\nbutton {\n  \n}"
           }
@@ -294,7 +294,7 @@
               "Le sélecteur de classe commence toujours par un caractère de ponctuation spécifique.",
               "N'utilisez pas le nom de la balise dans votre sélecteur, seulement le nom de la classe."
             ],
-            "html": "<h2 class=\"titre\">Titre styléTitre normal",
+            "html": "<h2 class=\"titre\">Titre stylé Titre normal",
             "targetCSS": ".titre { color: orange; font-size: 36px; }",
             "starterCSS": ".titre {\n  \n}"
           },
@@ -320,7 +320,7 @@
               "Mettez à zéro les propriétés d'espacement externe et interne.",
               "Souvenez-vous de la propriété vue au module précédent pour fiabiliser les largeurs."
             ],
-            "html": "Reset globalPlus de marges bizarres !<div style=\"background:#667eea;color:white\">Box",
+            "html": "Reset global Plus de marges bizarres !<div style=\"background:#667eea;color:white\">Box",
             "targetCSS": "* { box-sizing: border-box; margin: 0; padding: 0; }",
             "starterCSS": "* {\n  \n}"
           },
