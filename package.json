@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "bun run server/index.ts",
+    "server": "bun run backend/src/index.ts",
     "dev:tauri": "bun run server & bun run tauri dev",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",

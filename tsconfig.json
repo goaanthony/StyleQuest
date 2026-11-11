@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["frontend/src/*"],
+      "@content/*": ["content/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
@@ -23,6 +24,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["dist", "node_modules", "src-tauri", "server"]
+  "include": ["frontend/src/**/*.ts", "frontend/src/**/*.tsx", "frontend/src/**/*.vue"],
+  "exclude": ["dist", "node_modules", "src-tauri", "backend"]
 }

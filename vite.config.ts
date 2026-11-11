@@ -9,8 +9,8 @@ export default defineConfig(async () => ({
   plugins: [vue()],
   resolve: {
     alias: {
-      "/src": resolve(__dirname, "src"),
-      "@": resolve(__dirname, "src"),
+      "@": resolve(__dirname, "frontend/src"),
+      "@content": resolve(__dirname, "content"),
     },
   },
   build: {
@@ -52,4 +52,3 @@ export default defineConfig(async () => ({
     },
   },
 }));
-

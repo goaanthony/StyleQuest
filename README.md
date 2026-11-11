@@ -1,120 +1,77 @@
-# 🎨 StyleQuest
+# StyleQuest
 
-Application desktop moderne construite avec **Tauri**, **Vite**, **Vue 3**, **Elysia** et **Bun**.
+StyleQuest est une application desktop pour apprendre à coder par la pratique. Chaque parcours associe des leçons, des exercices interactifs et un suivi de progression.
 
-## 📋 Prérequis
+## Technologies
 
-Avant de commencer, assurez-vous d'avoir installé :
+- Interface : Vue 3, TypeScript, Vite et Pinia
+- API : Elysia, Bun et SQLite
+- Application desktop : Tauri 2
+- Éditeur : Monaco Editor
 
-- [Bun](https://bun.sh/) (runtime JavaScript ultra-rapide)
-- [Rust](https://www.rust-lang.org/) (pour Tauri)
+## Prérequis
 
-## 🏗️ Architecture du Projet
+- [Bun](https://bun.sh/)
+- [Rust](https://www.rust-lang.org/tools/install) pour le développement et la compilation Tauri
 
-```
-StyleQuest/
-├── index.html         # Point d'entree Vite
-├── src/                 # Frontend (Vite)
-│   ├── main.ts         # Bootstrap Vue (app + router + pinia)
-│   ├── data/           # Donnees (exercices)
-│   ├── styles/         # Styles globaux + UI (CSS/SCSS)
-│   ├── router/         # Vue Router
-│   ├── views/          # Pages + composants Vue
-│   └── state/          # Stores + logique partagee
-├── server/              # Backend Elysia
-│   └── index.ts        # Serveur API HTTP
-├── src-tauri/           # Application Tauri (Rust)
-│   ├── src/
-│   │   ├── main.rs     # Point d'entrée Rust
-│   │   └── lib.rs      # Bibliothèque Rust
-│   ├── tauri.conf.json # Configuration Tauri
-│   └── Cargo.toml      # Dépendances Rust
-├── package.json         # Dépendances Node/Bun
-└── tsconfig.json        # Configuration TypeScript
-```
-
-Notes:
-- Le point d'entree Vite est `index.html` a la racine du projet.
-- Le serveur Elysia expose une route `GET /health` et écoute par défaut sur `3000`.
-- Le frontend est une SPA Vue : les routes sont gérées côté client via Vue Router.
-
-## 🚀 Installation
-
-1. **Cloner le projet**
-   ```bash
-   git clone https://github.com/goaanthony/StyleQuest.git
-   cd StyleQuest
-   ```
-
-2. **Installer les dépendances**
-   ```bash
-   bun install
-   ```
-
-## 💻 Développement
-
-### Lancer l'application en mode développement
+## Installation et lancement
 
 ```bash
-bun run tauri dev
+bun install
 ```
 
-Cette commande :
-- Démarre le serveur Elysia sur `http://localhost:3000`
-- Lance l'application Tauri qui charge l'interface
+Copie `.env.example` vers `.env.local`, puis ajuste les valeurs locales.
 
-### Lancer uniquement le serveur Elysia
+Lancer l'interface web :
+
+```bash
+bun run dev
+```
+
+Lancer l'API dans un autre terminal :
 
 ```bash
 bun run server
 ```
 
-Le serveur sera accessible sur `http://localhost:3000`
-
-## 🏭 Production
-
-### Build de l'application
+Lancer l'application desktop :
 
 ```bash
-bun run tauri build
+bun run tauri dev 
 ```
 
-L'exécutable sera généré dans `src-tauri/target/release/`
+Vérifier la compilation de l'interface :
 
-## 🛠️ Stack Technique
+```bash
+bun run build
+```
 
-- **Frontend** : Vue 3 + TypeScript + Vue Router + Pinia (Vite)
-- **Backend** : Elysia (framework web ultra-rapide pour Bun)
-- **Desktop** : Tauri (alternative légère à Electron)
-- **Runtime** : Bun (remplace Node.js)
-- **Langage système** : Rust
+## Configuration
 
-## 📦 Dépendances Principales
+Les variables locales sont définies dans `.env.local` (fichier ignoré par Git) :
 
-- `elysia` - Framework web minimaliste et performant
-- `@tauri-apps/api` - API Tauri pour JavaScript
-- `@tauri-apps/cli` - CLI Tauri
-- `vue` - Framework UI
-- `vue-router` - Routing SPA (hash history pour Tauri)
-- `pinia` - State management
+| Variable | Usage | Valeur locale |
+|---|---|---|
+| `VITE_API_URL` | URL de l'API pour l'interface | `http://localhost:3000/api` |
+| `PORT` | Port du serveur API | `3000` |
+| `JWT_SECRET` | Clé de signature des sessions | À remplacer par une valeur aléatoire |
 
-## 📝 Scripts Disponibles
+## Organisation
 
-| Commande | Description |
-|----------|-------------|
-| `bun run server` | Lance le serveur Elysia |
-| `bun run tauri dev` | Mode développement (serveur + Tauri) |
-| `bun run tauri build` | Build de production |
-| `bun run dev` | Lance Vite (dev server alternatif) |
+```text
+frontend/                 Interface Vue
+  src/app/                Démarrage et routes
+  src/pages/              Écrans d'accueil et de profil
+  src/features/           Authentification et apprentissage
+  src/components/common/  Composants partagés
+  src/styles/             Styles globaux
+backend/src/                  API Elysia et accès SQLite
+  routes/                     Routes HTTP
+  learning/css-validation/    Validation des exercices CSS
+backend/stylequest.sqlite     Base SQLite locale
+content/languages/            Contenus pédagogiques par langage
+src-tauri/                    Application native Tauri
+docs/                         Documentation du projet
+```
 
-## 💡 Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
-
-## 📄 Licence
-
-Ce projet est sous licence MIT.
-
-## 👨‍💻 Auteur
-
-**Liens du repo** - [StyleQuest](https://github.com/goaanthony)
+Les nouveaux parcours sont ajoutés dans `content/languages/<langage>/`. Leur interface et leur logique de validation restent dans leurs domaines frontend et backend respectifs.

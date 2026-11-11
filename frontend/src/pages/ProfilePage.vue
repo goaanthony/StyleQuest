@@ -1,0 +1,345 @@
+<template>
+  <div class="profile-wrapper">
+    <header class="page-topbar">
+      <button class="btn-back" @click="router.push('/')">← Retour à l'accueil</button>
+    </header>
+
+    <main class="profile-dashboard">
+      <div class="page-header">
+        <h1 class="page-title">Ton Profil</h1>
+        <p class="page-subtitle">Suis tes statistiques et ton évolution.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card card-identity">
+          <div class="identity-info">
+            <div class="avatar-circle">
+              {{ userInitials }}
+            </div>
+            <div class="user-details">
+              <h2 class="username">{{ authStore.user?.username || 'Joueur' }}</h2>
+              <p class="member-since">Membre depuis le {{ formatDate(authStore.user?.created_at) }}</p>
+            </div>
+          </div>
+          <button class="btn-logout" @click="handleLogout">
+            Déconnexion
+          </button>
+        </div>
+
+        <StatCard
+          icon="🔥"
+          :value="authStore.user?.current_winstreak || 0"
+          label="Série Actuelle"
+          variant="streak"
+        />
+
+        <StatCard
+          icon="🏆"
+          :value="authStore.user?.longest_winstreak || 0"
+          label="Record Série"
+          variant="record"
+        />
+
+        <StatCard
+          icon="⚡"
+          :value="authStore.user?.xp_points || 0"
+          label="XP Total"
+          variant="xp"
+        />
+
+        <StatCard
+          icon="✅"
+          :value="progressStore.completedExercises.length"
+          label="Niveaux Finis"
+          variant="lesson"
+        />
+
+        <div class="bento-card card-progress">
+          <h3 class="card-title">Avancement du cours</h3>
+          
+          <div class="progress-item">
+            <div class="progress-info">
+              <span class="progress-label">Complétion globale</span>
+              <span class="progress-value" style="color: #58cc02;">{{ Math.round(progressPercent) }}%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="background: #58cc02;" :style="{ width: progressPercent + '%' }"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/features/auth/auth.store'
+import { useProgressStore } from '@/features/learning/progress.store'
+import cssData from '@content/languages/css/curriculum.json'
+import StatCard from '@/components/common/StatCard.vue'
+
+const router = useRouter()
+const authStore = useAuthStore()
+const progressStore = useProgressStore()
+
+const userInitials = computed(() => {
+  if (!authStore.user?.username) return '?'
+  return authStore.user.username.slice(0, 2).toUpperCase()
+})
+
+const totalExercisesCount = computed(() => {
+  return cssData.reduce((acc, mod) => 
+    acc + mod.notions.reduce((a, n) => a + n.exercises.length, 0)
+  , 0)
+})
+
+const progressPercent = computed(() => {
+  if (totalExercisesCount.value === 0) return 0
+  return (progressStore.completedExercises.length / totalExercisesCount.value) * 100
+})
+
+function formatDate(dateString?: string) {
+  if (!dateString) return 'Aujourd\'hui'
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('fr-FR', { 
+      year: 'numeric', month: 'long', day: 'numeric'
+    })
+  } catch {
+    return 'Aujourd\'hui'
+  }
+}
+
+function handleLogout() {
+  authStore.logout()
+  progressStore.resetProgress()
+  router.push('/auth')
+}
+
+onMounted(() => {
+  if (!authStore.isAuthenticated) {
+    router.push('/auth')
+  }
+})
+</script>
+
+<style scoped>
+.profile-wrapper {
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+.page-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  border-bottom: 2px solid #e2e8f0;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.btn-back {
+  background: white;
+  border: 2px solid #e2e8f0;
+  color: #64748b;
+  font-weight: 700;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #e2e8f0;
+  transition: all 0.1s;
+}
+
+.btn-back:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 #e2e8f0;
+  color: #0f172a;
+}
+
+.btn-back:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 transparent;
+}
+
+.profile-dashboard {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  font-weight: 500;
+  margin: 0;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.bento-card {
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 0 #e2e8f0;
+  display: flex;
+}
+
+.card-identity {
+  grid-column: span 4;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.identity-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  background: #e8f7fe;
+  border: 2px solid #bae6fd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #1cb0f6;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.username {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1;
+}
+
+.member-since {
+  color: #94a3b8;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.btn-logout {
+  background: white;
+  color: #ff4b4b;
+  border: 2px solid #ff4b4b;
+  border-radius: 14px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #ff4b4b;
+  transition: transform 0.1s;
+}
+
+.btn-logout:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #ff4b4b; }
+.btn-logout:active { transform: translateY(2px); box-shadow: 0 2px 0 #ff4b4b; }
+
+.card-progress {
+  grid-column: span 4;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-label {
+  font-weight: 800;
+  color: #1e293b;
+  font-size: 1.05rem;
+}
+
+.progress-value {
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 16px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (max-width: 900px) {
+  :deep(.widget-card) { grid-column: span 2; }
+}
+
+@media (max-width: 600px) {
+  .card-identity {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .identity-info {
+    flex-direction: column;
+  }
+  .btn-logout { width: 100%; }
+}
+</style>
