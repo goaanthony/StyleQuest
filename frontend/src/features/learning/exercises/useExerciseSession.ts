@@ -148,6 +148,10 @@ export function useExerciseSession(exerciseId: string) {
           userCSS: userCSS.value,
         }),
       })
+      if (!response.ok) {
+        throw new Error(`Exercise check failed with status ${response.status}`)
+      }
+
       const result = (await response.json()) as Feedback
       feedback.value = result
 
@@ -162,7 +166,12 @@ export function useExerciseSession(exerciseId: string) {
         }, 1500)
       }
     } catch (error) {
-      console.error(error)
+      console.error('checkAnswer:', error)
+      feedback.value = {
+        success: false,
+        message: 'Impossible de vérifier l’exercice. Vérifie que le serveur est démarré, puis réessaie.',
+        errors: [],
+      }
     } finally {
       checking.value = false
     }

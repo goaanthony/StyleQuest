@@ -32,7 +32,7 @@
               "Assurez-vous de cibler la balise qui englobe tout le contenu visible de la page."
             ],
             "html": "Hello World, Ceci est mon premier style.",
-            "targetCSS": "body { background-color: #black; color: white; }",
+            "targetCSS": "body { background-color: black; color: white; }",
             "starterCSS": "body {\n  \n}"
           },
           {
@@ -1738,6 +1738,5 @@
     ]
   }
 ]
-
 
 
