@@ -10,7 +10,7 @@
 
 ## Pitch
 
-*StyleQuest* transforme l'apprentissage du CSS en jeu vidéo : lis une courte leçon, code directement dans l'app et vois le résultat en temps réel. Chaque exercice réussi rapporte de l'XP, alimente ta série quotidienne et te fait monter de niveau. Testé par de vrais élèves — ça marche.
+*StyleQuest* transforme l'apprentissage du CSS en jeu vidéo : lis une courte leçon, code directement dans l'app et vois le résultat en temps réel. Chaque exercice réussi rapporte de l'XP, alimente ta série quotidienne et te fait monter de niveau. Testé par de vrais élèves. 
 
 ---
 
